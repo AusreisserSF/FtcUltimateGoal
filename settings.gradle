@@ -1,2 +1,4 @@
+include ':ftcdevcommon_1_2-debug'
+include ':opencv-4.5.1'
 include ':FtcRobotController'
 include ':TeamCode'
