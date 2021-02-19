@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.auto.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
-import org.firstinspires.ftc.teamcode.LCHSHardwareMap;
+import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.firstinspires.ftc.teamcode.auto.FTCAuto;
 import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
@@ -82,11 +81,6 @@ public class LCHSAutoDispatch {
             }
         } finally {
             RobotLogCommon.closeLog();
-            if (LCHSHardwareMap.imuInitialized && (LCHSHardwareMap.gyro != null)) {
-                LCHSHardwareMap.gyro.close();
-                LCHSHardwareMap.imuInitialized = false;
-                LCHSHardwareMap.gyro = null;
-            }
         }
     }
 }
