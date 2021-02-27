@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.math.Angle;
@@ -26,7 +27,9 @@ import org.firstinspires.ftc.teamcode.math.Pose;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathException;
+import javax.xml.xpath.XPathFactory;
 
 import static android.os.SystemClock.sleep;
 
@@ -45,6 +48,8 @@ public class FTCAuto {
     private VuforiaLocalizer vuforiaLocalizer;
 
     private final RobotActionXML actionXML;
+    private final XPathFactory xpathFactory = XPathFactory.newInstance();
+    private final XPath xpath = xpathFactory.newXPath();
 
     // Ring recognition.
     private final RingParametersXML ringParametersXML;
@@ -68,19 +73,16 @@ public class FTCAuto {
         if (alliance == RobotConstants.Alliance.UNKNOWN)
             throw new AutonomousRobotException(TAG, "Alliance is UNKNOWN");
 
+        workingDirectory = WorkingDirectory.getWorkingDirectory();
 
         // Initialize the hardware.
         this.opMode = opMode;
         robot = new LCHSRobot(opMode);
         robot.initializeIMU();
 
-
-        workingDirectory = WorkingDirectory.getWorkingDirectory();
-
         // Start the asynchronous initialization of Vuforia.
         RobotLogCommon.d(TAG, "start asynchronous initialization");
         vuforiaWebcam = new VuforiaWebcam(robot.webcam1Name);
-
 
         // Read the robot action file for all opmodes.
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
@@ -104,7 +106,6 @@ public class FTCAuto {
         // Wait for the asynchronous initialization of Vuforia to complete.
         RobotLogCommon.d(TAG, "wait for initialization");
         vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
-
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
     }
@@ -157,22 +158,22 @@ public class FTCAuto {
 
     // Using the XML elements ane attributes from the configuration file, RobotConfig.xml,
     // execute the command.
-    private void doCommand(RobotActionXML.CommandXML commandXML) throws InterruptedException, XPathException {
-        AutoCommandXML autoCommand = new AutoCommandXML(commandXML);
+    private void doCommand(RobotActionXML.CommandXML pCommand) throws InterruptedException, XPathException {
 
-        RobotLogCommon.d(TAG, "Executing FTCAuto command " + autoCommand.getName());
+        XPathAccess commandXPath = new XPathAccess(xpath, pCommand.getCommandElement(), pCommand.getCommandId());
+        String commandName = pCommand.getCommandId().toUpperCase();
+        RobotLogCommon.d(TAG, "Executing FTCAuto command " + commandName);
 
-        switch (autoCommand.getName()) {
+        switch (commandName) {
 
             // Move by clicks
             case "MOVE": {
-                double targetClicks = autoCommand.getDouble("distance"); // conversion is a pain so keep in clicks
-                double marginClicks = autoCommand.getDouble("margin"); // stop when within {margin} clicks
-                double power = autoCommand.getDouble("power");
-                Angle direction = autoCommand.getAngle("direction"); // direction angle; right is 0, up 90, left 180
-                Angle targetHeading = autoCommand.getAngle("heading"); // robot's target heading angle while moving
-                PIDCoefficients kPID = autoCommand.getPID();
-                PIDController rPIDController= new PIDController(kPID, targetHeading.getDegrees());
+                double targetClicks = commandXPath.getDouble("distance"); // conversion is a pain so keep in clicks
+                double marginClicks = commandXPath.getDouble("margin"); // stop when within {margin} clicks
+                double power = commandXPath.getDouble("power");
+                Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
+                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
+                PIDController rPIDController= AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
@@ -195,12 +196,12 @@ public class FTCAuto {
             // A normalized turn, i.e. a turn from 0 to +-180 degrees, which will always be the
             // shortest distance from the current heading to the desired heading.
             case "TURN": {
-                Angle angle = autoCommand.getAngle("angle");
-                double maxPower = autoCommand.getDouble("maxpower");
-                double minPower = autoCommand.getDouble("minpower");
-                double margin = autoCommand.getDouble("margin");
-                PIDCoefficients kPID = autoCommand.getPID();
-                PIDController pidController = new PIDController(kPID, angle.getDegrees());
+                Angle angle = AutoCommandXML.getAngle(commandXPath, "angle");
+                double maxPower = commandXPath.getDouble("maxpower");
+                double minPower = commandXPath.getDouble("minpower");
+                double margin = commandXPath.getDouble("margin");
+                PIDController pidController= AutoCommandXML.getPIDController(commandXPath, angle.getDegrees());
+
                 double currentDegrees = 0;
 
                 RobotLogCommon.d(TAG, "Turn by " + angle + " degrees FTC" + ", turn type " + RobotConstants.TurnType.NORMALIZED);
@@ -217,10 +218,9 @@ public class FTCAuto {
                 break;
             }
 
-
             // Use OpenCV to find the stack of rings and determine the Target Zone.
             case "RECOGNIZE_RINGS": {
-                String imageProviderId = autoCommand.getStringInRange("ocv_image_provider", autoCommand.validRange("vuforia", "file"));
+                String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
                 RobotLogCommon.d(TAG, "Image provider " + imageProviderId);
 
                 ImageProvider imageProvider;
@@ -286,12 +286,12 @@ public class FTCAuto {
             }
 
             case "SLEEP": {
-                int sleepValue = autoCommand.getInt("ms");
+                int sleepValue = commandXPath.getInt("ms");
                 RobotLogCommon.d(TAG, "Pause by " + sleepValue + " milliseconds");
                 sleep(sleepValue);
             }
             default: {
-                RobotLogCommon.d(TAG, "No support in the simulator for the command " + autoCommand.getName());
+                throw new AutonomousRobotException(TAG, "No support in the simulator for the command " + commandName);
             }
         }
     }
