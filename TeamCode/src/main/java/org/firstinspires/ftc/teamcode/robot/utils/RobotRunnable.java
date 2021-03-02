@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.utils;
+package org.firstinspires.ftc.teamcode.robot.utils;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static android.os.SystemClock.sleep;
 
 public abstract class RobotRunnable implements Runnable {
 

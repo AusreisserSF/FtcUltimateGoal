@@ -10,13 +10,14 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-import org.firstinspires.ftc.teamcode.auto.utils.RobotRunnable;
+import org.firstinspires.ftc.teamcode.robot.utils.RobotRunnable;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class OptimizedIMU {
 
@@ -39,14 +40,6 @@ public class OptimizedIMU {
             imu.initialize(parameters);
             delegates.add(imu);
         }
-        // Simple way, but doesn't fix the LynxI2cDeviceSynch issues
-//        BNO055IMU imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
-//        BNO055IMU imu2 = hardwareMap.get(BNO055IMU.class, "imu 2");
-//        delegates.add(imu1);
-//        delegates.add(imu2);
-//        for (BNO055IMU delegate : delegates) {
-//            delegate.initialize(parameters);
-//        }
 
         headingIntegrator = new HeadingIntegrator(opMode);
         headingIntegrator.start();
@@ -74,7 +67,7 @@ public class OptimizedIMU {
     }
 
     class HeadingIntegrator extends RobotRunnable {
-        private double cumulativeDegrees;
+        private AtomicReference<Double> cumulativeDegrees = new AtomicReference<>();
         private int numberOfImus;
         private List<Number> currentAngles;
         private List<Number> integratedAngles;
@@ -84,13 +77,13 @@ public class OptimizedIMU {
         }
 
         double getDegrees() {
-            return cumulativeDegrees;
+            return cumulativeDegrees.get();
         }
 
         @Override
         protected void onRun() {
             RobotLog.dd("Optimized IMU", "Starting integrator");
-            cumulativeDegrees = 0;
+            cumulativeDegrees.set(0.0);
             numberOfImus = delegates.size();
             currentAngles = new ArrayList<>();
             integratedAngles = new ArrayList<>();
@@ -114,7 +107,7 @@ public class OptimizedIMU {
                 }
                 integratedAngles.set(i, integratedAngles.get(i).doubleValue() + deltaDegrees);
             }
-            cumulativeDegrees = LCHSMath.mean(integratedAngles);
+            cumulativeDegrees.set( LCHSMath.mean(integratedAngles) );
         }
 
         @Override
