@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
@@ -10,8 +9,6 @@ import org.firstinspires.ftc.teamcode.hardware.imu.OptimizedIMU;
 
 import java.util.List;
 
-//!! LCHSHardwareMap -> LCHSRobot
-// Common hardware definitions for LCHSAuto and LCHSTeleOp.
 public class LCHSRobot {
 
     private static LCHSRobot instance;
@@ -27,9 +24,12 @@ public class LCHSRobot {
 
     public final LinearOpMode opMode;
     public final HardwareMap hardwareMap;
-    public DriveTrain driveTrain;
-    public OptimizedIMU imu;
     public final WebcamName webcam1Name;
+    public OptimizedIMU imu;
+
+    public DriveTrain driveTrain;
+    public WobbleArm wobbleArm;
+    public RingShooter ringShooter;
 
     private static final String TAG = "LCHSRobot";
 
@@ -39,11 +39,16 @@ public class LCHSRobot {
         this.hardwareMap = opMode.hardwareMap;
 
         webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        driveTrain = new DriveTrain(hardwareMap);
+        wobbleArm = new WobbleArm(hardwareMap);
+        ringShooter = new RingShooter(hardwareMap);
     }
 
     public void initializeIMU() {
         imu = new OptimizedIMU(hardwareMap, opMode);
     }
+
 
     public double getBatteryVoltage() {
         List<VoltageSensor> voltageSensors = hardwareMap.getAll(VoltageSensor.class);
