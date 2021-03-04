@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Common elements and attributes across the Simulator. -->
+
+    <!-- global attribute for OpMode id -->
+    <!-- VERY IMPORTANT: all OpModes must appear here. -->
+    <xs:attribute name="id">
+        <xs:simpleType>
+            <xs:restriction base="xs:token">
+                <xs:enumeration value="RED_INSIDE"/>
+                <xs:enumeration value="RED_OUTSIDE"/>
+                <xs:enumeration value="BLUE_INSIDE"/>
+                <xs:enumeration value="BLUE_OUTSIDE"/>
+                <xs:enumeration value="TEST"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <!-- If these elements are present in an xml file whose
+         schema includes this file, the following elements
+         will be validated according to xs:any "lax" rules. -->
+    <!-- Just as lineTo and strafeTo are synonymous in Road Runner
+         make STRAIGHT_LINE and STRAFE_BY synonymous here. -->
+    <xs:element name="STRAIGHT_LINE" type="STRAIGHT_LINEType"/>
+    <xs:element name="STRAFE_BY" type="STRAIGHT_LINEType"/>
+    <xs:complexType name="STRAIGHT_LINEType">
+        <xs:choice minOccurs="3" maxOccurs="3">
+            <xs:element ref="distance"/>
+            <xs:element ref="power"/>
+            <xs:element ref="angle"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="DISTANCE_POWERType">
+        <xs:choice minOccurs="2" maxOccurs="2">
+            <xs:element ref="distance"/>
+            <xs:element ref="power"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <!-- Follow Road Runner in offering specializations of
+         STRAIGHT_LINE and STRAFE_BY. -->
+    <xs:element name="FORWARD" type="DISTANCE_POWERType"/>
+    <xs:element name="BACK" type="DISTANCE_POWERType"/>
+    <xs:element name="STRAFE_LEFT" type="DISTANCE_POWERType"/>
+    <xs:element name="STRAFE_RIGHT" type="DISTANCE_POWERType"/>
+
+    <xs:element name="TURN" type="TURNType"/>
+    <xs:complexType name="TURNType">
+        <xs:choice minOccurs="2" maxOccurs="2">
+            <xs:element ref="angle"/>
+            <xs:element ref="power"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:element name="TURN_UNNORMALIZED" type="TURN_UNNORMALIZEDType"/>
+    <xs:complexType name="TURN_UNNORMALIZEDType">
+        <xs:choice minOccurs="2" maxOccurs="2">
+            <xs:element name="angle" type="angleUnnormalizedType"/>
+            <xs:element ref="power"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:element name="SLEEP" type="SLEEPType"/>
+    <xs:complexType name="SLEEPType">
+        <xs:sequence>
+            <xs:element ref="ms"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- global element and type for distance -->
+    <xs:element name="distance" type="distanceType"/>
+    <xs:simpleType name="distanceType">
+        <xs:restriction base='xs:double'>
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="144.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- global element and type for power -->
+    <xs:element name="power" type="powerType"/>
+    <xs:simpleType name="powerType">
+        <xs:restriction base='xs:double'>
+            <xs:minInclusive value="-1.0"/>
+            <xs:maxInclusive value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- global element and type for normalized angle -->
+    <xs:element name="angle" type="angleType"/>
+    <xs:simpleType name="angleType">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base='xs:double'>
+                    <xs:minInclusive value="0.0"/>
+                    <xs:maxInclusive value="180.0"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base='xs:double'>
+                    <xs:minInclusive value="-180.0"/>
+                    <xs:maxInclusive value="0.0"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+
+    <!-- global element and type for unnormalized angle -->
+    <xs:element name="angle_unnormalized" type="angleUnnormalizedType"/>
+    <xs:simpleType name="angleUnnormalizedType">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base='xs:double'>
+                    <xs:minInclusive value="0.0"/>
+                    <xs:maxInclusive value="360.0"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base='xs:double'>
+                    <xs:minInclusive value="-360.0"/>
+                    <xs:maxInclusive value="0.0"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+
+    <!-- global element and type for milliseconds -->
+    <!-- allow a maximum of only 2 seconds because otherwise the FTC
+    watchdog will time us out and restart the robot controller. -->
+    <xs:element name="ms" type="msType"/>
+    <xs:simpleType name="msType">
+        <xs:restriction base='xs:integer'>
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

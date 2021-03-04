@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: artifacts:ftcdevcommon_1_2-debug:unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/8b99ad0be8b514e7e7c7a178a89f0434/jetified-ftcdevcommon_1_2-debug/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/8b99ad0be8b514e7e7c7a178a89f0434/jetified-ftcdevcommon_1_2-debug/res" />
+      <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/8b99ad0be8b514e7e7c7a178a89f0434/jetified-ftcdevcommon_1_2-debug/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

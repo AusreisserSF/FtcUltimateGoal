@@ -1,0 +1,50 @@
+<RobotAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation='RobotAction.xsd'
+             debugLevel="v">
+    <OpMode id="RED_INSIDE">
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <EXECUTE_TARGET_ZONE_STEPS/>
+    </OpMode>
+    <OpMode id="RED_OUTSIDE">
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <EXECUTE_TARGET_ZONE_STEPS/>
+    </OpMode>
+    <OpMode id="BLUE_INSIDE">
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <EXECUTE_TARGET_ZONE_STEPS/>
+    </OpMode>
+    <OpMode id="BLUE_OUTSIDE">
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <EXECUTE_TARGET_ZONE_STEPS/>
+    </OpMode>
+    <OpMode id="TEST">
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <FORWARD>
+            <distance>51.0</distance>
+            <power>1.0</power>
+        </FORWARD>
+        <TURN>
+            <angle>-130.0</angle>
+            <power>0.5</power>
+        </TURN>
+        <SLEEP>
+            <ms>500</ms>
+        </SLEEP>
+        <LAUNCH_RING_AT_HIGH_GOAL/>
+     </OpMode>
+</RobotAction>

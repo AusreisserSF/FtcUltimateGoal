@@ -1,0 +1,28 @@
+<ring_parameters>
+    <image_parameters>
+        <file>BRIO_2020-12-11_16-10-48_1_ring.jpg</file>
+        <resolution>
+            <width>640</width>
+            <height>360</height>
+        </resolution>
+        <image_roi>
+            <x>230</x>
+            <y>150</y>
+            <width>200</width>
+            <height>100</height>
+        </image_roi>
+    </image_parameters>
+    <hsv_parameters>
+        <hue_name>gold</hue_name>
+        <hue_low>5</hue_low>
+        <hue_high>30</hue_high>
+        <saturation_target>100</saturation_target>
+        <saturation_low_threshold>100</saturation_low_threshold>
+        <value_target>100</value_target>
+        <value_low_threshold>100</value_low_threshold>
+    </hsv_parameters>
+    <size_parameters>
+        <minimum_pixel_count_1_ring>400</minimum_pixel_count_1_ring>
+        <minimum_pixel_count_4_rings>2000</minimum_pixel_count_4_rings>
+    </size_parameters>
+</ring_parameters>
