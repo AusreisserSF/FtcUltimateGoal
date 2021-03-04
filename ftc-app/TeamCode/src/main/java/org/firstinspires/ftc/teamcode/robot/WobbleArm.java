@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
 public class WobbleArm {
 
     public enum ServoState {
-        REST(0.5),
-        HOLD(0.5),
-        RELEASE(0.5);
+        REST(0.0),
+        HOLD(0.6),
+        RELEASE(0.1);
 
         private final double position;
         ServoState(double position) {
@@ -39,6 +39,7 @@ public class WobbleArm {
     }
 
     public void setServoState(ServoState state) {
+        servoState = state;
         servo.setPosition(state.getPosition());
     }
 }

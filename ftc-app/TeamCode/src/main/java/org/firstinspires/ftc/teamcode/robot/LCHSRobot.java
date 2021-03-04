@@ -24,7 +24,7 @@ public class LCHSRobot {
 
     public final LinearOpMode opMode;
     public final HardwareMap hardwareMap;
-    public final WebcamName webcam1Name;
+    public WebcamName webcam1Name;
     public OptimizedIMU imu;
 
     public DriveTrain driveTrain;
@@ -38,12 +38,11 @@ public class LCHSRobot {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
 
-        webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
+//        webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         driveTrain = new DriveTrain(hardwareMap);
-        // TODO: renable once get expansion hub
-//        wobbleArm = new WobbleArm(hardwareMap);
-//        ringShooter = new RingShooter(hardwareMap);
+        wobbleArm = new WobbleArm(hardwareMap);
+        ringShooter = new RingShooter(hardwareMap);
     }
 
     public void initializeIMU() {

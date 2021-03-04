@@ -168,7 +168,7 @@ public class FTCAuto {
 
             // Move by clicks
             case "MOVE": {
-                double targetClicks = commandXPath.getDouble("distance"); // conversion is a pain so keep in clicks
+                double targetClicks = commandXPath.getDouble("distance") * robot.driveTrain.CLICKS_PER_INCH;
                 double marginClicks = commandXPath.getDouble("margin"); // stop when within {margin} clicks
                 double power = commandXPath.getDouble("power");
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
