@@ -30,21 +30,17 @@
         <EXECUTE_TARGET_ZONE_STEPS/>
     </OpMode>
     <OpMode id="TEST">
-        <RECOGNIZE_RINGS>
-             <ocv_image_provider>vuforia</ocv_image_provider>
-        </RECOGNIZE_RINGS>
-        <CLOSE_WEBCAM/>
         <FORWARD>
-            <distance>51.0</distance>
-            <power>1.0</power>
-        </FORWARD>
-        <TURN>
-            <angle>-130.0</angle>
-            <power>0.5</power>
-        </TURN>
-        <SLEEP>
-            <ms>500</ms>
-        </SLEEP>
-        <LAUNCH_RING_AT_HIGH_GOAL/>
+            <distance>5.0</distance>
+            <margin>1.0</margin>
+            <power>.75</power>
+            <direction>0.0</direction>
+            <heading>0.0</heading>
+            <pid>
+                <p>0.0</p>
+                <i>0.0</i>
+                <d>0.0</d>
+            </pid>
+         </FORWARD>
      </OpMode>
 </RobotAction>
