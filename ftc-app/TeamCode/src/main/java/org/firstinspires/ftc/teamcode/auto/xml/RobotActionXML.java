@@ -31,6 +31,7 @@ public class RobotActionXML {
      */
 
     private final Level minimumLoggingLevel;
+    private final boolean initVuforia;
     private final NodeList opModeNodes;
     private final int opModeNodeCount;
 
@@ -83,6 +84,13 @@ public class RobotActionXML {
             }
         }
 
+        // For testing without the camera.
+        String initVuforiaAttr = robotActionRoot.getAttribute("init_vuforia").trim();
+        if (initVuforiaAttr.equals("yes"))
+            initVuforia = true;
+        else
+            initVuforia = false;
+
         opModeNodes = document.getElementsByTagName("OpMode");
         opModeNodeCount = opModeNodes.getLength();
         RobotLogCommon.i(TAG, "In RobotActionXML; opened and parsed the XML file");
@@ -93,6 +101,11 @@ public class RobotActionXML {
     // if the attribute is missing.
     public Level getMinimumLoggingLevel() {
         return minimumLoggingLevel;
+    }
+
+    // Return the Vurforia initialization setting.
+    public boolean initializeVuforia() {
+        return initVuforia;
     }
 
     // Iterate through the top-level elements of the RobotAction.xml file, find the requested opMode,

@@ -44,7 +44,7 @@ public class FTCAuto {
     private final RobotConstantsUltimateGoal.OpMode autoOpMode;
     private final String workingDirectory;
 
-    private final VuforiaWebcam vuforiaWebcam;
+    private VuforiaWebcam vuforiaWebcam;
     private VuforiaLocalizer vuforiaLocalizer;
 
     private final RobotActionXML actionXML;
@@ -80,10 +80,6 @@ public class FTCAuto {
         robot = new LCHSRobot(opMode);
         robot.initializeIMU();
 
-        // Start the asynchronous initialization of Vuforia.
-        RobotLogCommon.d(TAG, "start asynchronous initialization");
-        vuforiaWebcam = new VuforiaWebcam(robot.webcam1Name);
-
         // Read the robot action file for all opmodes.
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
         actionXML = new RobotActionXML(xmlDirectory);
@@ -91,6 +87,13 @@ public class FTCAuto {
         if (minLogLevel != null) // null means use the default
             RobotLogCommon.setMinimimLoggingLevel(minLogLevel);
         RobotLogCommon.c(TAG, "Minimum logging level " + RobotLogCommon.getMinimumLoggingLevel());
+
+        // Start the asynchronous initialization of Vuforia.
+        boolean initVuforia = actionXML.initializeVuforia();
+        if (initVuforia) {
+            RobotLogCommon.d(TAG, "Vuforia: start asynchronous initialization");
+            vuforiaWebcam = new VuforiaWebcam(robot.webcam1Name);
+        }
 
         // Read the image recognition parameters from an xml file.
         ringParametersXML = new RingParametersXML(xmlDirectory);
@@ -104,8 +107,10 @@ public class FTCAuto {
         targetZoneCommands = targetZoneXML.getTargetZoneCommands(this.autoOpMode);
 
         // Wait for the asynchronous initialization of Vuforia to complete.
-        RobotLogCommon.d(TAG, "wait for initialization");
-        vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
+        if (initVuforia) {
+            RobotLogCommon.d(TAG, "wait for initialization");
+            vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
+        }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
     }
