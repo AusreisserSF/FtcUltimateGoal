@@ -7,11 +7,38 @@ import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
 
 public class WobbleArm {
 
+    public enum ServoState {
+        REST(0.5),
+        HOLD(0.5),
+        RELEASE(0.5);
+
+        private final double position;
+        ServoState(double position) {
+            this.position = position;
+        }
+
+        public double getPosition() {
+            return position;
+        }
+    }
+
+    public static final double FLIP_POWER_FACTOR = 1.0;
+
     public CachingMotorEx flipMotor;
     public CachingServo servo;
+
+    private ServoState servoState;
 
     WobbleArm(HardwareMap hardwareMap) {
         flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
         servo = new CachingServo(hardwareMap, "wobble servo");
+    }
+
+    public ServoState getServoState() {
+        return servoState;
+    }
+
+    public void setServoState(ServoState state) {
+        servo.setPosition(state.getPosition());
     }
 }

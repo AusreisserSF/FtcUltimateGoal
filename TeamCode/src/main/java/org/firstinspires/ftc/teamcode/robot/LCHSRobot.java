@@ -41,8 +41,9 @@ public class LCHSRobot {
         webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         driveTrain = new DriveTrain(hardwareMap);
-        wobbleArm = new WobbleArm(hardwareMap);
-        ringShooter = new RingShooter(hardwareMap);
+        // TODO: renable once get expansion hub
+//        wobbleArm = new WobbleArm(hardwareMap);
+//        ringShooter = new RingShooter(hardwareMap);
     }
 
     public void initializeIMU() {

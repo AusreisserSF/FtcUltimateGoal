@@ -18,14 +18,10 @@ public class DriveTrain {
     private final double targetVelocity = 2900;
 
     DriveTrain(HardwareMap hardwareMap) {
-        lf = new CachingMotorEx(hardwareMap, "left_front_drive");
-        rf = new CachingMotorEx(hardwareMap, "right_front_drive");
-        lb = new CachingMotorEx(hardwareMap, "left_back_drive");
-        rb = new CachingMotorEx(hardwareMap, "right_back_drive");
-//        lf = new CachingMotorEx(hardwareMap, "lf");
-//        rf = new CachingMotorEx(hardwareMap, "rf");
-//        lb = new CachingMotorEx(hardwareMap, "lb");
-//        rb = new CachingMotorEx(hardwareMap, "rb");
+        lf = new CachingMotorEx(hardwareMap, "lf");
+        rf = new CachingMotorEx(hardwareMap, "rf");
+        lb = new CachingMotorEx(hardwareMap, "lb");
+        rb = new CachingMotorEx(hardwareMap, "rb");
 
         lf.setDirection(DcMotor.Direction.REVERSE);
         rf.setDirection(DcMotor.Direction.FORWARD);
