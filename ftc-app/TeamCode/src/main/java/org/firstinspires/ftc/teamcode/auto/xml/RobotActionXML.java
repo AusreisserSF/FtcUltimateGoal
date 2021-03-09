@@ -86,10 +86,7 @@ public class RobotActionXML {
 
         // For testing without the camera.
         String initVuforiaAttr = robotActionRoot.getAttribute("init_vuforia").trim();
-        if (initVuforiaAttr.equals("yes"))
-            initVuforia = true;
-        else
-            initVuforia = false;
+        initVuforia = initVuforiaAttr.equals("yes");
 
         opModeNodes = document.getElementsByTagName("OpMode");
         opModeNodeCount = opModeNodes.getLength();

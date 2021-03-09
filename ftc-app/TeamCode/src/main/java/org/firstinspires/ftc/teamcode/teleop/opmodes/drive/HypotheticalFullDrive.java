@@ -35,7 +35,7 @@ public class HypotheticalFullDrive extends BaseDrive {
     private void updatePlayerTwo() {
         wobbleServoButton.update(gamepad2.b);
 
-        robot.ringShooter.intakeMotor.setPower(gamepad2.right_trigger - gamepad2.left_trigger);
+        robot.ringShooter.intakeMotor.setPower(gamepad2.left_stick_y + gamepad2.right_stick_y * 0.2);
         robot.ringShooter.liftMotor.setPower(gamepad2.left_stick_y);
         robot.ringShooter.shootMotor.setPower(gamepad2.right_stick_y);
 

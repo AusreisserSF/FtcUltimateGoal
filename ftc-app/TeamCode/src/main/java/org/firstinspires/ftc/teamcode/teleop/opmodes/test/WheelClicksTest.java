@@ -18,6 +18,7 @@ public class WheelClicksTest extends BaseDrive {
     protected void initialize() {
         robot.driveTrain.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         updateTelemetry();
     }
 
@@ -25,6 +26,7 @@ public class WheelClicksTest extends BaseDrive {
     protected void update() {
         updateResetButton();
         updateTelemetry();
+        updateDrive();
     }
 
     private void updateResetButton() {

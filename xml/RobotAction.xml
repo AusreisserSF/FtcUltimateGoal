@@ -30,7 +30,7 @@
         <EXECUTE_TARGET_ZONE_STEPS/>
     </OpMode>
     <OpMode id="TEST">
-        <FORWARD>
+        <MOVE>
             <distance>5.0</distance>
             <margin>1.0</margin>
             <power>.75</power>
@@ -41,6 +41,6 @@
                 <i>0.0</i>
                 <d>0.0</d>
             </pid>
-         </FORWARD>
+         </MOVE>
      </OpMode>
 </RobotAction>

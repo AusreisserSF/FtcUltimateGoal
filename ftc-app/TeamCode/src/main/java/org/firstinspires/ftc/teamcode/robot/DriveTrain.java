@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.math.Pose;
 
 public class DriveTrain {
 
-    public static final int CLICKS_PER_INCH = 1120;
+    public static final int CLICKS_PER_INCH = 45;
 
     public CachingMotorEx lf;
     public CachingMotorEx rf;

@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.robot.Robot;
+import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
@@ -67,6 +69,9 @@ public class FTCAuto {
             throws ParserConfigurationException, SAXException, XPathException, IOException, InterruptedException {
 
         RobotLogCommon.c(TAG, "FTCAuto constructor");
+        // RobotLogCommon outputs to text file on robot.
+        // RobotLog can output to live logcat on Android Studio.
+        RobotLog.dd(TAG, "FTCAuto Constructor");
 
         this.autoOpMode = autoOpMode;
         this.alliance = alliance;
@@ -174,7 +179,7 @@ public class FTCAuto {
             // Move by clicks
             case "MOVE": {
                 double targetClicks = commandXPath.getDouble("distance") * robot.driveTrain.CLICKS_PER_INCH;
-                double marginClicks = commandXPath.getDouble("margin"); // stop when within {margin} clicks
+                double marginClicks = commandXPath.getDouble("margin") * robot.driveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
                 double power = commandXPath.getDouble("power");
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
@@ -186,12 +191,15 @@ public class FTCAuto {
 
                 robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                int currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
-                while (Math.abs(currentClicks - targetClicks) < marginClicks) {
-                    Angle actualHeading = robot.imu.getHeading();
-                    drivePose.r = rPIDController.getCorrectedOutput(actualHeading.getDegrees());
 
+                int currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                while (Math.abs(currentClicks - targetClicks) > marginClicks) {
+                    Angle actualHeading = robot.imu.getHeading();
+                    currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                    drivePose.r = rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                     robot.driveTrain.drive(drivePose, power);
+
+                    RobotLogCommon.d(TAG, drivePose.toString());
                 }
                 robot.driveTrain.stop();
 
