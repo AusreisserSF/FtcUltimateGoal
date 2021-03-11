@@ -217,14 +217,18 @@ public class FTCAuto {
 
                 double currentDegrees = 0;
 
-                RobotLogCommon.d(TAG, "Turn by " + angle + " degrees FTC" + ", turn type " + RobotConstants.TurnType.NORMALIZED);
+                RobotLogCommon.d(TAG, "Turn by " + angle + " degrees");
+                RobotLog.dd(TAG, "Turn by " + angle + " degrees");
 
-                double error = Math.abs(currentDegrees - angle.getDegrees());
-                while (error > margin) {
-                    double pidCorrectedPower = pidController.getCorrectedOutput(robot.imu.getIntegratedHeading().getDegrees());
+                double error = currentDegrees - angle.getDegrees();
+                while (Math.abs(error) > margin) {
+                    currentDegrees = robot.imu.getIntegratedHeading().getDegrees();
+                    double pidCorrectedPower = -pidController.getCorrectedOutput(currentDegrees);
                     double power = LCHSMath.clipPower(pidCorrectedPower, minPower) * maxPower;
                     robot.driveTrain.drive(new Pose(0, 0, power));
-                    error = Math.abs(currentDegrees - angle.getDegrees());
+                    error = currentDegrees - angle.getDegrees();
+                    RobotLog.dd(TAG, "power: " + power);
+                    RobotLog.dd(TAG, "error: " + error);
                 }
                 robot.driveTrain.stop();
 
@@ -302,6 +306,7 @@ public class FTCAuto {
                 int sleepValue = commandXPath.getInt("ms");
                 RobotLogCommon.d(TAG, "Pause by " + sleepValue + " milliseconds");
                 sleep(sleepValue);
+                break;
             }
             default: {
                 throw new AutonomousRobotException(TAG, "No support in the simulator for the command " + commandName);

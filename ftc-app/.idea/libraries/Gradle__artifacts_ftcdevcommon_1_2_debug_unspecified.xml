@@ -7,6 +7,9 @@
       <root url="jar://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/1b89378302b26938cdf1dfbe12f83670/jetified-ftcdevcommon_1_2-debug/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/1b89378302b26938cdf1dfbe12f83670/jetified-ftcdevcommon_1_2-debug/res" />
       <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/1b89378302b26938cdf1dfbe12f83670/jetified-ftcdevcommon_1_2-debug/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/212285bee7b409a32fa4339ebdadc6ff/jetified-ftcdevcommon_1_2-debug/res" />
+      <root url="jar://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/212285bee7b409a32fa4339ebdadc6ff/jetified-ftcdevcommon_1_2-debug/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/ftcdevcommon_1_2-debug/build/.transforms/212285bee7b409a32fa4339ebdadc6ff/jetified-ftcdevcommon_1_2-debug/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
