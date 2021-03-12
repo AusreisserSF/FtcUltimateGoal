@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.teleop.utility.Button;
 
 @TeleOp(group="Drive")
 //@Disabled
-public class HypotheticalFullDrive extends BaseDrive {
+public class FullDrive extends BaseDrive {
 
     private final Button wobbleServoButton = new Button();
 

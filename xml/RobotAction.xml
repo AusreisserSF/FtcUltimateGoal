@@ -23,38 +23,11 @@
         <EXECUTE_TARGET_ZONE_STEPS/>
     </OpMode>
     <OpMode id="BLUE_OUTSIDE">
-        <MOVE>
-            <distance>62.0</distance>
-            <margin>1.0</margin>
-            <power>.75</power>
-            <direction>180.0</direction>
-            <heading>0.0</heading>
-            <pid>
-                <p>0.0</p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-        </MOVE>
-        
-        <SLEEP>
-            <ms>1000</ms>
-        </SLEEP>
-
-        <TURN>
-            <angle>-10</angle>
-            <minpower>0.2</minpower>
-            <maxpower>1</maxpower>
-            <margin>3</margin>
-            <pid>
-                <p>0.031415926 </p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-        </TURN>
-
-        <SLEEP>
-            <ms>1000</ms>
-        </SLEEP>
+        <RECOGNIZE_RINGS>
+             <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
+        <EXECUTE_TARGET_ZONE_STEPS/>
 
     </OpMode>
     <OpMode id="TEST">
@@ -62,67 +35,5 @@
              <ocv_image_provider>vuforia</ocv_image_provider>
         </RECOGNIZE_RINGS>
         <CLOSE_WEBCAM/>
-        <MOVE>
-            <distance>30.0</distance>
-            <margin>1.0</margin>
-            <power>.75</power>
-            <direction>0.0</direction>
-            <heading>0.0</heading>
-            <pid>
-                <p>0.0</p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-        </MOVE>
-
-        <MOVE>
-            <distance>30.0</distance>
-            <margin>1.0</margin>
-            <power>.75</power>
-            <direction>45.0</direction>
-            <heading>0.0</heading>
-            <pid>
-                <p>0.0</p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-         </MOVE>
-
-         <MOVE>
-            <distance>30.0</distance>
-            <margin>1.0</margin>
-            <power>.75</power>
-            <direction>90.0</direction>
-            <heading>0.0</heading>
-            <pid>
-                <p>0.0</p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-         </MOVE>
-
-        <TURN>
-            <angle>90</angle>
-            <minpower>0.2</minpower>
-            <maxpower>1</maxpower>
-            <margin>3</margin>
-            <pid>
-                <p>0.031415926 </p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-        </TURN>
-
-        <TURN>
-            <angle>-90</angle>
-            <minpower>0.2</minpower>
-            <maxpower>1</maxpower>
-            <margin>3</margin>
-            <pid>
-                <p>0.031415926</p>
-                <i>0.0</i>
-                <d>0.0</d>
-            </pid>
-        </TURN>
      </OpMode>
 </RobotAction>

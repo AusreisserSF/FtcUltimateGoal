@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 @TeleOp(group="Test")
 //@Disabled
 public class ShootPowerTest extends TeleOpBase {
-    private final double IncrementVelocity = 0;
+    private final double IncrementVelocity = 100;
     private final Button velocityIncrementButton = new Button();
     private final Button velocityDecrementButton = new Button();
-    private double shootVelocity = 0;
+    private double shootVelocity = 1000;
 
     @Override
     protected void initialize() {
@@ -25,7 +25,7 @@ public class ShootPowerTest extends TeleOpBase {
         velocityIncrementButton.update(gamepad1.y);
         velocityDecrementButton.update(gamepad1.a);
 
-        robot.ringShooter.intakeMotor.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+        robot.ringShooter.intakeMotor.setPower(gamepad1.left_stick_y + gamepad1.right_stick_y * 0.2);
         robot.ringShooter.liftMotor.setPower(gamepad1.left_stick_y);
         robot.ringShooter.shootMotor.setVelocity(gamepad1.right_stick_y * shootVelocity);
 

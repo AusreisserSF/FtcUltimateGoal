@@ -198,8 +198,6 @@ public class FTCAuto {
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                     drivePose.r = rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                     robot.driveTrain.drive(drivePose, power);
-
-                    RobotLogCommon.d(TAG, drivePose.toString());
                 }
                 robot.driveTrain.stop();
 
@@ -218,7 +216,6 @@ public class FTCAuto {
                 double currentDegrees = 0;
 
                 RobotLogCommon.d(TAG, "Turn by " + angle + " degrees");
-                RobotLog.dd(TAG, "Turn by " + angle + " degrees");
 
                 double error = currentDegrees - angle.getDegrees();
                 while (Math.abs(error) > margin) {
@@ -227,8 +224,6 @@ public class FTCAuto {
                     double power = LCHSMath.clipPower(pidCorrectedPower, minPower) * maxPower;
                     robot.driveTrain.drive(new Pose(0, 0, power));
                     error = currentDegrees - angle.getDegrees();
-                    RobotLog.dd(TAG, "power: " + power);
-                    RobotLog.dd(TAG, "error: " + error);
                 }
                 robot.driveTrain.stop();
 
@@ -274,21 +269,35 @@ public class FTCAuto {
 
             case "DELIVER_WOBBLE_GOAL": {
                 //** pointScoring.deliverWobbleGoal();
+                robot.wobbleArm.flipMotor.setTargetPosition(5);
+                robot.wobbleArm.servo.setPosition(8);
                 break;
             }
 
-            case "PLACE_RING_IN_LOW_GOAL": {
-                //** pointScoring.placeRingInLowGoal();
+            case "SHOOT": {
+                double shootVelocity = commandXPath.getDouble("shootVelocity");
+                int waitTime = commandXPath.getInt("waitTime");
+
+                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
+                while((robot.ringShooter.shootMotor.getVelocity() < shootVelocity-100) && (robot.ringShooter.shootMotor.getVelocity() > shootVelocity+100)){
+                    sleep(1);
+                }
+
+                robot.ringShooter.intakeMotor.setPower(1);
+                sleep(waitTime);
+
+                robot.ringShooter.shootMotor.setVelocity(0);
+                robot.ringShooter.intakeMotor.setPower(0);
+
                 break;
             }
 
-            case "LAUNCH_RING_AT_MEDIUM_GOAL": {
-                //** pointScoring.launchRingAtMediumGoal();
-                break;
-            }
+            case "OUTTAKE": {
 
-            case "LAUNCH_RING_AT_HIGH_GOAL": {
-                //** pointScoring.launchRingAtHighGoal();
+                int waitTime = commandXPath.getInt("waitTime");
+                robot.ringShooter.intakeMotor.setPower(-1);
+                sleep(waitTime);
+                robot.ringShooter.intakeMotor.setPower(0);
                 break;
             }
 

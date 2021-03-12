@@ -3,58 +3,88 @@
   <OpMode id="TEST">
     <opmode_target_zones>
       <TARGET_ZONE_A>
-        <FORWARD>
-          <distance>24.0</distance>
-          <power>1.0</power>
-        </FORWARD>
       </TARGET_ZONE_A>
       <TARGET_ZONE_B>
-        <FORWARD>
-          <distance>48.0</distance>
-          <power>1.0</power>
-        </FORWARD>
       </TARGET_ZONE_B>
       <TARGET_ZONE_C>
-        <FORWARD>
-          <distance>72.0</distance>
-          <power>1.0</power>
-        </FORWARD>
       </TARGET_ZONE_C>
     </opmode_target_zones>
   </OpMode>
   <OpMode id="BLUE_INSIDE">
     <opmode_target_zones>
-      <TARGET_ZONE_A></TARGET_ZONE_A>
+      <TARGET_ZONE_A>
+      </TARGET_ZONE_A>
       <TARGET_ZONE_B>
-        <FORWARD>
-          <distance>72.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <STRAFE_RIGHT>
-          <distance>12.0</distance>
-          <power>0.5</power>
-        </STRAFE_RIGHT>
-        <DELIVER_WOBBLE_GOAL/>
-        <FORWARD>
-          <distance>42.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <PLACE_RING_IN_LOW_GOAL/>
-        <STRAFE_LEFT>
-          <distance>24.0</distance>
-          <power>0.5</power>
-        </STRAFE_LEFT>
-        <BACK>
-          <distance>48.0</distance>
-          <power>1.0</power>
-        </BACK>
       </TARGET_ZONE_B>
-      <TARGET_ZONE_C></TARGET_ZONE_C>
+      <TARGET_ZONE_C>
+      </TARGET_ZONE_C>
     </opmode_target_zones>
   </OpMode>
   <OpMode id="BLUE_OUTSIDE">
     <opmode_target_zones>
-      <TARGET_ZONE_A></TARGET_ZONE_A>
+      <TARGET_ZONE_A>
+      <MOVE>
+            <distance>62.0</distance>
+            <margin>1.0</margin>
+            <power>.75</power>
+            <direction>180.0</direction>
+            <heading>0.0</heading>
+            <pid>
+                <p>0.0</p>
+                <i>0.0</i>
+                <d>0.0</d>
+            </pid>
+        </MOVE>
+        
+        <SLEEP>
+            <ms>1000</ms>
+        </SLEEP>
+
+        <MOVE>
+            <distance>12.0</distance>
+            <margin>1.0</margin>
+            <power>.75</power>
+            <direction>0</direction>
+            <heading>0.0</heading>
+            <pid>
+                <p>0.0</p>
+                <i>0.0</i>
+                <d>0.0</d>
+            </pid>
+        </MOVE>
+
+        <TURN>
+            <angle>0</angle>
+            <minpower>0.2</minpower>
+            <maxpower>1</maxpower>
+            <margin>3</margin>
+            <pid>
+                <p>0.031415926 </p>
+                <i>0.0</i>
+                <d>0.0</d>
+            </pid>
+        </TURN>
+
+        <SHOOT>
+            <shootVelocity>1500</shootVelocity>
+            <waitTime>3000</waitTime>
+            
+        </SHOOT>
+
+        <MOVE>
+            <distance>10.0</distance>
+            <margin>1.0</margin>
+            <power>.75</power>
+            <direction>180</direction>
+            <heading>0.0</heading>
+            <pid>
+                <p>0.0</p>
+                <i>0.0</i>
+                <d>0.0</d>
+            </pid>
+        </MOVE>
+
+      </TARGET_ZONE_A>
       <TARGET_ZONE_B></TARGET_ZONE_B>
       <TARGET_ZONE_C></TARGET_ZONE_C>
     </opmode_target_zones>
@@ -62,162 +92,10 @@
   <OpMode id="RED_INSIDE">
     <opmode_target_zones>
       <TARGET_ZONE_A>
-        <FORWARD>
-          <distance>30.0</distance>
-          <power>0.5</power>
-        </FORWARD>
-        <TURN>
-          <angle>-45</angle>
-          <power>0.5</power>
-        </TURN>
-        <FORWARD>
-          <distance>30.0</distance>
-          <power>1.0</power>
-        </FORWARD>
       </TARGET_ZONE_A>
       <TARGET_ZONE_B>
-        <FORWARD>
-          <distance>92.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <DELIVER_WOBBLE_GOAL/>
-        <BACK>
-          <distance>40.0</distance>
-          <power>1.0</power>
-        </BACK>
-        <TURN>
-          <angle>-142.0</angle>
-          <power>0.5</power>
-        </TURN>
-        <LAUNCH_RING_AT_MEDIUM_GOAL/>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <TURN>
-          <angle>-3</angle>
-          <power>0.5</power>
-        </TURN>
-        <LAUNCH_RING_AT_MEDIUM_GOAL/>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <TURN>
-          <angle>-3</angle>
-          <power>0.5</power>
-        </TURN>
-        <LAUNCH_RING_AT_MEDIUM_GOAL/>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <TURN>
-          <angle>-32.0</angle>
-          <power>0.5</power>
-        </TURN>
-        <BACK>
-          <distance>12.0</distance>
-          <power>1.0</power>
-        </BACK>
-      </TARGET_ZONE_B>
-      <TARGET_ZONE_C></TARGET_ZONE_C>
-    </opmode_target_zones>
-  </OpMode>
-  <OpMode id="RED_OUTSIDE">
-    <opmode_target_zones>
-      <TARGET_ZONE_A>
-        <TURN>
-          <angle>-30</angle>
-          <power>0.5</power>
-        </TURN>
-        <FORWARD>
-          <distance>30.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <TURN>
-          <angle>45</angle>
-          <power>0.5</power>
-        </TURN>
-        <FORWARD>
-          <distance>30.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-      </TARGET_ZONE_A>
-      <TARGET_ZONE_B>
-        <TURN>
-          <angle>-30</angle>
-          <power>0.5</power>
-        </TURN>
-        <FORWARD>
-          <distance>87.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <TURN>
-          <angle>180</angle>
-          <power>1.0</power>
-        </TURN>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <DELIVER_WOBBLE_GOAL/>
-        <BACK>
-          <distance>27.0</distance>
-          <power>0.5</power>
-        </BACK>
-        <STRAFE_RIGHT>
-          <distance>28.0</distance>
-          <power>0.5</power>
-        </STRAFE_RIGHT>
-        <PLACE_RING_IN_LOW_GOAL/>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <STRAFE_LEFT>
-          <distance>5.0</distance>
-          <power>0.5</power>
-        </STRAFE_LEFT>
-        <PLACE_RING_IN_LOW_GOAL/>
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
-        <STRAFE_LEFT>
-          <distance>5.0</distance>
-          <power>0.5</power>
-        </STRAFE_LEFT>
-        <PLACE_RING_IN_LOW_GOAL/>
-        <STRAFE_LEFT>
-          <distance>18.0</distance>
-          <power>0.5</power>
-        </STRAFE_LEFT>
-        <FORWARD>
-          <distance>50.0</distance>
-          <power>1.0</power>
-        </FORWARD>
       </TARGET_ZONE_B>
       <TARGET_ZONE_C>
-        <TURN>
-          <angle>-30</angle>
-          <power>0.5</power>
-        </TURN>
-        <FORWARD>
-          <distance>98.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <DELIVER_WOBBLE_GOAL/>
-        <STRAFE_LEFT>
-          <distance>22.0</distance>
-          <power>0.5</power>
-        </STRAFE_LEFT>
-        <FORWARD>
-          <distance>16.0</distance>
-          <power>1.0</power>
-        </FORWARD>
-        <PLACE_RING_IN_LOW_GOAL/>
-        <BACK>
-          <distance>48.0</distance>
-          <power>1.0</power>
-        </BACK>
       </TARGET_ZONE_C>
     </opmode_target_zones>
   </OpMode>
