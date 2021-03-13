@@ -274,6 +274,11 @@ public class FTCAuto {
                 break;
             }
 
+            case "ALIGN_TO_TOWER_GOAL": {
+                //** Placeholder
+                break;
+            }
+
             case "SHOOT": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
                 int waitTime = commandXPath.getInt("waitTime");

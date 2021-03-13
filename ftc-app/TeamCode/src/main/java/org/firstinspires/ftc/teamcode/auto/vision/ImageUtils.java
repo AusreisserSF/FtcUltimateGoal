@@ -42,6 +42,23 @@ public class ImageUtils {
         return roi;
     }
 
+    // Adjust the brightness of a grayscale image.
+public Mat adjustGrayscaleBrightness(Mat pGray, int pTarget) {
+	int medianGray = getSingleChannelMedian(pGray);
+	RobotLogCommon.d(TAG, "Original image: grayscale median " + medianGray);
+
+	int grayMedianTarget = pTarget;
+	RobotLogCommon.d(TAG, "Grayscale median target " + grayMedianTarget);
+
+	// adjustment = target - median;
+	int adjustment = grayMedianTarget - medianGray;
+	Mat adjustedGray = new Mat();
+	pGray.convertTo(adjustedGray, -1, 1, adjustment);
+	RobotLogCommon.d(TAG, "Grayscale adjustment " + adjustment);
+
+	return adjustedGray;
+}
+
     // Adjust image saturation and value levels in the image to match the targets.
     public Mat adjustSaturationAndValue(Mat pHSVImage, int pSatLowTarget, int pValLowTarget) {
         // Split the image into its constituent HSV channels
