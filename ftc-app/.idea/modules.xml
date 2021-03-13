@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ftc-app.iml" filepath="$PROJECT_DIR$/.idea/ftc-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ftc-app.iml" filepath="$PROJECT_DIR$/.idea/modules/ftc-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/ftc-app.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/ftc-app.FtcRobotController.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/ftc-app.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/ftc-app.TeamCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ftcdevcommon_1_2-debug/ftc-app.ftcdevcommon_1_2-debug.iml" filepath="$PROJECT_DIR$/.idea/modules/ftcdevcommon_1_2-debug/ftc-app.ftcdevcommon_1_2-debug.iml" />

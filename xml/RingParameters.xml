@@ -1,15 +1,15 @@
 <ring_parameters>
     <image_parameters>
-        <file>BRIO_2020-12-11_16-10-48_1_ring.jpg</file>
+        <file>Image_03111514_4_rings_IMG.png</file>
         <resolution>
             <width>640</width>
             <height>360</height>
         </resolution>
         <image_roi>
-            <x>230</x>
-            <y>150</y>
-            <width>200</width>
-            <height>100</height>
+            <x>610</x>
+            <y>300</y>
+            <width>180</width>
+            <height>120</height>
         </image_roi>
     </image_parameters>
     <hsv_parameters>
