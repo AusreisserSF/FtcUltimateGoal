@@ -58,6 +58,9 @@ public class FTCAuto {
     private final RingParametersXML ringParametersXML;
     private final RingParameters ringParameters;
     private final RingRecognition ringRecognition;
+    private final TowerParametersXML towerParametersXML;
+    private final TowerParameters towerParameters;
+    private final TowerGoalAlignment towerGoalAlignment;
     private final TargetZoneXML targetZoneXML;
     private final HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotActionXML.CommandXML>> targetZoneCommands;
 
@@ -114,10 +117,15 @@ public class FTCAuto {
             vuforiaWebcam = new VuforiaWebcam(robot.webcam1Name);
         }
 
-        // Read the image recognition parameters from an xml file.
+        // Read the ring stack image recognition parameters from an xml file.
         ringParametersXML = new RingParametersXML(xmlDirectory);
         ringParameters = ringParametersXML.getRingParameters();
         ringRecognition = new RingRecognition();
+
+        // Read the tower goal image recognition parameters from an xml file.
+        towerParametersXML = new TowerParametersXML(xmlDirectory);
+        towerParameters = towerParametersXML.getTowerParameters();
+        towerGoalAlignment =  new TowerGoalAlignment();
 
         // Read the XML file with the target zones for all OpModes.
         // For the current OpMode get the commands for all three target zones.
@@ -289,7 +297,25 @@ public class FTCAuto {
             }
 
             case "ALIGN_TO_TOWER_GOAL": {
-                //** Placeholder
+                String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
+                RobotLogCommon.d(TAG, "Image provider " + imageProviderId);
+
+                ImageProvider imageProvider;
+                if (imageProviderId.equals("vuforia")) {
+                    if (vuforiaLocalizer == null)
+                        throw new AutonomousRobotException(TAG, "Vuforia not initialized");
+                    imageProvider = new VuforiaImage(vuforiaLocalizer);
+                } else {
+                    // For testing: get the image from a file.
+                    imageProvider = new FileImage(workingDirectory + RobotConstants.imageDir + ringParameters.imageParameters.file_name);
+                }
+
+                // Call the OpenCV subsystem.
+                double angleAdjustment = towerGoalAlignment.getAngleToTowerGoal(imageProvider, towerParameters);
+
+                RobotLogCommon.d(TAG, "Angle adjustment " + angleAdjustment);
+                opMode.telemetry.addData("Angle adjustment ", angleAdjustment);
+                opMode.telemetry.update();
                 break;
             }
 

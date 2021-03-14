@@ -39,8 +39,7 @@ public class TowerGoalAlignment {
     // Returns the angle that the robot needs to turn in order to face the center of tower goal.
     // Returns TOWER_ANGLE_NPOS if this method can't determine a valid angle. 
     public double getAngleToTowerGoal(ImageProvider pImageProvider,
-                                      CommonParameters.ImageParameters pImageParameters,
-                                      CommonParameters.GrayParameters pGrayParameters) throws InterruptedException {
+                                      TowerParameters pTowerParameters) throws InterruptedException {
 
         RobotLogCommon.d(TAG, "In TowerGoalLocation.getAngleToTowerGoal");
 
@@ -66,12 +65,13 @@ public class TowerGoalAlignment {
         RobotLogCommon.d(TAG, "Writing original image " + imageFilename);
         Imgcodecs.imwrite(imageFilename, imgOriginal);
 
-/*
+
         // Crop the image to reduce distractions.
-        Mat imageROI = imageUtils.getImageROI(imgOriginal, pImageParameters.image_roi);
+        Mat imageROI = imageUtils.getImageROI(imgOriginal, pTowerParameters.imageParameters.image_roi);
         imageFilename = outputFilenamePreamble + "_ROI.png";
         RobotLogCommon.d(TAG, "Writing image ROI " + imageFilename);
         Imgcodecs.imwrite(imageFilename, imageROI);
+
 
         // We're on the grayscale path.
         Mat grayROI = new Mat();
@@ -81,11 +81,11 @@ public class TowerGoalAlignment {
 
         // Adjust the brightness.
         Mat adjustedGray = new Mat();
-        adjustedGray = imageUtils.adjustGrayscaleBrightness(grayROI, pGrayParameters.target);
+        adjustedGray = imageUtils.adjustGrayscaleBrightness(grayROI, pTowerParameters.grayParameters.target);
         Imgcodecs.imwrite(outputFilenamePreamble + "_ADJ.png", adjustedGray);
         RobotLogCommon.d(TAG, "Writing adjusted grayscale image " + outputFilenamePreamble + "_ADJ.png");
 
-        int grayThresholdLow = pGrayParameters.low_threshold;
+        int grayThresholdLow = pTowerParameters.grayParameters.low_threshold;
         RobotLogCommon.d(TAG, "Threshold values: low " + grayThresholdLow + ", high 255");
 
         // Use inRange to threshold to binary.
@@ -126,7 +126,6 @@ public class TowerGoalAlignment {
         RobotLogCommon.d(TAG, "Writing " + outputFilenamePreamble + "_CON.png");
 
         //**TODO stopped here
-                */
 
         //** Now compute the angle to the tower
         return TOWER_ANGLE_NPOS; //*** TEMP

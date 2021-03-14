@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.auto.vision;
+package org.firstinspires.ftc.teamcode.auto.xml;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.teamcode.auto.vision.CommonParameters;
+import org.firstinspires.ftc.teamcode.auto.vision.TowerParameters;
 import org.firstinspires.ftc.teamcode.auto.xml.ImageXMLCommon;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
