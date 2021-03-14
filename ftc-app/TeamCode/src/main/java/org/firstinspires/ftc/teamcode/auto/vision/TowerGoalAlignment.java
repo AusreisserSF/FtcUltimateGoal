@@ -31,17 +31,6 @@ public class TowerGoalAlignment {
     private final ImageUtils imageUtils;
     private Random rng = new Random(12345);
 
-    //** Move to FTCAuto Load OpenCV.
-    static {
-        //** IntelliJ move to main  */
-        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME); // IntelliJ only
-        //openCVInitialized = true; // IntelliJ only
-
-        // Android only
-        //if (OpenCVLoader.initDebug())
-        //    openCVInitialized = true;
-    }
-
     public TowerGoalAlignment() {
         workingDirectory = WorkingDirectory.getWorkingDirectory() + RobotConstants.imageDir;
         imageUtils = new ImageUtils();

@@ -38,7 +38,7 @@ public class LCHSRobot {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
 
-        webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
+       // webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         driveTrain = new DriveTrain(hardwareMap);
         wobbleArm = new WobbleArm(hardwareMap);

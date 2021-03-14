@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
+import org.opencv.android.OpenCVLoader;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -64,6 +65,14 @@ public class FTCAuto {
     private List<RobotActionXML.CommandXML> targetZoneInsert = new ArrayList<>();
     private boolean executeTargetZoneCommands = false;
 
+    // Load OpenCV.
+    private static boolean openCVInitialized = false;
+    static {
+        // Android only
+        if (OpenCVLoader.initDebug())
+            openCVInitialized = true;
+    }
+
     // Main class for the autonomous run.
     public FTCAuto(RobotConstantsUltimateGoal.OpMode autoOpMode, RobotConstants.Alliance alliance, LinearOpMode opMode)
             throws ParserConfigurationException, SAXException, XPathException, IOException, InterruptedException {
@@ -72,6 +81,11 @@ public class FTCAuto {
         // RobotLogCommon outputs to text file on robot.
         // RobotLog can output to live logcat on Android Studio.
         RobotLog.dd(TAG, "FTCAuto Constructor");
+
+        // A failure in OpenCV initialization will prevent us from recognizing
+        // the ring stack or the Vumark below a tower goal.
+        if (!openCVInitialized)
+            throw new AutonomousRobotException(TAG, "Error in OpenCV initialization");
 
         this.autoOpMode = autoOpMode;
         this.alliance = alliance;

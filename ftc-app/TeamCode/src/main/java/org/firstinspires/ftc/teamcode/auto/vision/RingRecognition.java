@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto.vision;
 
 //!! Android only
+
 import org.opencv.android.OpenCVLoader;
 
 import org.firstinspires.ftc.ftcdevcommon.CommonUtils;
@@ -23,26 +24,10 @@ public class RingRecognition {
     private static final String TAG = "RingRecognition";
     private static final String imageFilePrefix = "Image_";
 
-    private static boolean openCVInitialized = false;
     private final String workingDirectory;
     private final ImageUtils imageUtils;
 
-    // Load OpenCV.
-    static {
-        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME); // IntelliJ only
-        //openCVInitialized = true; // IntelliJ only
-
-        // Android only
-        if (OpenCVLoader.initDebug())
-            openCVInitialized = true;
-    }
-
     public RingRecognition() {
-        // A failure in OpenCV initialization will prevent us from recognizing
-        // the ring stack, but do not treat this as fatal.
-        if (!openCVInitialized)
-            RobotLogCommon.d(TAG, "Failure in OpenCV initialization");
-
         workingDirectory = WorkingDirectory.getWorkingDirectory() + RobotConstants.imageDir;
         imageUtils = new ImageUtils();
     }
@@ -116,15 +101,15 @@ public class RingRecognition {
             RobotLogCommon.d(TAG, "No rings detected: set Target Zone Goal A");
         } else
 
-        // If the number of white pixels is greater than the minimum for a stack
-        // of  4 rings then the target is Goal C.
-        if (white_pixels > pRingParameters.minimum_pixel_count_4_rings) {
-            targetZone = RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_C;
-            RobotLogCommon.d(TAG, "Found four rings: set Target Zone Goal C");
-        } else { // Must be 1 ring.
-            targetZone = RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_B;
-            RobotLogCommon.d(TAG, "Found one ring: set Target Zone Goal B");
-        }
+            // If the number of white pixels is greater than the minimum for a stack
+            // of  4 rings then the target is Goal C.
+            if (white_pixels > pRingParameters.minimum_pixel_count_4_rings) {
+                targetZone = RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_C;
+                RobotLogCommon.d(TAG, "Found four rings: set Target Zone Goal C");
+            } else { // Must be 1 ring.
+                targetZone = RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_B;
+                RobotLogCommon.d(TAG, "Found one ring: set Target Zone Goal B");
+            }
 
         return new RingReturn(false, targetZone);
     }

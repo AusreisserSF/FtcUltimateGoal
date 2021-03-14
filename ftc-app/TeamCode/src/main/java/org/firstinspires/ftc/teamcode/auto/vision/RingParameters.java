@@ -14,6 +14,5 @@ public class RingParameters {
         hsvParameters = pHSVParameters;
         minimum_pixel_count_1_ring = pMinPixelCount1Ring;
         minimum_pixel_count_4_rings = pMinPixelCount4Rings;
-
     }
 }
