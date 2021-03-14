@@ -1,6 +1,6 @@
 <RobotAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:noNamespaceSchemaLocation='RobotAction.xsd'
-             debugLevel="v"> <!-- init_vuforia="yes" -->
+             debugLevel="v" init_vuforia="yes">
     <OpMode id="RED_INSIDE">
         <RECOGNIZE_RINGS>
              <ocv_image_provider>vuforia</ocv_image_provider>
