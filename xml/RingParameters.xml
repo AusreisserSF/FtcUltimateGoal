@@ -19,7 +19,7 @@
         <saturation_target>100</saturation_target>
         <saturation_low_threshold>100</saturation_low_threshold>
         <value_target>100</value_target>
-        <value_low_threshold>100</value_low_threshold>
+        <value_low_threshold>150</value_low_threshold>
     </hsv_parameters>
     <size_parameters>
         <minimum_pixel_count_1_ring>400</minimum_pixel_count_1_ring>
