@@ -1,0 +1,19 @@
+<tower_parameters>
+    <image_parameters>
+        <file>Image_03111514_4_rings_IMG.png</file>
+        <resolution>
+            <width>640</width>
+            <height>360</height>
+        </resolution>
+        <image_roi>
+            <x>610</x>
+            <y>300</y>
+            <width>180</width>
+            <height>120</height>
+        </image_roi>
+    </image_parameters>
+    <gray_parameters>
+   <target>165</target>
+    <low_threshold>180</low_threshold>
+</gray_parameters>
+</tower_parameters>
