@@ -6,10 +6,10 @@
             <height>360</height>
         </resolution>
         <image_roi>
-            <x>610</x>
-            <y>300</y>
-            <width>180</width>
-            <height>120</height>
+            <x>545</x>
+            <y>290</y>
+            <width>200</width>
+            <height>130</height>
         </image_roi>
     </image_parameters>
     <hsv_parameters>
@@ -19,7 +19,7 @@
         <saturation_target>100</saturation_target>
         <saturation_low_threshold>100</saturation_low_threshold>
         <value_target>100</value_target>
-        <value_low_threshold>150</value_low_threshold>
+        <value_low_threshold>125</value_low_threshold>
     </hsv_parameters>
     <size_parameters>
         <minimum_pixel_count_1_ring>400</minimum_pixel_count_1_ring>
