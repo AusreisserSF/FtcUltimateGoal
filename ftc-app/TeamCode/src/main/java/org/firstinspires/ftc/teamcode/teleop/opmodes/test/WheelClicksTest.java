@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop.opmodes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.teleop.utility.Button;
 import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
 @TeleOp(group="Test")
-//@Disabled
+@Disabled
 public class WheelClicksTest extends BaseDrive {
 
     private final Button resetButton = new Button();

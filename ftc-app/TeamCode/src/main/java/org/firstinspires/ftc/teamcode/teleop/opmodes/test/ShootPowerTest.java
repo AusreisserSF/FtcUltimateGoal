@@ -11,7 +11,7 @@ public class ShootPowerTest extends TeleOpBase {
     private final double IncrementVelocity = 100;
     private final Button velocityIncrementButton = new Button();
     private final Button velocityDecrementButton = new Button();
-    private double shootVelocity = 1000;
+    private double shootVelocity = 1500;
 
     @Override
     protected void initialize() {

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.teleop.utility.Button;
 import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
 @TeleOp(group="Test")
-//@Disabled
+@Disabled
 public class RingShooterTest extends TeleOpBase {
 
     @Override

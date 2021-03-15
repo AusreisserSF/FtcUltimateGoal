@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
+import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
 import org.xml.sax.SAXException;
 
@@ -252,6 +253,66 @@ public class FTCAuto {
                 break;
             }
 
+            case "PLACE_WOBBLE": {
+                int waitTime = commandXPath.getInt("waitTime");
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.RELEASE);
+                sleep(waitTime);
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
+                sleep(waitTime);
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.REST);
+                break;
+            }
+
+            case "ALIGN_TO_TOWER": {
+                String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
+                RobotLogCommon.d(TAG, "Image provider " + imageProviderId);
+
+                ImageProvider imageProvider;
+                if (imageProviderId.equals("vuforia")) {
+                    if (vuforiaLocalizer == null)
+                        throw new AutonomousRobotException(TAG, "Vuforia not initialized");
+                    imageProvider = new VuforiaImage(vuforiaLocalizer);
+                } else {
+                    // For testing: get the image from a file.
+                    imageProvider = new FileImage(workingDirectory + RobotConstants.imageDir + ringParameters.imageParameters.file_name);
+                }
+
+                // Call the OpenCV subsystem.
+                double angleAdjustment = towerGoalAlignment.getAngleToTowerGoal(imageProvider, towerParameters);
+
+                RobotLogCommon.d(TAG, "Angle adjustment " + angleAdjustment);
+                opMode.telemetry.addData("Angle adjustment ", angleAdjustment);
+                opMode.telemetry.update();
+                break;
+            }
+
+            case "SHOOT": {
+                double shootVelocity = commandXPath.getDouble("shootVelocity");
+                double intakePower = commandXPath.getDouble("intakePower");
+                int waitTime = commandXPath.getInt("waitTime");
+
+                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
+                while((robot.ringShooter.shootMotor.getVelocity() < shootVelocity-100) && (robot.ringShooter.shootMotor.getVelocity() > shootVelocity+100)){
+                    sleep(20);
+                }
+                robot.ringShooter.intakeMotor.setPower(intakePower);
+                sleep(waitTime);
+                robot.ringShooter.shootMotor.setVelocity(0);
+                robot.ringShooter.intakeMotor.setPower(0);
+
+                break;
+            }
+
+            case "INTAKE": {
+                int power = commandXPath.getInt("power");
+                int time = commandXPath.getInt("time");
+                robot.ringShooter.intakeMotor.setPower(power);
+                sleep(time);
+                robot.ringShooter.intakeMotor.setPower(0);
+                break;
+            }
+
             // Use OpenCV to find the stack of rings and determine the Target Zone.
             case "RECOGNIZE_RINGS": {
                 String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
@@ -286,68 +347,6 @@ public class FTCAuto {
                     Objects.requireNonNull(vuforiaLocalizer.getCamera()).close();
                     vuforiaLocalizer = null;
                 }
-                break;
-            }
-
-            case "DELIVER_WOBBLE_GOAL": {
-                //** pointScoring.deliverWobbleGoal();
-                robot.wobbleArm.flipMotor.setTargetPosition(5);
-                robot.wobbleArm.servo.setPosition(8);
-                break;
-            }
-
-            case "ALIGN_TO_TOWER_GOAL": {
-                String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
-                RobotLogCommon.d(TAG, "Image provider " + imageProviderId);
-
-                ImageProvider imageProvider;
-                if (imageProviderId.equals("vuforia")) {
-                    if (vuforiaLocalizer == null)
-                        throw new AutonomousRobotException(TAG, "Vuforia not initialized");
-                    imageProvider = new VuforiaImage(vuforiaLocalizer);
-                } else {
-                    // For testing: get the image from a file.
-                    imageProvider = new FileImage(workingDirectory + RobotConstants.imageDir + ringParameters.imageParameters.file_name);
-                }
-
-                // Call the OpenCV subsystem.
-                double angleAdjustment = towerGoalAlignment.getAngleToTowerGoal(imageProvider, towerParameters);
-
-                RobotLogCommon.d(TAG, "Angle adjustment " + angleAdjustment);
-                opMode.telemetry.addData("Angle adjustment ", angleAdjustment);
-                opMode.telemetry.update();
-                break;
-            }
-
-            case "SHOOT": {
-                double shootVelocity = commandXPath.getDouble("shootVelocity");
-                int waitTime = commandXPath.getInt("waitTime");
-
-                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
-                while((robot.ringShooter.shootMotor.getVelocity() < shootVelocity-100) && (robot.ringShooter.shootMotor.getVelocity() > shootVelocity+100)){
-                    sleep(1);
-                }
-
-                robot.ringShooter.intakeMotor.setPower(1);
-                sleep(waitTime);
-
-                robot.ringShooter.shootMotor.setVelocity(0);
-                robot.ringShooter.intakeMotor.setPower(0);
-
-                break;
-            }
-
-            case "OUTTAKE": {
-
-                int waitTime = commandXPath.getInt("waitTime");
-                robot.ringShooter.intakeMotor.setPower(-1);
-                sleep(waitTime);
-                robot.ringShooter.intakeMotor.setPower(0);
-                break;
-            }
-
-            case "LAUNCH_RING_AT_POWER_SHOT_GOAL": {
-                //** pointScoring.launchRingAtPowerShotGoal();
                 break;
             }
 

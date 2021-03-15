@@ -67,8 +67,8 @@
 
         <SHOOT>
             <shootVelocity>1500</shootVelocity>
+            <intakePower>1.0</intakePower>
             <waitTime>3000</waitTime>
-            
         </SHOOT>
 
         <MOVE>

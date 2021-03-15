@@ -42,10 +42,10 @@ public class FullDrive extends BaseDrive {
         double wobbleFlipPower = (gamepad2.dpad_up ? 1 : 0) - (gamepad2.dpad_down ? 1 : 0);
         robot.wobbleArm.flipMotor.setPower(wobbleFlipPower * WobbleArm.FLIP_POWER_FACTOR);
 
-        if (wobbleServoButton.is(Button.State.DOWN)) {
+        /*if (wobbleServoButton.is(Button.State.DOWN)) {
             ServoState servoState = robot.wobbleArm.getServoState() == ServoState.HOLD ? ServoState.RELEASE : ServoState.HOLD;
             robot.wobbleArm.setServoState(servoState);
-        }
+        }*/
     }
 
     private void updateTelemetry() {

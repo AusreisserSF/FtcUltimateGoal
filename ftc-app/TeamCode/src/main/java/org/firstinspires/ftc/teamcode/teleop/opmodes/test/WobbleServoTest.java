@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop.opmodes.test;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
@@ -9,7 +8,7 @@ import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
 @TeleOp(group="Test")
 //@Disabled
-public class WobbleArmTest extends TeleOpBase {
+public class WobbleServoTest extends TeleOpBase {
 
     private final Button servoIncrementButton = new Button();
     private final Button servoDecrementButton = new Button();
