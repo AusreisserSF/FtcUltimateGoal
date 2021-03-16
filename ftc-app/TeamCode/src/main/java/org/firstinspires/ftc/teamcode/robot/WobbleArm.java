@@ -6,12 +6,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
 import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
 
+import static android.os.SystemClock.sleep;
+
+
 public class WobbleArm {
 
     public enum ServoState {
-        REST(0.0),
-        HOLD(0.6),
-        RELEASE(0.1);
+        REST(0.4),
+        HOLD(0.9),
+        RELEASE(0.2);
 
         private final double position;
         ServoState(double position) {
@@ -25,8 +28,8 @@ public class WobbleArm {
 
     public enum FlipState {
         REST(0),
-        HOLD(4000),
-        RELEASE(1000);
+        OUT(-650),
+        IN(0);
 
         private final int position;
         FlipState(int position) {
@@ -38,7 +41,7 @@ public class WobbleArm {
         }
     }
 
-    public static final double FLIP_POWER_FACTOR = 1.0;
+    public static final double FLIP_POWER_FACTOR = 0.6;
 
     public CachingMotorEx flipMotor;
     public CachingServo servo;
@@ -49,7 +52,6 @@ public class WobbleArm {
     WobbleArm(HardwareMap hardwareMap) {
         flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
         servo = new CachingServo(hardwareMap, "wobble servo");
-        flipMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public ServoState getServoState() {
@@ -68,5 +70,13 @@ public class WobbleArm {
     public void setFlipState(FlipState state) {
         flipState = state;
         flipMotor.setTargetPosition(state.getPosition());
+        flipMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        flipMotor.setPower(FLIP_POWER_FACTOR);
+    }
+
+    public void waitForFlip() {
+        while (flipMotor.isBusy()) {
+            sleep(20);
+        }
     }
 }

@@ -29,9 +29,9 @@ public class ShootPowerTest extends TeleOpBase {
         robot.ringShooter.liftMotor.setPower(gamepad1.left_stick_y);
         robot.ringShooter.shootMotor.setVelocity(gamepad1.right_stick_y * shootVelocity);
 
-        if (velocityIncrementButton.is(Button.State.DOWN)) {
+        if (velocityIncrementButton.is(Button.State.TAP)) {
             shootVelocity += IncrementVelocity;
-        } else if (velocityDecrementButton.is(Button.State.DOWN)) {
+        } else if (velocityDecrementButton.is(Button.State.TAP)) {
             shootVelocity -= IncrementVelocity;
         }
 

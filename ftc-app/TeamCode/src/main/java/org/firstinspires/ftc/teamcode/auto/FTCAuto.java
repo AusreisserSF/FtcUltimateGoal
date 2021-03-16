@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
-import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
@@ -204,6 +202,7 @@ public class FTCAuto {
                 double targetClicks = commandXPath.getDouble("distance") * robot.driveTrain.CLICKS_PER_INCH;
                 double marginClicks = commandXPath.getDouble("margin") * robot.driveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
                 double power = commandXPath.getDouble("power");
+                double rampPercent = commandXPath.getDouble("rampPercent", 1);
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
                 PIDController rPIDController= AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
@@ -215,12 +214,20 @@ public class FTCAuto {
                 robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+                double rampStartDistance = rampPercent * targetClicks;
                 int currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                double rampPower = 1;
+
                 while (Math.abs(currentClicks - targetClicks) > marginClicks) {
+
+                    if (rampStartDistance - currentClicks < 0) {
+                         rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), 0.2);
+                    }
+
                     Angle actualHeading = robot.imu.getHeading();
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
-                    drivePose.r = rPIDController.getCorrectedOutput(actualHeading.getDegrees());
-                    robot.driveTrain.drive(drivePose, power);
+                    drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
+                    robot.driveTrain.drive(drivePose, power * rampPower);
                 }
                 robot.driveTrain.stop();
 
@@ -236,7 +243,7 @@ public class FTCAuto {
                 double margin = commandXPath.getDouble("margin");
                 PIDController pidController= AutoCommandXML.getPIDController(commandXPath, angle.getDegrees());
 
-                double currentDegrees = 0;
+                double currentDegrees = robot.imu.getIntegratedHeading().getDegrees();
 
                 RobotLogCommon.d(TAG, "Turn by " + angle + " degrees");
 
@@ -255,12 +262,17 @@ public class FTCAuto {
 
             case "PLACE_WOBBLE": {
                 int waitTime = commandXPath.getInt("waitTime");
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.RELEASE);
-                sleep(waitTime);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.OUT);
+                robot.wobbleArm.waitForFlip();
                 robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
                 sleep(waitTime);
                 robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.REST);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
+                break;
+            }
+
+            case "CLOSE_WOBBLE_SERVO": {
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.HOLD);
                 break;
             }
 
@@ -291,11 +303,16 @@ public class FTCAuto {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
                 double intakePower = commandXPath.getDouble("intakePower");
                 int waitTime = commandXPath.getInt("waitTime");
+                int margin = commandXPath.getInt("velocityMargin");
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
-                while((robot.ringShooter.shootMotor.getVelocity() < shootVelocity-100) && (robot.ringShooter.shootMotor.getVelocity() > shootVelocity+100)){
+                double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                while(currentVelocity < shootVelocity-margin && currentVelocity > shootVelocity+margin){
+                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
+                sleep(1000);
+
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 sleep(waitTime);
                 robot.ringShooter.shootMotor.setVelocity(0);
@@ -361,9 +378,22 @@ public class FTCAuto {
                 sleep(sleepValue);
                 break;
             }
+            case "BREAK_POINT": {
+                while(!opMode.gamepad1.a){
+                    sleep(1);
+                }
+                break;
+            }
+
+
+
             default: {
                 throw new AutonomousRobotException(TAG, "No support in the simulator for the command " + commandName);
+
             }
+
+
+
         }
     }
 

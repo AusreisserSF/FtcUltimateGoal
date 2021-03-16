@@ -4,7 +4,7 @@ public class Button {
 
     public enum State // button states
     {
-        DOWN,   // moment press down
+        TAP,   // moment press down
         DOUBLE_TAP, // pressed down in quick succession
         HELD,   // continued press down
         UP,     // moment of release
@@ -35,7 +35,7 @@ public class Button {
                     state = State.DOUBLE_TAP;
                 } else {
                     lastTapped = System.currentTimeMillis();
-                    state = State.DOWN;
+                    state = State.TAP;
                 }
             }
             else {
@@ -43,7 +43,7 @@ public class Button {
             }
         }
         else {
-            if (state == State.HELD || state == State.DOWN || state == State.DOUBLE_TAP) {
+            if (state == State.HELD || state == State.TAP || state == State.DOUBLE_TAP) {
                 state = State.UP;
             }
             else {

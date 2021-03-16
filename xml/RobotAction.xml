@@ -23,6 +23,7 @@
         <EXECUTE_TARGET_ZONE_STEPS/>
     </OpMode>
     <OpMode id="BLUE_OUTSIDE">
+          <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
         <RECOGNIZE_RINGS>
              <ocv_image_provider>vuforia</ocv_image_provider>
         </RECOGNIZE_RINGS>
@@ -31,9 +32,14 @@
 
     </OpMode>
     <OpMode id="TEST">
-            <RECOGNIZE_RINGS>
+          <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
+          <PLACE_WOBBLE>
+               <waitTime>1000</waitTime>
+          </PLACE_WOBBLE>
+       <!-- <ALIGN_TO_TOWER>
              <ocv_image_provider>vuforia</ocv_image_provider>
-        </RECOGNIZE_RINGS>
-        <CLOSE_WEBCAM/>
+        </ALIGN_TO_TOWER>
+        <CLOSE_WEBCAM/> -->
+            
      </OpMode>
 </RobotAction>

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
 @TeleOp(group="Test")
 //@Disabled
-public class WobbleServoTest extends TeleOpBase {
+public class GateServoTest extends TeleOpBase {
 
     private final Button servoIncrementButton = new Button();
     private final Button servoDecrementButton = new Button();
@@ -16,7 +16,7 @@ public class WobbleServoTest extends TeleOpBase {
 
     @Override
     protected void initialize() {
-        servoPosition = LCHSMath.round(robot.wobbleArm.servo.getPosition(), 1);
+        servoPosition = LCHSMath.round(robot.ringShooter.gateServo.getPosition(), 1);
         updateTelemetry();
     }
 
@@ -24,13 +24,12 @@ public class WobbleServoTest extends TeleOpBase {
     protected void update() {
         updateButtons();
         updateTelemetry();
-        robot.wobbleArm.flipMotor.setPower(gamepad1.right_stick_x);
         if (servoIncrementButton.is(Button.State.TAP)) {
             servoPosition += 0.1;
-            robot.wobbleArm.servo.setPosition(servoPosition);
+            robot.ringShooter.gateServo.setPosition(servoPosition);
         } else if (servoDecrementButton.is(Button.State.TAP)) {
             servoPosition -= 0.1;
-            robot.wobbleArm.servo.setPosition(servoPosition);
+            robot.ringShooter.gateServo.setPosition(servoPosition);
         }
     }
 
@@ -42,7 +41,6 @@ public class WobbleServoTest extends TeleOpBase {
     private void updateTelemetry() {
         telemetry.addData("servo position", servoPosition);
         telemetry.addData("-----", "controls");
-        telemetry.addData("flip motor", "right joystick x");
         telemetry.addData("increment servo", "y");
         telemetry.addData("decrement servo", "a");
         telemetry.update();

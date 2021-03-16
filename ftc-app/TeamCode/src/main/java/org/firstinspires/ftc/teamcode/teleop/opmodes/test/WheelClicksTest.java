@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.teleop.opmodes.drive.BaseDrive;
 import org.firstinspires.ftc.teamcode.teleop.utility.Button;
-import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
 @TeleOp(group="Test")
 @Disabled
@@ -32,7 +30,7 @@ public class WheelClicksTest extends BaseDrive {
 
     private void updateResetButton() {
         resetButton.update(gamepad1.a);
-        if (resetButton.is(Button.State.DOWN)) {
+        if (resetButton.is(Button.State.TAP)) {
             robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
     }
