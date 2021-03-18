@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
+import org.firstinspires.ftc.teamcode.robot.RingShooter;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
 import org.xml.sax.SAXException;
@@ -217,8 +218,8 @@ public class FTCAuto {
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
                 // optional parameters
-                int intakePower = commandXPath.getInt("intakePower", 0);
-                int lifterPower = commandXPath.getInt("lifterPower", 0);
+                double intakePower = commandXPath.getDouble("intakePower", 0);
+                double lifterPower = commandXPath.getDouble("lifterPower", 0);
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
@@ -431,22 +432,31 @@ public class FTCAuto {
                 Optional<Pair<Pose, String>> vumark = vumarkReader.getVumarkPose(1000);
                 if (vumark.isPresent()) {
 
-                    Pose currentPose = vumark.get().first;
+                    // ignore squiggly; vuforia's x is robot's y
+                    Pose currentPose = new Pose(vumark.get().first.y, vumark.get().first.x, vumark.get().first.r);
                     Pose diffPose = currentPose.subtract(targetPose);
 
-                    while (diffPose.x > marginPose.x && diffPose.y > marginPose.y && diffPose.r > marginPose.r) {
+                    while (Math.abs(diffPose.x) > marginPose.x && Math.abs(diffPose.y) > marginPose.y && Math.abs(diffPose.r) > marginPose.r) {
                         Pose drivePose = new Pose();
-                        drivePose.x = LCHSMath.clipPower(xPIDController.getCorrectedOutput(currentPose.x), minPower);
-                        drivePose.y = LCHSMath.clipPower(yPIDController.getCorrectedOutput(currentPose.y), minPower);
-                        drivePose.r = LCHSMath.clipPower(rPIDController.getCorrectedOutput(currentPose.r), minPower);
+                        drivePose.x = LCHSMath.clipPower(xPIDController.getCorrectedOutput(diffPose.x), minPower);
+                        drivePose.y = LCHSMath.clipPower(yPIDController.getCorrectedOutput(diffPose.y), minPower);
+                        drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
                         robot.driveTrain.drive(drivePose, power);
 
+                        RobotLogCommon.d(TAG, currentPose.toString());
                         linearOpMode.telemetry.addData("vumark", currentPose.toString());
                         linearOpMode.telemetry.update();
 
-                        currentPose = vumark.get().first;
+                        Optional<Pair<Pose, String>> newVumark = vumarkReader.getVumarkPose(1000);
+                        if (newVumark.isPresent())
+                            vumark = newVumark;
+                        currentPose = new Pose(vumark.get().first.y, vumark.get().first.x, vumark.get().first.r);
                         diffPose = currentPose.subtract(targetPose);
                     }
+                } else {
+                    RobotLogCommon.d(TAG, "Vumark not present");
+                    linearOpMode.telemetry.addData("Vumark", "not present :(");
+                    linearOpMode.telemetry.update();
                 }
                 break;
             }
@@ -476,6 +486,20 @@ public class FTCAuto {
                 while (!linearOpMode.gamepad1.a) {
                     sleep(1);
                 }
+                break;
+            }
+
+            case "GATE_UP": {
+                RingShooter.ServoState servoState = RingShooter.ServoState.UP;
+                robot.ringShooter.setServoState(servoState);
+
+                break;
+            }
+
+            case "GATE_DOWN": {
+                RingShooter.ServoState servoState = RingShooter.ServoState.DOWN;
+                robot.ringShooter.setServoState(servoState);
+
                 break;
             }
 

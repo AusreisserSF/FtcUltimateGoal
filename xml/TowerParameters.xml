@@ -14,6 +14,6 @@
     </image_parameters>
     <gray_parameters>
    <target>165</target>
-    <low_threshold>180</low_threshold>
+    <low_threshold>170</low_threshold>
 </gray_parameters>
 </tower_parameters>

@@ -66,7 +66,7 @@ public class FullDrive extends BaseDrive {
         robot.wobbleArm.flipMotor.setPower(wobbleFlipPower * WobbleArm.FLIP_POWER_FACTOR);
 
         if (gateServoButton.is(Button.State.TAP)) {
-            RingShooter.ServoState servoState = robot.ringShooter.getServoState() == RingShooter.ServoState.HOLD ? RingShooter.ServoState.RELEASE : RingShooter.ServoState.HOLD;
+            RingShooter.ServoState servoState = robot.ringShooter.getServoState() == RingShooter.ServoState.UP ? RingShooter.ServoState.DOWN : RingShooter.ServoState.UP;
             robot.ringShooter.setServoState(servoState);
         }
 

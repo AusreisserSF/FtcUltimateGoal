@@ -9,8 +9,8 @@ public class RingShooter {
 
     public enum ServoState {
         REST(0.0),
-        HOLD(0.9),
-        RELEASE(0.6);
+        UP(0.9),
+        DOWN(0.6);
 
         private final double position;
         ServoState(double position) {

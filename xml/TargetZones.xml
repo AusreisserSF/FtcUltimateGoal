@@ -23,6 +23,9 @@
     <opmode_target_zones>
 
       <TARGET_ZONE_A>
+
+        <GATE_DOWN></GATE_DOWN>
+
         <MOVE>
           <distance>79.0</distance>
           <margin>1.0</margin>
@@ -116,6 +119,8 @@
 
 
       <TARGET_ZONE_B>
+
+        <GATE_DOWN></GATE_DOWN>
 
         <MOVE>
           <distance>75.0</distance>
@@ -216,10 +221,10 @@
           </pid>
         </TURN>
 
-        <INTAKE>
+        <!-- <INTAKE>
           <power>1</power>
           <time>4000</time>
-        </INTAKE>
+        </INTAKE> -->
 
         <SHOOT>
           <shootVelocity>1800</shootVelocity>
@@ -290,10 +295,10 @@
           <velocityMargin>10</velocityMargin>
         </SHOOT>
 
-        <INTAKE>
+        <!-- <INTAKE>
           <power>1</power>
           <time>4000</time>
-        </INTAKE>
+        </INTAKE> -->
 
         <MOVE>
           <distance>10.0</distance>
@@ -314,9 +319,8 @@
 
 
       <TARGET_ZONE_C>
-
         <MOVE>
-          <distance>105.0</distance>
+          <distance>115.0</distance>
           <margin>1.0</margin>
           <power>.75</power>
           <direction>180.0</direction>
@@ -329,12 +333,14 @@
           </pid>
         </MOVE>
 
+
         <PLACE_WOBBLE>
           <waitTime>1000</waitTime>
         </PLACE_WOBBLE>
+        <BREAK_POINT></BREAK_POINT>
 
         <MOVE>
-          <distance>48.0</distance>
+          <distance>58.0</distance>
           <margin>1.0</margin>
           <power>.75</power>
           <direction>0</direction>
@@ -347,11 +353,10 @@
           </pid>
         </MOVE>
 
-        <BREAK_POINT>
-        </BREAK_POINT>
+
 
         <MOVE>
-          <distance>20.0</distance>
+          <distance>15.0</distance>
           <margin>1.0</margin>
           <power>.75</power>
           <direction>-90.0</direction>
@@ -364,24 +369,47 @@
           </pid>
         </MOVE>
 
-        <BREAK_POINT>
-        </BREAK_POINT>
+        <TURN>
+          <angle>9</angle>
+          <minpower>0.2</minpower>
+          <maxpower>1</maxpower>
+          <margin>3</margin>
+          <pid>
+            <p>0.01</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </TURN>
+
+
+
+
 
         <SHOOT>
           <shootVelocity>1800</shootVelocity>
           <intakePower>1.0</intakePower>
-          <waitTime>3000</waitTime>
+          <waitTime>3500</waitTime>
           <velocityMargin>10</velocityMargin>
         </SHOOT>
 
-        <BREAK_POINT>
-        </BREAK_POINT>
+        <!-- //////////////// -->
+        <TURN>
+          <angle>0</angle>
+          <minpower>0.2</minpower>
+          <maxpower>1</maxpower>
+          <margin>3</margin>
+          <pid>
+            <p>0.01</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </TURN>
 
         <MOVE>
-          <distance>10.0</distance>
+          <distance>8.0</distance>
           <margin>1.0</margin>
-          <power>.75</power>
-          <direction>180</direction>
+          <power>1.0</power>
+          <direction>0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
           <pid>
@@ -390,6 +418,35 @@
             <d>0.0</d>
           </pid>
         </MOVE>
+        <GATE_UP></GATE_UP>
+
+        <MOVE>
+          <distance>20.0</distance>
+          <margin>1.0</margin>
+          <power>0.20</power>
+          <direction>0</direction>
+          <intakePower>1</intakePower>
+          <lifterPower>1</lifterPower>
+          <heading>0.0</heading>
+          <rampPercent>0.75</rampPercent>
+          <pid>
+            <p>0.0</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </MOVE>
+
+        <GATE_DOWN></GATE_DOWN>
+
+
+        <SHOOT>
+          <shootVelocity>1800</shootVelocity>
+          <intakePower>1.0</intakePower>
+          <waitTime>3000</waitTime>
+          <velocityMargin>10</velocityMargin>
+        </SHOOT>
+
+
 
 
       </TARGET_ZONE_C>
