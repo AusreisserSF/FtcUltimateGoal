@@ -40,6 +40,14 @@
              <ocv_image_provider>vuforia</ocv_image_provider>
         </ALIGN_TO_TOWER>
         <CLOSE_WEBCAM/> -->
+
+        <!-- <ACTIVATE_VUMARK_READER/>
+        <SLEEP>
+            <ms>1000</ms>
+        </SLEEP>
+        <TEST_VUMARK_READER/>
+        <DEACTIVATE_VUMARK_READER/>
+        <CLOSE_WEBCAM/> -->
             
      </OpMode>
 </RobotAction>
