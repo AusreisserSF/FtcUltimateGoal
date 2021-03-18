@@ -311,7 +311,7 @@ public class FTCAuto {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
-                sleep(1000);
+                sleep(1500);
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 sleep(waitTime);
@@ -327,6 +327,93 @@ public class FTCAuto {
                 robot.ringShooter.intakeMotor.setPower(power);
                 sleep(time);
                 robot.ringShooter.intakeMotor.setPower(0);
+                break;
+            }
+
+            case "BACKGROUND_SHOOT": {
+                double shootVelocityBG = commandXPath.getDouble("shootVelocityBG");
+                //double intakePower = commandXPath.getDouble("intakePower");
+                //int waitTime = commandXPath.getInt("waitTime");
+                int marginBG = commandXPath.getInt("velocityMarginBG");
+
+                robot.ringShooter.shootMotor.setVelocity(shootVelocityBG);
+                double currentVelocityBG = robot.ringShooter.shootMotor.getVelocity();
+                while(currentVelocityBG < shootVelocityBG-marginBG && currentVelocityBG > shootVelocityBG+marginBG){
+                    currentVelocityBG = robot.ringShooter.shootMotor.getVelocity();
+                    sleep(20);
+                }
+                //sleep(1500);
+
+                //robot.ringShooter.intakeMotor.setPower(intakePower);
+                //sleep(waitTime);
+                //robot.ringShooter.shootMotor.setVelocity(0);
+                //robot.ringShooter.intakeMotor.setPower(0);
+
+                break;
+
+            }
+
+            case "BACKGROUND_SHOOT_OFF": {
+               // double shootVelocityBGOff = commandXPath.getDouble("shootVelocity");
+                //double intakePower = commandXPath.getDouble("intakePower");
+                //int waitTime = commandXPath.getInt("waitTime");
+               // int marginBGOff = commandXPath.getInt("velocityMargin");
+
+                //sleep(1500);
+
+                //robot.ringShooter.intakeMotor.setPower(intakePower);
+                //sleep(waitTime);
+                robot.ringShooter.shootMotor.setVelocity(0);
+                robot.ringShooter.intakeMotor.setPower(0);
+
+                break;
+
+            }
+
+            case "LIFTER_INTAKE": {
+                double targetClicks = commandXPath.getDouble("distance") * robot.driveTrain.CLICKS_PER_INCH;
+                double marginClicks = commandXPath.getDouble("margin") * robot.driveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
+                double power = commandXPath.getDouble("power");
+                double rampPercent = commandXPath.getDouble("rampPercent", 1);
+                Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
+                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
+                PIDController rPIDController= AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
+
+                Pose drivePose = new Pose();
+                drivePose.x = Math.sin(direction.getRadians());
+                drivePose.y = Math.cos(direction.getRadians());
+
+                robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                double rampStartDistance = rampPercent * targetClicks;
+                int currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                double rampPower = 1;
+
+                while (Math.abs(currentClicks - targetClicks) > marginClicks) {
+
+                    if (rampStartDistance - currentClicks < 0) {
+                        rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), 0.2);
+                    }
+
+                    Angle actualHeading = robot.imu.getHeading();
+                    currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                    drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
+                    robot.driveTrain.drive(drivePose, power * rampPower);
+                }
+                int intakePower = commandXPath.getInt("intakePower");
+                int lifterPower = commandXPath.getInt("lifterPower");
+                int intakeTime = commandXPath.getInt("intakeTime");
+                //int lifterTime = commandXPath.getInt("lifterTime");
+                //int lifterTime = commandXPath.getInt("time");
+
+
+                robot.ringShooter.intakeMotor.setPower(intakePower);
+                robot.ringShooter.liftMotor.setPower(lifterPower);
+                robot.driveTrain.stop();
+                sleep(intakeTime);
+                robot.ringShooter.intakeMotor.setPower(0);
+                robot.ringShooter.liftMotor.setPower(0);
                 break;
             }
 
