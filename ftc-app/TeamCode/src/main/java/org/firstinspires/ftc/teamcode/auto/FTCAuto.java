@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.Pair;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Level;
 
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
@@ -39,7 +41,7 @@ public class FTCAuto {
 
     private static final String TAG = "FTCAuto";
 
-    private final LinearOpMode opMode;
+    private final LinearOpMode linearOpMode;
     private final LCHSRobot robot;
 
     private final RobotConstants.Alliance alliance;
@@ -48,6 +50,7 @@ public class FTCAuto {
 
     private VuforiaWebcam vuforiaWebcam;
     private VuforiaLocalizer vuforiaLocalizer;
+    private VumarkReader vumarkReader;
 
     private final RobotActionXML actionXML;
     private final XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -69,6 +72,7 @@ public class FTCAuto {
 
     // Load OpenCV.
     private static boolean openCVInitialized = false;
+
     static {
         // Android only
         if (OpenCVLoader.initDebug())
@@ -76,7 +80,7 @@ public class FTCAuto {
     }
 
     // Main class for the autonomous run.
-    public FTCAuto(RobotConstantsUltimateGoal.OpMode autoOpMode, RobotConstants.Alliance alliance, LinearOpMode opMode)
+    public FTCAuto(RobotConstantsUltimateGoal.OpMode autoOpMode, RobotConstants.Alliance alliance, LinearOpMode pLinearOpMode)
             throws ParserConfigurationException, SAXException, XPathException, IOException, InterruptedException {
 
         RobotLogCommon.c(TAG, "FTCAuto constructor");
@@ -97,8 +101,8 @@ public class FTCAuto {
         workingDirectory = WorkingDirectory.getWorkingDirectory();
 
         // Initialize the hardware.
-        this.opMode = opMode;
-        robot = new LCHSRobot(opMode);
+        linearOpMode = pLinearOpMode;
+        robot = new LCHSRobot(linearOpMode);
         robot.initializeIMU();
 
         // Read the robot action file for all opmodes.
@@ -124,7 +128,7 @@ public class FTCAuto {
         // Read the tower goal image recognition parameters from an xml file.
         towerParametersXML = new TowerParametersXML(xmlDirectory);
         towerParameters = towerParametersXML.getTowerParameters();
-        towerGoalAlignment =  new TowerGoalAlignment();
+        towerGoalAlignment = new TowerGoalAlignment();
 
         // Read the XML file with the target zones for all OpModes.
         // For the current OpMode get the commands for all three target zones.
@@ -136,6 +140,9 @@ public class FTCAuto {
         if (initVuforia) {
             RobotLogCommon.d(TAG, "wait for initialization");
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
+
+            // Prepare to read Vumarks but don't start yet.
+            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer);
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -148,7 +155,7 @@ public class FTCAuto {
 
         // Safety check against ftc runtime initialization errors.
         // Make sure the opmode is still active.
-        if (!opMode.opModeIsActive())
+        if (!linearOpMode.opModeIsActive())
             throw new AutonomousRobotException(TAG, "OpMode unexpectedly inactive in runRobot()");
 
         // Follow the choreography specified in the robot action file.
@@ -178,9 +185,12 @@ public class FTCAuto {
                 Objects.requireNonNull(vuforiaLocalizer.getCamera()).close();
             }
 
+            if (vumarkReader != null)
+                vumarkReader.deactivateVumarkRecognition();
+
             RobotLogCommon.i(TAG, "Exiting FTCAuto");
-            opMode.telemetry.addData("FTCAuto", "COMPLETE");
-            opMode.telemetry.update();
+            linearOpMode.telemetry.addData("FTCAuto", "COMPLETE");
+            linearOpMode.telemetry.update();
         }
     }
 
@@ -205,7 +215,7 @@ public class FTCAuto {
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
-                PIDController rPIDController= AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
+                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
@@ -221,7 +231,7 @@ public class FTCAuto {
                 while (Math.abs(currentClicks - targetClicks) > marginClicks) {
 
                     if (rampStartDistance - currentClicks < 0) {
-                         rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), 0.2);
+                        rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), 0.2);
                     }
 
                     Angle actualHeading = robot.imu.getHeading();
@@ -241,7 +251,7 @@ public class FTCAuto {
                 double maxPower = commandXPath.getDouble("maxpower");
                 double minPower = commandXPath.getDouble("minpower");
                 double margin = commandXPath.getDouble("margin");
-                PIDController pidController= AutoCommandXML.getPIDController(commandXPath, angle.getDegrees());
+                PIDController pidController = AutoCommandXML.getPIDController(commandXPath, angle.getDegrees());
 
                 double currentDegrees = robot.imu.getIntegratedHeading().getDegrees();
 
@@ -294,8 +304,8 @@ public class FTCAuto {
                 double angleAdjustment = towerGoalAlignment.getAngleToTowerGoal(imageProvider, towerParameters);
 
                 RobotLogCommon.d(TAG, "Angle adjustment " + angleAdjustment);
-                opMode.telemetry.addData("Angle adjustment ", angleAdjustment);
-                opMode.telemetry.update();
+                linearOpMode.telemetry.addData("Angle adjustment ", angleAdjustment);
+                linearOpMode.telemetry.update();
                 break;
             }
 
@@ -307,7 +317,7 @@ public class FTCAuto {
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                while(currentVelocity < shootVelocity-margin && currentVelocity > shootVelocity+margin){
+                while (currentVelocity < shootVelocity - margin && currentVelocity > shootVelocity + margin) {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
@@ -338,7 +348,7 @@ public class FTCAuto {
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocityBG);
                 double currentVelocityBG = robot.ringShooter.shootMotor.getVelocity();
-                while(currentVelocityBG < shootVelocityBG-marginBG && currentVelocityBG > shootVelocityBG+marginBG){
+                while (currentVelocityBG < shootVelocityBG - marginBG && currentVelocityBG > shootVelocityBG + marginBG) {
                     currentVelocityBG = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
@@ -354,10 +364,10 @@ public class FTCAuto {
             }
 
             case "BACKGROUND_SHOOT_OFF": {
-               // double shootVelocityBGOff = commandXPath.getDouble("shootVelocity");
+                // double shootVelocityBGOff = commandXPath.getDouble("shootVelocity");
                 //double intakePower = commandXPath.getDouble("intakePower");
                 //int waitTime = commandXPath.getInt("waitTime");
-               // int marginBGOff = commandXPath.getInt("velocityMargin");
+                // int marginBGOff = commandXPath.getInt("velocityMargin");
 
                 //sleep(1500);
 
@@ -377,7 +387,7 @@ public class FTCAuto {
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
-                PIDController rPIDController= AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
+                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
@@ -437,11 +447,50 @@ public class FTCAuto {
                 targetZone = ringReturn.targetZone;
 
                 RobotLogCommon.d(TAG, "Found Target Zone " + targetZone);
-                opMode.telemetry.addData("Found ", targetZone);
-                opMode.telemetry.update();
+                linearOpMode.telemetry.addData("Found ", targetZone);
+                linearOpMode.telemetry.update();
 
                 // Prepare to execute the robot actions for the target zone that was found.
                 targetZoneInsert = new ArrayList<>(Objects.requireNonNull(targetZoneCommands.get(targetZone)));
+                break;
+            }
+
+            case "ACTIVATE_VUMARK_READER": {
+                if (vumarkReader == null)
+                    throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
+
+                vumarkReader.activateVumarkRecognition();
+                break;
+            }
+
+            case "DEACTIVATE_VUMARK_READER": {
+                if (vumarkReader != null) {
+                    vumarkReader.deactivateVumarkRecognition();
+                    vumarkReader = null;
+                }
+                break;
+            }
+
+            case "TEST_VUMARK_READER": {
+                if (vumarkReader == null)
+                    throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
+
+                Optional<Pair<Pose, String>> vumark = vumarkReader.getVumarkPose(1000);
+                if (!vumark.isPresent()) {
+                    RobotLogCommon.d(TAG, "Vumark is not visible");
+                    linearOpMode.telemetry.addData("Vumark ", "not visible");
+                    linearOpMode.telemetry.update();
+                } else {
+                    Pair<Pose, String> robotPoseAtVumark = vumark.get();
+                    RobotLogCommon.d(TAG, "Robot pose at Vumark " + robotPoseAtVumark.second);
+                    RobotLogCommon.d(TAG, "Pose x " + robotPoseAtVumark.first.x +
+                            ", y " + robotPoseAtVumark.first.y +
+                            ", angle " + robotPoseAtVumark.first.r);
+
+                    linearOpMode.telemetry.addData("Vumark ", robotPoseAtVumark.first.x +
+                            ", " + robotPoseAtVumark.first.y + ", " + robotPoseAtVumark.first.r);
+                    linearOpMode.telemetry.update();
+                }
                 break;
             }
 
@@ -465,22 +514,18 @@ public class FTCAuto {
                 sleep(sleepValue);
                 break;
             }
+
             case "BREAK_POINT": {
-                while(!opMode.gamepad1.a){
+                while (!linearOpMode.gamepad1.a) {
                     sleep(1);
                 }
                 break;
             }
 
-
-
             default: {
-                throw new AutonomousRobotException(TAG, "No support in the simulator for the command " + commandName);
+                throw new AutonomousRobotException(TAG, "No support for the command " + commandName);
 
             }
-
-
-
         }
     }
 
