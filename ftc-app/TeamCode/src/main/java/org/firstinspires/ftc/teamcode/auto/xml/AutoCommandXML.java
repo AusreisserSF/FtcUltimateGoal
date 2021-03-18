@@ -5,6 +5,7 @@ import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.math.PIDController;
+import org.firstinspires.ftc.teamcode.math.Pose;
 
 import javax.xml.xpath.XPathExpressionException;
 
@@ -14,12 +15,29 @@ import javax.xml.xpath.XPathExpressionException;
 // structure.
 public class AutoCommandXML {
 
-    public static PIDController getPIDController(XPathAccess pCommandXPath, double pDegrees) throws XPathExpressionException {
+    public static Pose getPose(XPathAccess command) throws XPathExpressionException {
+        return getPose(command, "");
+    }
+
+    public static Pose getPose(XPathAccess command, String prefix) throws XPathExpressionException {
+        String path = prefix.length() > 0 ? prefix + "_pose" : "pose";
+        return new Pose(
+                command.getDouble(path+"/x", 0.0),
+                command.getDouble(path+"/y", 0.0),
+                command.getDouble(path+"/r", 0.0) );
+    }
+
+    public static PIDController getPIDController(XPathAccess command, double target) throws XPathExpressionException {
+        return getPIDController(command, target, "");
+    }
+
+    public static PIDController getPIDController(XPathAccess command, double target, String prefix) throws XPathExpressionException {
+        String path = prefix.length() > 0 ? prefix + "_pid" : "pid";
         PIDCoefficients pidCoefficients = new PIDCoefficients(
-                pCommandXPath.getDouble("pid/p", 0.0),
-                pCommandXPath.getDouble("pid/i", 0.0),
-                pCommandXPath.getDouble("pid/d", 0.0));
-        return new PIDController(pidCoefficients, pDegrees);
+                command.getDouble(path+"/p", 0.0),
+                command.getDouble(path+"/i", 0.0),
+                command.getDouble(path+"/d", 0.0) );
+        return new PIDController(pidCoefficients, target);
     }
 
     public static Angle getAngle(XPathAccess pCommandXPath, String pElement) throws XPathExpressionException {

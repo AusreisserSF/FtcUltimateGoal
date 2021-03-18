@@ -112,32 +112,10 @@
           </pid>
         </TURN>
 
-        <!-- <MOVE>
-          <distance>16.0</distance>
-          <margin>1.0</margin>
-          <power>.5</power>
-          <direction>180</direction>
-          <heading>0.0</heading>
-          <rampPercent>0.4</rampPercent>
-          <pid>
-            <p>0.0</p>
-            <i>0.0</i>
-            <d>0.0</d>
-          </pid>
-        </MOVE> -->
-
       </TARGET_ZONE_A>
 
 
       <TARGET_ZONE_B>
-
-
-        <!-- <BACKGROUND_SHOOT>
-          <shootVelocityBG>1800</shootVelocityBG>
-          <velocityMarginBG>10</velocityMarginBG>
-        </BACKGROUND_SHOOT>
-
-       -->
 
         <MOVE>
           <distance>75.0</distance>
@@ -181,13 +159,9 @@
           </pid>
         </MOVE>
 
-
-
         <PLACE_WOBBLE>
           <waitTime>2000</waitTime>
         </PLACE_WOBBLE>
-
-
 
         <MOVE>
           <distance>15.0</distance>
@@ -267,44 +241,21 @@
           </pid>
         </TURN>
 
-        <!-- <MOVE>
+        <MOVE>
+          <intakePower>1.0</intakePower>
+          <lifterPower>1.0</lifterPower>
+          <rampPercent>0.4</rampPercent>
           <distance>10.0</distance>
           <margin>1.0</margin>
           <power>.75</power>
           <direction>0.0</direction>
           <heading>0.0</heading>
-          <rampPercent>0.4</rampPercent>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
             <d>0.0</d>
           </pid>
-        </MOVE> -->
-
-        <!-- <INTAKE>
-          <power>1</power>
-          <time>4000</time>
-        </INTAKE> -->
-
-        <LIFTER_INTAKE>
-          <intakePower>1</intakePower>
-          <intakeTime>2500</intakeTime>
-          <lifterPower>1</lifterPower>
-          <distance>10.0</distance>
-          <margin>1.0</margin>
-          <power>.75</power>
-          <direction>0.0</direction>
-          <heading>0.0</heading>
-          <rampPercent>0.4</rampPercent>
-          <pid>
-            <p>0.0</p>
-            <i>0.0</i>
-            <d>0.0</d>
-          </pid>
-        </LIFTER_INTAKE>
-
-
-
+        </MOVE>
 
         <MOVE>
           <distance>8.0</distance>
@@ -357,9 +308,6 @@
             <d>0.0</d>
           </pid>
         </MOVE>
-<!-- 
-        <BACKGROUND_SHOOT_OFF>
-        </BACKGROUND_SHOOT_OFF> -->
 
       </TARGET_ZONE_B>
 

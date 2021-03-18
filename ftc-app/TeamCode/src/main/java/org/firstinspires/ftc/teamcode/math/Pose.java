@@ -20,6 +20,10 @@ public class Pose {
         this(p.x, p.y, p.r);
     }
 
+    public Pose subtract(Pose p) {
+        return new Pose(this.x-p.x, this.y-p.y, this.r-p.r);
+    }
+
     public String toString() {
         return String.format("\t%s\t%s\t%s", LCHSMath.round(x, 3), LCHSMath.round(y, 3), LCHSMath.round(r, 3));
     }

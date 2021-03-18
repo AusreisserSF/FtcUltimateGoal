@@ -269,7 +269,7 @@ public class VumarkReader {
                          */
                         robotTransformationMatrix = ((VuforiaTrackableDefaultListener) trackable.getListener()).getRobotLocation();
                         if (robotTransformationMatrix != null) {
-                            RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
+//                            RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
                             vumarkLock.lock();
                             try {
                                 vumarkInformationAvailable = true;
