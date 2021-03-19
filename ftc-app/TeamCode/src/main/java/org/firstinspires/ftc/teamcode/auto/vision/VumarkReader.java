@@ -185,12 +185,15 @@ public class VumarkReader {
     }
 
     // Turn off when done with Vumark recognition.
-    public void deactivateVumarkRecognition() {
+    public void deactivateVumarkRecognition() throws IOException, InterruptedException {
         if (!vumarksActivated)
             return; // nothing to do
 
         stopVumarkReader.set(true);
         targetsUltimateGoal.deactivate();
+
+        // Wait for the reader to complete.
+        CommonUtils.getFutureCompletion(vumarkReaderFuture);
     }
 
     // Returns the robot's pose (x, y, and rotation) from the most recently read Vumark or an
@@ -286,11 +289,6 @@ public class VumarkReader {
 
             return null;
         }
-    }
-
-    // Wait for the Vumark reader to complete.
-    public void waitForVumarkReaderCompletion() throws IOException, InterruptedException {
-        CommonUtils.getFutureCompletion(vumarkReaderFuture);
     }
 
 }
