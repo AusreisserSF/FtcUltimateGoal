@@ -53,6 +53,7 @@ public class FTCAuto {
     private VuforiaLocalizer vuforiaLocalizer;
     private VumarkReader vumarkReader;
 
+    private final RobotConfigXML configXML;
     private final RobotActionXML actionXML;
     private final XPathFactory xpathFactory = XPathFactory.newInstance();
     private final XPath xpath = xpathFactory.newXPath();
@@ -106,8 +107,11 @@ public class FTCAuto {
         robot = new LCHSRobot(linearOpMode);
         robot.initializeIMU();
 
-        // Read the robot action file for all opmodes.
+        // Read the robot configuration file.
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
+        configXML = new RobotConfigXML(xmlDirectory);
+
+        // Read the robot action file for all opmodes.
         actionXML = new RobotActionXML(xmlDirectory);
         Level minLogLevel = actionXML.getMinimumLoggingLevel();
         if (minLogLevel != null) // null means use the default
@@ -149,7 +153,7 @@ public class FTCAuto {
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
     }
 
-    public void runRobot() throws XPathException, InterruptedException {
+    public void runRobot() throws XPathException, InterruptedException, IOException {
 
         RobotLogCommon.i(TAG, "At start");
         RobotLogCommon.i(TAG, "OpMode: " + autoOpMode + ", Alliance: " + alliance);
@@ -200,8 +204,15 @@ public class FTCAuto {
 
     // Using the XML elements ane attributes from the configuration file, RobotConfig.xml,
     // execute the command.
-    private void doCommand(RobotActionXML.CommandXML pCommand) throws InterruptedException, XPathException {
+    private void doCommand(RobotActionXML.CommandXML pCommand) throws InterruptedException, XPathException, IOException {
 
+        XPathAccess configXPath; // XPath access to elements in the configuration file
+
+        //** As needed in the commands below. Example:
+        //configXPath = configXML.getPath("WOBBLE_SERVO");
+        //String upDown = configXPath.getString("position");
+
+        // Set up XPath access to the current action command.
         XPathAccess commandXPath = new XPathAccess(xpath, pCommand.getCommandElement(), pCommand.getCommandId());
         String commandName = pCommand.getCommandId().toUpperCase();
         RobotLogCommon.d(TAG, "Executing FTCAuto command " + commandName);
