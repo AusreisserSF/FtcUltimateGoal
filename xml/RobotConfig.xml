@@ -1,0 +1,11 @@
+<RobotConfig>
+  <DEBUG_LEVEL>
+      <level>v</level>
+  </DEBUG_LEVEL>
+  <INIT_VUFORIA>
+      <init_value>yes</init_value>
+  </INIT_VUFORIA>
+  <WOBBLE_SERVO>
+    <position>down</position>
+  </WOBBLE_SERVO>
+</RobotConfig>
