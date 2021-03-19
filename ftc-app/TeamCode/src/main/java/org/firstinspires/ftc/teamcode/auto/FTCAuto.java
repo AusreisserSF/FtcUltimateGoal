@@ -429,21 +429,25 @@ public class FTCAuto {
                 if (vumarkReader == null)
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
-                Optional<Pair<Pose, String>> vumark = vumarkReader.getVumarkPose(1000);
-                if (!vumark.isPresent()) {
-                    RobotLogCommon.d(TAG, "Vumark is not visible");
-                    linearOpMode.telemetry.addData("Vumark ", "not visible");
-                    linearOpMode.telemetry.update();
-                } else {
-                    Pair<Pose, String> robotPoseAtVumark = vumark.get();
-                    RobotLogCommon.d(TAG, "Robot pose at Vumark " + robotPoseAtVumark.second);
-                    RobotLogCommon.d(TAG, "Pose x " + robotPoseAtVumark.first.x +
-                            ", y " + robotPoseAtVumark.first.y +
-                            ", angle " + robotPoseAtVumark.first.r);
+                Optional<Pair<Pose, String>> vumark;
+                for (int i = 0; i < 20; i++) {
+                    vumark = vumarkReader.getVumarkPose(1000);
+                    if (!vumark.isPresent()) {
+                        RobotLogCommon.d(TAG, "Vumark is not visible");
+                        linearOpMode.telemetry.addData("Vumark ", "not visible");
+                        linearOpMode.telemetry.update();
+                    } else {
+                        Pair<Pose, String> robotPoseAtVumark = vumark.get();
+                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + robotPoseAtVumark.second);
+                        RobotLogCommon.d(TAG, "Pose x " + robotPoseAtVumark.first.x +
+                                ", y " + robotPoseAtVumark.first.y +
+                                ", angle " + robotPoseAtVumark.first.r);
 
-                    linearOpMode.telemetry.addData("Vumark ", robotPoseAtVumark.first.x +
-                            ", " + robotPoseAtVumark.first.y + ", " + robotPoseAtVumark.first.r);
-                    linearOpMode.telemetry.update();
+                        linearOpMode.telemetry.addData("Vumark ", robotPoseAtVumark.first.x +
+                                ", " + robotPoseAtVumark.first.y + ", " + robotPoseAtVumark.first.r);
+                        linearOpMode.telemetry.update();
+                    }
+                    sleep(500);
                 }
                 break;
             }
