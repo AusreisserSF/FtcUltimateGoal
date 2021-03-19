@@ -2,12 +2,12 @@
     <image_parameters>
         <file>Image_03111514_4_rings_IMG.png</file>
         <resolution>
-            <width>640</width>
-            <height>360</height>
+            <width>800</width>
+            <height>448</height>
         </resolution>
         <image_roi>
-            <x>545</x>
-            <y>290</y>
+            <x>585</x>
+            <y>260</y>
             <width>200</width>
             <height>130</height>
         </image_roi>
@@ -16,9 +16,9 @@
         <hue_name>gold</hue_name>
         <hue_low>5</hue_low>
         <hue_high>30</hue_high>
-        <saturation_target>100</saturation_target>
-        <saturation_low_threshold>100</saturation_low_threshold>
-        <value_target>100</value_target>
+        <saturation_target>12</saturation_target>
+        <saturation_low_threshold>10</saturation_low_threshold>
+        <value_target>160</value_target>
         <value_low_threshold>120</value_low_threshold>
     </hsv_parameters>
     <size_parameters>
