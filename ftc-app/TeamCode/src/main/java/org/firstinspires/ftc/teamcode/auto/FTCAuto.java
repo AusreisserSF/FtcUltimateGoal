@@ -325,21 +325,27 @@ public class FTCAuto {
                 int waitTime = commandXPath.getInt("waitTime");
                 int margin = commandXPath.getInt("velocityMargin");
 
+                //optional parameters
+                double lifterPower = commandXPath.getDouble("lifterPower", 0);
+
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                 while (currentVelocity < shootVelocity - margin && currentVelocity > shootVelocity + margin) {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
-                sleep(1500);
+                sleep(2500);
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
+                robot.ringShooter.liftMotor.setPower(lifterPower);
                 sleep(waitTime);
                 robot.ringShooter.shootMotor.setVelocity(0);
                 robot.ringShooter.intakeMotor.setPower(0);
+                robot.ringShooter.liftMotor.setPower(0);
 
                 break;
             }
+
 
             case "INTAKE": {
                 int power = commandXPath.getInt("power");
@@ -348,6 +354,20 @@ public class FTCAuto {
                 sleep(time);
                 robot.ringShooter.intakeMotor.setPower(0);
                 break;
+            }
+
+            case "INTAKE_LIFTER": {
+
+                int intakePower = commandXPath.getInt("intakePower");
+                int intakeTime = commandXPath.getInt("intakeTime");
+                robot.ringShooter.intakeMotor.setPower(intakePower);
+                robot.ringShooter.liftMotor.setPower(intakePower);
+                sleep(intakeTime);
+                robot.ringShooter.intakeMotor.setPower(0);
+                robot.ringShooter.intakeMotor.setPower(0);
+
+                break;
+
             }
 
             // Use OpenCV to find the stack of rings and determine the Target Zone.
