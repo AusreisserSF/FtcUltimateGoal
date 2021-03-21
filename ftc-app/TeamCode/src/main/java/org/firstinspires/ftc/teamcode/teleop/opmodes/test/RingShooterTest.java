@@ -24,6 +24,7 @@ public class RingShooterTest extends TeleOpBase {
         robot.ringShooter.intakeMotor.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
         robot.ringShooter.liftMotor.setPower(gamepad1.left_stick_y);
         robot.ringShooter.shootMotor.setPower(gamepad1.right_stick_y);
+
     }
 
 }

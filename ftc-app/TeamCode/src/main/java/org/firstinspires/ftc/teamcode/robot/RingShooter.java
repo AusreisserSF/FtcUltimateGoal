@@ -10,7 +10,7 @@ public class RingShooter {
     public enum ServoState {
         REST(0.0),
         UP(0.9),
-        DOWN(0.6);
+        DOWN(0.5);
 
         private final double position;
         ServoState(double position) {

@@ -28,7 +28,8 @@ public class WobbleArm {
 
     public enum FlipState {
         REST(0),
-        OUT(-600),
+        OUT(-740),
+        INTAKE(-770),
         IN(0);
 
         private final int position;

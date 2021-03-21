@@ -264,7 +264,6 @@ public class FTCAuto {
 
                 break;
             }
-
             // A normalized turn, i.e. a turn from 0 to +-180 degrees, which will always be the
             // shortest distance from the current heading to the desired heading.
             case "TURN": {
@@ -302,9 +301,45 @@ public class FTCAuto {
                 break;
             }
 
+            case "PARK_WOBBLE_A": {
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.OUT);
+                robot.wobbleArm.waitForFlip();
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
+                break;
+            }
+
+            case "LOWER_WOBBLE_ARM": {
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.INTAKE);
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
+                break;
+            }
+
             case "CLOSE_WOBBLE_SERVO": {
                 robot.wobbleArm.setServoState(WobbleArm.ServoState.HOLD);
                 break;
+            }
+
+            case "NEUTRAL_WOBBLE_SERVO": {
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
+                break;
+            }
+
+            case "LIFT_WOBBLE_ARM": {
+                int waitTime = commandXPath.getInt("waitTime");
+                robot.wobbleArm.waitForFlip();
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.HOLD);
+                sleep(waitTime);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
+                break;
+            }
+
+            case "WAIT_TIME": {
+
+                int waitTime = commandXPath.getInt( "waitTime");
+                sleep(waitTime);
+
+                break;
+
             }
 
             case "ALIGN_TO_TOWER": {
@@ -345,7 +380,7 @@ public class FTCAuto {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
-                sleep(2500);
+                sleep(2500); //cahnge to 2500 if accuracy not there (too fast)
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(lifterPower);
@@ -357,6 +392,32 @@ public class FTCAuto {
                 break;
             }
 
+            case "VELOCITY_SHOOT": {
+                double shootVelocityWarren = commandXPath.getDouble("shootVelocityWarren");
+                double intakeVelocityWarren = commandXPath.getDouble("intakeVelocityWarren");
+                int waitTimeWarren = commandXPath.getInt("waitTimeWarren");
+                int marginWarren = commandXPath.getInt("velocityMarginWarren");
+
+                //optional parameters
+                double lifterVelocityWarren = commandXPath.getDouble("lifterVelocityWarren", 0);
+
+                robot.ringShooter.shootMotor.setVelocity(shootVelocityWarren);
+                double currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                while (currentVelocityWarren < shootVelocityWarren - marginWarren && currentVelocityWarren > shootVelocityWarren + marginWarren) {
+                    currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                    sleep(20);
+                }
+                sleep(2000); //cahnge to 2500 if accuracy not there (too fast)
+
+                robot.ringShooter.intakeMotor.setVelocity(intakeVelocityWarren);
+                robot.ringShooter.liftMotor.setVelocity(lifterVelocityWarren);
+                sleep(waitTimeWarren);
+                robot.ringShooter.shootMotor.setVelocity(0);
+                robot.ringShooter.intakeMotor.setVelocity(0);
+                robot.ringShooter.liftMotor.setVelocity(0);
+
+                break;
+            }
 
             case "INTAKE": {
                 int power = commandXPath.getInt("power");
@@ -369,7 +430,7 @@ public class FTCAuto {
 
             case "INTAKE_LIFTER": {
 
-                int intakePower = commandXPath.getInt("intakePower");
+                double intakePower = commandXPath.getDouble("intakePower");
                 int intakeTime = commandXPath.getInt("intakeTime");
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(intakePower);
