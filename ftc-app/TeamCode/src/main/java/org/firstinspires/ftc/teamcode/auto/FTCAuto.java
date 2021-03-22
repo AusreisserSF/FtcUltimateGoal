@@ -376,11 +376,10 @@ public class FTCAuto {
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                while (currentVelocity < shootVelocity - margin && currentVelocity > shootVelocity + margin) {
+                while (currentVelocity < shootVelocity) {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
-                sleep(2500); //cahnge to 2500 if accuracy not there (too fast)
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(lifterPower);
@@ -396,22 +395,37 @@ public class FTCAuto {
                 double shootVelocityWarren = commandXPath.getDouble("shootVelocityWarren");
                 double intakeVelocityWarren = commandXPath.getDouble("intakeVelocityWarren");
                 int waitTimeWarren = commandXPath.getInt("waitTimeWarren");
-                int marginWarren = commandXPath.getInt("velocityMarginWarren");
+                int dipWarren = commandXPath.getInt("shootVelocityDip");
 
                 //optional parameters
                 double lifterVelocityWarren = commandXPath.getDouble("lifterVelocityWarren", 0);
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocityWarren);
                 double currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
-                while (currentVelocityWarren < shootVelocityWarren - marginWarren && currentVelocityWarren > shootVelocityWarren + marginWarren) {
+                while (currentVelocityWarren < shootVelocityWarren) {
                     currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
-                sleep(2000); //cahnge to 2500 if accuracy not there (too fast)
 
                 robot.ringShooter.intakeMotor.setVelocity(intakeVelocityWarren);
                 robot.ringShooter.liftMotor.setVelocity(lifterVelocityWarren);
-                sleep(waitTimeWarren);
+
+                int shotCount = 0;
+                long timeout = System.currentTimeMillis() + waitTimeWarren;
+                while (System.currentTimeMillis() < timeout) {
+                    if (robot.ringShooter.shootMotor.getVelocity() < dipWarren) {
+                        if (++shotCount == 3)
+                            break;
+
+                        // Get back up to speed
+                        currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                        while (currentVelocityWarren < shootVelocityWarren) {
+                            currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                            sleep(20);
+                        }
+                    }
+                }
+
                 robot.ringShooter.shootMotor.setVelocity(0);
                 robot.ringShooter.intakeMotor.setVelocity(0);
                 robot.ringShooter.liftMotor.setVelocity(0);

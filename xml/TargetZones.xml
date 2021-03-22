@@ -57,12 +57,11 @@
         </PLACE_WOBBLE>
 
         <MOVE>
-          <distance>25.0</distance>
+          <distance>5.0</distance>
           <margin>1.0</margin>
-          <power>.5</power>
-          <direction>0</direction>
+          <power>1.0</power>
+          <direction>-  90</direction>
           <heading>0.0</heading>
-          <rampPercent>0.6</rampPercent>
           <pid>
             <p>0.05</p>
             <i>0.0</i>
@@ -71,12 +70,12 @@
         </MOVE>
 
         <MOVE>
-          <distance>5.0</distance>
+          <distance>25.0</distance>
           <margin>1.0</margin>
           <power>.5</power>
-          <direction>90</direction>
+          <direction>0</direction>
           <heading>0.0</heading>
-          <rampPercent>0.4</rampPercent>
+          <rampPercent>0.6</rampPercent>
           <pid>
             <p>0.05</p>
             <i>0.0</i>
@@ -100,7 +99,7 @@
           <shootVelocityWarren>1900</shootVelocityWarren>
           <intakeVelocityWarren>1800</intakeVelocityWarren>
           <waitTimeWarren>4000</waitTimeWarren>
-          <velocityMarginWarren>10</velocityMarginWarren>
+          <shootVelocityDip>1800</shootVelocityDip>
         </VELOCITY_SHOOT>
 
         <TURN>
@@ -301,7 +300,7 @@
         </MOVE>
 
         <TURN>
-          <angle>11</angle>
+          <angle>9</angle>
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>3</margin>
@@ -313,10 +312,10 @@
         </TURN>
 
         <VELOCITY_SHOOT>
-          <shootVelocityWarren>2000</shootVelocityWarren>
-          <intakeVelocityWarren>2000</intakeVelocityWarren>
+          <shootVelocityWarren>1900</shootVelocityWarren>
+          <intakeVelocityWarren>1900</intakeVelocityWarren>
           <waitTimeWarren>3000</waitTimeWarren>
-          <velocityMarginWarren>10</velocityMarginWarren>
+          <shootVelocityDip>1800</shootVelocityDip>
         </VELOCITY_SHOOT>
 
 
@@ -337,10 +336,10 @@
         <MOVE>
           <intakePower>1.0</intakePower>
           <lifterPower>1.0</lifterPower>
-          <rampPercent>0.4</rampPercent>
-          <distance>20.0</distance>
+          <rampPercent>0.8</rampPercent>
+          <distance>18.0</distance>
           <margin>1.0</margin>
-          <power>.3</power>
+          <power>.5</power>
           <direction>0.0</direction>
           <heading>0.0</heading>
           <pid>
@@ -473,7 +472,7 @@
         <intakeVelocityWarren>2000</intakeVelocityWarren>
         <lifterVelocityWarren>2000</lifterVelocityWarren>
         <waitTimeWarren>3000</waitTimeWarren>
-        <velocityMarginWarren>10</velocityMarginWarren>
+        <shootVelocityDip>1800</shootVelocityDip>
       </VELOCITY_SHOOT>
 
       <TURN>
@@ -637,8 +636,8 @@
         <shootVelocityWarren>2000</shootVelocityWarren>        <!--New shoot code, based on velocity for intake made by warren and harold-->
         <intakeVelocityWarren>2000</intakeVelocityWarren>
         <lifterVelocityWarren>2000</lifterVelocityWarren>
-        <waitTimeWarren>5000</waitTimeWarren>
-        <velocityMarginWarren>10</velocityMarginWarren>
+        <waitTimeWarren>3000</waitTimeWarren>
+       <shootVelocityDip>1800</shootVelocityDip>
       </VELOCITY_SHOOT>
 
       <TURN>
@@ -759,8 +758,8 @@
         <shootVelocityWarren>2000</shootVelocityWarren>        <!--New shoot code, based on velocity for intake made by warren and harold-->
         <intakeVelocityWarren>2000</intakeVelocityWarren>
         <lifterVelocityWarren>2000</lifterVelocityWarren>
-        <waitTimeWarren>5000</waitTimeWarren>
-        <velocityMarginWarren>10</velocityMarginWarren>
+        <waitTimeWarren>3000</waitTimeWarren>
+        <shootVelocityDip>1800</shootVelocityDip>
       </VELOCITY_SHOOT>
 
       <MOVE>
