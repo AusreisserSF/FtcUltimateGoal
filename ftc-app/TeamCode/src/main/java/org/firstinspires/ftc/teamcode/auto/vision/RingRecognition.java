@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.vision;
 
 //!! Android only
 
+import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.opencv.android.OpenCVLoader;
 
 import org.firstinspires.ftc.ftcdevcommon.CommonUtils;
@@ -57,6 +58,13 @@ public class RingRecognition {
         RobotLogCommon.d(TAG, "Writing original image " + imageFilename);
         Imgcodecs.imwrite(imageFilename, imgOriginal);
 
+        RobotLogCommon.d(TAG, "Image width " + imgOriginal.cols() + ", height " + imgOriginal.rows());
+        if ((imgOriginal.cols() != pRingParameters.imageParameters.resolution_width) ||
+                (imgOriginal.rows() != pRingParameters.imageParameters.resolution_height))
+            throw new AutonomousRobotException(TAG,
+                    "Mismatch between actual image width and expected image width " + pRingParameters.imageParameters.resolution_width +
+                            ", height " + pRingParameters.imageParameters.resolution_height);
+
         // Crop the image to reduce distractions.
         Mat imageROI = imageUtils.getImageROI(imgOriginal, pRingParameters.imageParameters.image_roi);
         imageFilename = outputFilenamePreamble + "_ROI.png";
@@ -77,6 +85,17 @@ public class RingRecognition {
         int goldValHigh = 255;
         RobotLogCommon.d(TAG, "Target hue levels: low " + goldHueLow + ", high " + goldHueHigh);
 
+        // Adjust saturation and value to the target levels.
+        Mat adjusted = imageUtils.adjustSaturationAndValue(hsvROI, goldSatTarget, goldValTarget);
+        RobotLogCommon.d(TAG, "Adjusted image levels: saturation low " + goldSatTarget + ", value low " + goldValTarget);
+
+        // Convert back to BGR.
+        //## This debugging step will not be needed in production.
+        //Mat adjustedBGR = new Mat();
+        //Imgproc.cvtColor(adjusted, adjustedBGR, Imgproc.COLOR_HSV2BGR);
+        //Imgcodecs.imwrite(outputFilenamePreamble + "_ADJ.png", adjustedBGR);
+        //RobotLogCommon.d(TAG, "Writing " + outputFilenamePreamble + "_ADJ.png");
+
         // Use inRange to threshold to binary.
         Mat thresholded = new Mat();
         int inRangeSatLow = pRingParameters.hsvParameters.saturation_low_threshold;
@@ -84,9 +103,9 @@ public class RingRecognition {
         RobotLogCommon.d(TAG, "Actual inRange HSV levels: hue low " + goldHueLow + ", hue high " + goldHueHigh);
         RobotLogCommon.d(TAG, "Actual inRange HSV levels: saturation low " + inRangeSatLow + ", value low " + inrangeValLow);
 
-        Core.inRange(hsvROI, new Scalar(goldHueLow, inRangeSatLow, inrangeValLow), new Scalar(goldHueHigh, goldSatHigh, goldValHigh), thresholded);
-        Imgcodecs.imwrite(outputFilenamePreamble + "_HSV_THR.png", thresholded);
-        RobotLogCommon.d(TAG, "Writing " + outputFilenamePreamble + "_HSV_THR.png");
+        Core.inRange(adjusted, new Scalar(goldHueLow, inRangeSatLow, inrangeValLow), new Scalar(goldHueHigh, goldSatHigh, goldValHigh), thresholded);
+        Imgcodecs.imwrite(outputFilenamePreamble + "_ADJ_THR.png", thresholded);
+        RobotLogCommon.d(TAG, "Writing " + outputFilenamePreamble + "_ADJ_THR.png");
 
         // Instead of trying to find contours, just count the number of white pixels,
         // which are those that are in range for the gold color.
