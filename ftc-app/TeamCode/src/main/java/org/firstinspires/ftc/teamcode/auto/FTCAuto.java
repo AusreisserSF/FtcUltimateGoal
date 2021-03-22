@@ -228,10 +228,12 @@ public class FTCAuto {
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
+
                 // optional parameters
                 double intakePower = commandXPath.getDouble("intakePower", 0);
                 double lifterPower = commandXPath.getDouble("lifterPower", 0);
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
+
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(lifterPower);
@@ -258,6 +260,7 @@ public class FTCAuto {
                     drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                     robot.driveTrain.drive(drivePose, power * rampPower);
                 }
+
                 robot.driveTrain.stop();
                 robot.ringShooter.intakeMotor.setPower(0);
                 robot.ringShooter.liftMotor.setPower(0);
@@ -367,12 +370,13 @@ public class FTCAuto {
 
             case "SHOOT": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
-                double intakePower = commandXPath.getDouble("intakePower");
+                double intakeVelocity = commandXPath.getDouble("intakeVelocity");
                 int waitTime = commandXPath.getInt("waitTime");
-                int margin = commandXPath.getInt("velocityMargin");
+                int dip = commandXPath.getInt("shootVelocityDip");
 
                 //optional parameters
-                double lifterPower = commandXPath.getDouble("lifterPower", 0);
+                double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
+                int maxShotCount = commandXPath.getInt("maxShotCount",3);
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
@@ -381,48 +385,27 @@ public class FTCAuto {
                     sleep(20);
                 }
 
-                robot.ringShooter.intakeMotor.setPower(intakePower);
-                robot.ringShooter.liftMotor.setPower(lifterPower);
-                sleep(waitTime);
-                robot.ringShooter.shootMotor.setVelocity(0);
-                robot.ringShooter.intakeMotor.setPower(0);
-                robot.ringShooter.liftMotor.setPower(0);
-
-                break;
-            }
-
-            case "VELOCITY_SHOOT": {
-                double shootVelocityWarren = commandXPath.getDouble("shootVelocityWarren");
-                double intakeVelocityWarren = commandXPath.getDouble("intakeVelocityWarren");
-                int waitTimeWarren = commandXPath.getInt("waitTimeWarren");
-                int dipWarren = commandXPath.getInt("shootVelocityDip");
-
-                //optional parameters
-                double lifterVelocityWarren = commandXPath.getDouble("lifterVelocityWarren", 0);
-
-                robot.ringShooter.shootMotor.setVelocity(shootVelocityWarren);
-                double currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
-                while (currentVelocityWarren < shootVelocityWarren) {
-                    currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
-                    sleep(20);
-                }
-
-                robot.ringShooter.intakeMotor.setVelocity(intakeVelocityWarren);
-                robot.ringShooter.liftMotor.setVelocity(lifterVelocityWarren);
+                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
 
                 int shotCount = 0;
-                long timeout = System.currentTimeMillis() + waitTimeWarren;
+                long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
-                    if (robot.ringShooter.shootMotor.getVelocity() < dipWarren) {
-                        if (++shotCount == 3)
+                    if (robot.ringShooter.shootMotor.getVelocity() < dip) {
+                        if (++shotCount == maxShotCount)
                             break;
+                        robot.ringShooter.intakeMotor.setVelocity(0);
+                        sleep(100);
+
 
                         // Get back up to speed
-                        currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
-                        while (currentVelocityWarren < shootVelocityWarren) {
-                            currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                        currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                        while (currentVelocity < shootVelocity) {
+                            currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                             sleep(20);
                         }
+                        robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                        robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                     }
                 }
 
@@ -444,10 +427,22 @@ public class FTCAuto {
 
             case "INTAKE_LIFTER": {
 
+                int dip = 500;
                 double intakePower = commandXPath.getDouble("intakePower");
                 int intakeTime = commandXPath.getInt("intakeTime");
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(intakePower);
+
+                while (System.currentTimeMillis() < intakeTime) {
+                    if (robot.ringShooter.intakeMotor.getVelocity() < dip) {
+
+                        robot.ringShooter.intakeMotor.setPower(-1);
+                        robot.ringShooter.liftMotor.setPower(-1);
+                        sleep(500);
+
+                    }
+                }
+
                 sleep(intakeTime);
                 robot.ringShooter.intakeMotor.setPower(0);
                 robot.ringShooter.intakeMotor.setPower(0);
@@ -531,7 +526,6 @@ public class FTCAuto {
                 Pose targetPose = AutoCommandXML.getPose(commandXPath, "target");
                 Pose marginPose = AutoCommandXML.getPose(commandXPath, "margin");
                 double power = commandXPath.getDouble("power", 1.0);
-                double minPower = commandXPath.getDouble("minpower", 0.2);
                 PIDController xPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.x, "x");
                 PIDController yPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.y, "y");
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.r, "r");
@@ -542,26 +536,33 @@ public class FTCAuto {
                 Optional<Pair<Pose, String>> vumark = vumarkReader.getVumarkPose(1000);
                 if (vumark.isPresent()) {
 
-                    // ignore squiggly; vuforia's x is robot's y
-                    Pose currentPose = new Pose(vumark.get().first.y, vumark.get().first.x, vumark.get().first.r);
+                    Pose currentPose = new Pose(vumark.get().first.x, vumark.get().first.y, robot.imu.getIntegratedHeading().getDegrees());
                     Pose diffPose = currentPose.subtract(targetPose);
 
-                    while (Math.abs(diffPose.x) > marginPose.x && Math.abs(diffPose.y) > marginPose.y && Math.abs(diffPose.r) > marginPose.r) {
+                    linearOpMode.telemetry.setAutoClear(true);
+                    while (Math.abs(diffPose.x) > marginPose.x || Math.abs(diffPose.y) > marginPose.y || Math.abs(diffPose.r) > marginPose.r) {
                         Pose drivePose = new Pose();
-                        drivePose.x = LCHSMath.clipPower(xPIDController.getCorrectedOutput(diffPose.x), minPower);
-                        drivePose.y = LCHSMath.clipPower(yPIDController.getCorrectedOutput(diffPose.y), minPower);
+                        // vuforia's x is robot's y
+                        drivePose.y = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
+                        drivePose.x = LCHSMath.clipPower(yPIDController.getCorrectedOutput(currentPose.y));
                         drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
                         robot.driveTrain.drive(drivePose, power);
 
-                        RobotLogCommon.d(TAG, currentPose.toString());
-                        linearOpMode.telemetry.addData("vumark", currentPose.toString());
+                        RobotLogCommon.d("currentPose", currentPose.toString());
+                        RobotLogCommon.d("diffPose", diffPose.toString());
+                        RobotLogCommon.d("drivePose", drivePose.toString());
+
+                        linearOpMode.telemetry.addData("currentPose", currentPose.toString(",\t"));
+                        linearOpMode.telemetry.addData("diffPose", diffPose.toString(",\t"));
+                        linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
                         linearOpMode.telemetry.update();
 
                         Optional<Pair<Pose, String>> newVumark = vumarkReader.getVumarkPose(1000);
                         if (newVumark.isPresent())
                             vumark = newVumark;
-                        currentPose = new Pose(vumark.get().first.y, vumark.get().first.x, vumark.get().first.r);
+                        currentPose = new Pose(vumark.get().first.x, vumark.get().first.y, robot.imu.getIntegratedHeading().getDegrees());
                         diffPose = currentPose.subtract(targetPose);
+                        sleep(20);
                     }
                 } else {
                     RobotLogCommon.d(TAG, "Vumark not present");

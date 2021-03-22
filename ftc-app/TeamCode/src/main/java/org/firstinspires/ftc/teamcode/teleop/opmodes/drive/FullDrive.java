@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm.ServoState;
 import org.firstinspires.ftc.teamcode.teleop.utility.Button;
 
+import static android.os.SystemClock.sleep;
+
 @TeleOp(group="Drive")
 //@Disabled
 public class FullDrive extends BaseDrive {
@@ -17,7 +19,7 @@ public class FullDrive extends BaseDrive {
     private final Button wobbleRestPosition = new Button();
     private final Button ringPowerShotButton = new Button();
     private final Button wobbleFlipButton = new Button();
-    private final Button intakePower = new Button();
+    private final Button highGoalButton = new Button();
 
 
     @Override
@@ -59,8 +61,8 @@ public class FullDrive extends BaseDrive {
     private void updatePlayerTwo() {
         gateServoButton.update(gamepad2.y);
         wobbleFlipButton.update(gamepad2.b);
-        intakePower.update(gamepad2.x);
         ringPowerShotButton.update(gamepad2.a);
+        highGoalButton.update(gamepad2.x);
 
 
         robot.ringShooter.shootMotor.setPower(gamepad2.right_stick_y);
@@ -74,6 +76,43 @@ public class FullDrive extends BaseDrive {
             }
         }
 
+        if (highGoalButton.is(Button.State.TAP)) {
+
+            double shootVelocityWarren = 2000;
+            double intakeVelocityWarren = 2000;
+            int dipWarren = 1800;
+            double lifterVelocityWarren = 2000;
+
+            robot.ringShooter.shootMotor.setVelocity(shootVelocityWarren);
+            double currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+            while (currentVelocityWarren < shootVelocityWarren) {
+                currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                sleep(20);
+
+
+                robot.ringShooter.intakeMotor.setVelocity(intakeVelocityWarren);
+                robot.ringShooter.liftMotor.setVelocity(lifterVelocityWarren);
+
+                if (robot.ringShooter.shootMotor.getVelocity() < dipWarren) {
+                    robot.ringShooter.intakeMotor.setVelocity(0);
+                    sleep(200);
+
+
+                    // Get back up to speed
+                    currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                    while (currentVelocityWarren < shootVelocityWarren) {
+                        currentVelocityWarren = robot.ringShooter.shootMotor.getVelocity();
+                        sleep(20);
+                    }
+                    robot.ringShooter.intakeMotor.setVelocity(intakeVelocityWarren);
+                    robot.ringShooter.liftMotor.setVelocity(lifterVelocityWarren);
+                }
+            }
+
+            robot.ringShooter.shootMotor.setVelocity(0);
+            robot.ringShooter.intakeMotor.setVelocity(0);
+            robot.ringShooter.liftMotor.setVelocity(0);
+        }
 
 
         if (gateServoButton.is(Button.State.TAP)) {
@@ -87,23 +126,23 @@ public class FullDrive extends BaseDrive {
 
 
         /**
-        double intakePower = (gamepad2.dpad_right ? 1 : 0) - (gamepad2.dpad_left ? 1 : 0);
-        robot.ringShooter.intakeMotor.setVelocity(intakePower);
-        robot.ringShooter.liftMotor.setVelocity(intakePower);
-        **/
+         double intakePower = (gamepad2.dpad_right ? 1 : 0) - (gamepad2.dpad_left ? 1 : 0);
+         robot.ringShooter.intakeMotor.setVelocity(intakePower);
+         robot.ringShooter.liftMotor.setVelocity(intakePower);
+         **/
 
 
         /**
-        if (testIntakeVelocity.is(Button.State.TAP)){
+         if (testIntakeVelocity.is(Button.State.TAP)){
 
-            robot.ringShooter.intakeMotor.setVelocity()
+         robot.ringShooter.intakeMotor.setVelocity()
 
-        }
-**/
+         }
+         **/
 
         //robot.wobbleArm.flipMotor.setPower(gamepad2.left_stick_y * 0.5);
 
-        if(wobbleFlipButton.is(Button.State.TAP)){
+        if (wobbleFlipButton.is(Button.State.TAP)) {
             robot.wobbleArm.setFlipState(robot.wobbleArm.getFlipState() == WobbleArm.FlipState.IN ? WobbleArm.FlipState.INTAKE : WobbleArm.FlipState.IN);
         }
     }
@@ -114,6 +153,7 @@ public class FullDrive extends BaseDrive {
         telemetry.addData("intake velocity", robot.ringShooter.intakeMotor.getVelocity());
         telemetry.update();
     }
+
 
 
 }

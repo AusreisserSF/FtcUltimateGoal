@@ -217,7 +217,7 @@ public class VumarkReader {
             }
 
             if (!waitVal || (now >= deadline)) {
-                RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
+//                RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
                 return Optional.empty();
             }
 
@@ -237,7 +237,7 @@ public class VumarkReader {
             lastLocation = null;
             vumarkInformationAvailable = false;
             vumarkLock.unlock();
-            RobotLogCommon.d(TAG, "Exiting getRobotLocationFromVumark");
+//            RobotLogCommon.d(TAG, "Exiting getRobotLocationFromVumark");
         }
     }
 
