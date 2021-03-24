@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
 
+import static android.os.SystemClock.sleep;
+
 // Use this dispatcher class to place the launching of LCHSAuto and all of the error
 // handling in one place.
 public class LCHSAutoDispatch {
@@ -27,6 +29,7 @@ public class LCHSAutoDispatch {
 
             // Possible fix to disconnecting phone; send telemetry (see ftc github troubleshooting)
             //waitForStart();
+            sleep(1500); // Delay for the C920 camera to deliver a few frames
             while (!pLinear.opModeIsActive() && !pLinear.isStopRequested()) {
                 pLinear.telemetry.addData(TAG, "Waiting for start ...");
                 pLinear.telemetry.update();
@@ -69,7 +72,7 @@ public class LCHSAutoDispatch {
                 pLinear.telemetry.addData(TAG + " fatal error", arx.getMessage());
                 pLinear.telemetry.update();
                 pLinear.telemetry.clearAll(); // do not repeat the message
-                android.os.SystemClock.sleep(1000);
+                sleep(1000);
             }
         } catch (Exception ex) {
             RobotLogCommon.d(TAG, ex.getMessage());
@@ -77,7 +80,7 @@ public class LCHSAutoDispatch {
                 pLinear.telemetry.addData(TAG + " fatal Exception", ex.getMessage());
                 pLinear.telemetry.update();
                 pLinear.telemetry.clearAll(); // do not repeat the message
-                android.os.SystemClock.sleep(1000);
+                sleep(1000);
             }
         } finally {
             RobotLogCommon.closeLog();

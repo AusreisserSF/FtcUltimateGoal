@@ -395,6 +395,7 @@ public class FTCAuto {
                         if (++shotCount == maxShotCount)
                             break;
                         robot.ringShooter.intakeMotor.setVelocity(0);
+                        robot.ringShooter.liftMotor.setVelocity(0);
                         sleep(100);
 
 
@@ -403,6 +404,60 @@ public class FTCAuto {
                         while (currentVelocity < shootVelocity) {
                             currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                             sleep(20);
+                        }
+                        robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                        robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                    }
+                }
+
+
+                break;
+            }
+
+            case "SHOOT_B": {
+                double shootVelocity = commandXPath.getDouble("shootVelocity");
+                double intakeVelocity = commandXPath.getDouble("intakeVelocity");
+                int waitTime = commandXPath.getInt("waitTime");
+                int dip = commandXPath.getInt("shootVelocityDip");
+
+                //optional parameters
+                double lifterVelocity = 2500;
+                int maxShotCount = commandXPath.getInt("maxShotCount",3);
+
+                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+
+                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
+                double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                while (currentVelocity < shootVelocity) {
+                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                    sleep(20);
+                }
+
+                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                robot.ringShooter.setServoState(RingShooter.ServoState.DOWN);
+                robot.ringShooter.intakeMotor.setVelocity(0);
+                sleep(100);
+                robot.ringShooter.intakeMotor.setVelocity(2000);
+
+                int shotCount = 0;
+                long timeout = System.currentTimeMillis() + waitTime;
+                while (System.currentTimeMillis() < timeout) {
+                    if (robot.ringShooter.shootMotor.getVelocity() < dip) {
+                        if (++shotCount == maxShotCount)
+                            break;
+                        robot.ringShooter.intakeMotor.setVelocity(0);
+                        robot.ringShooter.liftMotor.setVelocity(0);
+                        sleep(100);
+
+
+                        // Get back up to speed
+                        currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                        while (currentVelocity < shootVelocity) {
+                            currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                            sleep(20);
+
                         }
                         robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                         robot.ringShooter.liftMotor.setVelocity(lifterVelocity);

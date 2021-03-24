@@ -32,10 +32,11 @@
 
     </OpMode>
     <OpMode id="TEST">
-        <RECOGNIZE_RINGS>
+
+        <!-- <RECOGNIZE_RINGS>
              <ocv_image_provider>vuforia</ocv_image_provider>
         </RECOGNIZE_RINGS>
-        <CLOSE_WEBCAM/>
+        <CLOSE_WEBCAM/> -->
 <!-- 
         <ACTIVATE_VUMARK_READER/>
         <SLEEP>
@@ -45,7 +46,7 @@
         <DEACTIVATE_VUMARK_READER/>
         <CLOSE_WEBCAM/> -->
 
-        <!-- <ACTIVATE_VUMARK_READER/>
+        <ACTIVATE_VUMARK_READER/>
          <SLEEP>
             <ms>1000</ms>
         </SLEEP>
@@ -78,7 +79,7 @@
           </r_pid>
         </MOVE_WITH_VUMARK>
         <DEACTIVATE_VUMARK_READER/>
-        <CLOSE_WEBCAM/> -->
+        <CLOSE_WEBCAM/>
             
      </OpMode>
 </RobotAction>

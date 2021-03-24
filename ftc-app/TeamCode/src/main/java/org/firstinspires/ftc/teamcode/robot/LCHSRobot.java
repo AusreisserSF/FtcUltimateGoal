@@ -4,16 +4,23 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.auto.RobotConstants;
+import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
 import org.firstinspires.ftc.teamcode.hardware.imu.OptimizedIMU;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class LCHSRobot {
 
     private static LCHSRobot instance;
 
-    public static LCHSRobot newInstance(LinearOpMode opMode) {
+    public static LCHSRobot newInstance(LinearOpMode opMode) throws ParserConfigurationException, SAXException, IOException {
         instance = new LCHSRobot(opMode);
         return instance;
     }
@@ -34,15 +41,20 @@ public class LCHSRobot {
     private static final String TAG = "LCHSRobot";
 
 
-    public LCHSRobot(LinearOpMode opMode) {
+    public LCHSRobot(LinearOpMode opMode) throws IOException, SAXException, ParserConfigurationException {
+
+        String workingDirectory = WorkingDirectory.getWorkingDirectory();
+        String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
+        RobotConfigXML configXML = new RobotConfigXML(xmlDirectory);
+
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
 
        webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         driveTrain = new DriveTrain(hardwareMap);
-        wobbleArm = new WobbleArm(hardwareMap);
-        ringShooter = new RingShooter(hardwareMap);
+        wobbleArm = new WobbleArm(hardwareMap, configXML);
+        ringShooter = new RingShooter(hardwareMap, configXML);
     }
 
     public void initializeIMU() {

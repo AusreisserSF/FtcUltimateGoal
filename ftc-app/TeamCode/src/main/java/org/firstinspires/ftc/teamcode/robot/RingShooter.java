@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
 import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
 import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
 
@@ -29,7 +30,7 @@ public class RingShooter {
 
     private ServoState gateState;
 
-    RingShooter(HardwareMap hardwareMap) {
+    RingShooter(HardwareMap hardwareMap, RobotConfigXML config) {
         intakeMotor = new CachingMotorEx(hardwareMap, "intake");
         liftMotor = new CachingMotorEx(hardwareMap, "lift");
         shootMotor = new CachingMotorEx(hardwareMap, "shoot");

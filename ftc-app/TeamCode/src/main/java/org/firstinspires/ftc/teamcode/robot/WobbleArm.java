@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
 import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
 import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
 
@@ -50,9 +51,11 @@ public class WobbleArm {
     private ServoState servoState;
     private FlipState flipState;
 
-    WobbleArm(HardwareMap hardwareMap) {
+    WobbleArm(HardwareMap hardwareMap, RobotConfigXML configXML) {
         flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
         servo = new CachingServo(hardwareMap, "wobble servo");
+
+        configXML.getPath("servo");
     }
 
     public ServoState getServoState() {
