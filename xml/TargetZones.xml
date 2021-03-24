@@ -1,4 +1,4 @@
-<TargetZones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='TargetZones.xsd'>
+<TargetZones>
   <OpMode id="TEST">
     <opmode_target_zones>
       <TARGET_ZONE_A>
