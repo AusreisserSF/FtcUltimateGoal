@@ -391,13 +391,17 @@ public class FTCAuto {
                 int shotCount = 0;
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
-                    if (robot.ringShooter.shootMotor.getVelocity() < dip) {
-                        if (++shotCount == maxShotCount)
+                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                    if (currentVelocity < dip) {
+                        shotCount++;
+                        RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
+                        RobotLogCommon.d(TAG, "Shot count " + shotCount);
+                        if (shotCount == maxShotCount)
                             break;
+
                         robot.ringShooter.intakeMotor.setVelocity(0);
                         robot.ringShooter.liftMotor.setVelocity(0);
                         sleep(100);
-
 
                         // Get back up to speed
                         currentVelocity = robot.ringShooter.shootMotor.getVelocity();
@@ -405,12 +409,15 @@ public class FTCAuto {
                             currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                             sleep(20);
                         }
+
                         robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                         robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                     }
                 }
 
-
+                robot.ringShooter.shootMotor.setVelocity(0);
+                robot.ringShooter.intakeMotor.setVelocity(0);
+                robot.ringShooter.liftMotor.setVelocity(0);
                 break;
             }
 
@@ -426,16 +433,14 @@ public class FTCAuto {
 
                 robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                 robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
-
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
+
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                 while (currentVelocity < shootVelocity) {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
 
-                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                 robot.ringShooter.setServoState(RingShooter.ServoState.DOWN);
                 robot.ringShooter.intakeMotor.setVelocity(0);
                 sleep(100);
@@ -444,21 +449,25 @@ public class FTCAuto {
                 int shotCount = 0;
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
-                    if (robot.ringShooter.shootMotor.getVelocity() < dip) {
-                        if (++shotCount == maxShotCount)
+                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                    if (currentVelocity < dip) {
+                        shotCount++;
+                        RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
+                        RobotLogCommon.d(TAG, "Shot count " + shotCount);
+                        if (shotCount == maxShotCount)
                             break;
+
                         robot.ringShooter.intakeMotor.setVelocity(0);
                         robot.ringShooter.liftMotor.setVelocity(0);
                         sleep(100);
-
 
                         // Get back up to speed
                         currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                         while (currentVelocity < shootVelocity) {
                             currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                             sleep(20);
-
                         }
+
                         robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                         robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                     }
@@ -467,7 +476,6 @@ public class FTCAuto {
                 robot.ringShooter.shootMotor.setVelocity(0);
                 robot.ringShooter.intakeMotor.setVelocity(0);
                 robot.ringShooter.liftMotor.setVelocity(0);
-
                 break;
             }
 
@@ -564,12 +572,11 @@ public class FTCAuto {
                     } else {
                         Pair<Pose, String> robotPoseAtVumark = vumark.get();
                         RobotLogCommon.d(TAG, "Robot pose at Vumark " + robotPoseAtVumark.second);
-                        RobotLogCommon.d(TAG, "Pose x " + robotPoseAtVumark.first.x +
-                                ", y " + robotPoseAtVumark.first.y +
-                                ", angle " + robotPoseAtVumark.first.r);
+                        String poseString = String.format("Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                                robotPoseAtVumark.first.x, robotPoseAtVumark.first.y, robotPoseAtVumark.first.r);
+                        RobotLogCommon.d(TAG, poseString);
 
-                        linearOpMode.telemetry.addData("Vumark ", robotPoseAtVumark.first.x +
-                                ", " + robotPoseAtVumark.first.y + ", " + robotPoseAtVumark.first.r);
+                        linearOpMode.telemetry.addData("Vumark ", poseString);
                         linearOpMode.telemetry.update();
                     }
                     sleep(500);
