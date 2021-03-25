@@ -44,7 +44,7 @@
         <DEACTIVATE_VUMARK_READER/>
         <CLOSE_WEBCAM/> -->
 
-        <ACTIVATE_VUMARK_READER/>
+        <!-- <ACTIVATE_VUMARK_READER/>
          <SLEEP>
             <ms>1000</ms>
         </SLEEP>
@@ -77,7 +77,22 @@
           </r_pid>
         </MOVE_WITH_VUMARK>
         <DEACTIVATE_VUMARK_READER/>
-        <CLOSE_WEBCAM/>
+        <CLOSE_WEBCAM/> -->
+
+        
+        <MOVE>
+          <distance>52.0</distance>
+          <margin>1.0</margin>
+          <power>.75</power>
+          <direction>-15</direction>
+          <heading>0.0</heading>
+          <rampPercent>0.75</rampPercent>
+          <pid>
+            <p>0.05</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </MOVE>
             
      </OpMode>
 </RobotAction>

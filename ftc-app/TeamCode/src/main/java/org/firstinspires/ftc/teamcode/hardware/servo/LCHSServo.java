@@ -5,17 +5,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 
-public class CachingServo implements Servo {
+public class LCHSServo implements Servo {
     private final Servo delegate;
     private double cachedPosition;
     private final String name;
 
-    public CachingServo(HardwareMap hardwareMap, String name) {
+    public LCHSServo(HardwareMap hardwareMap,  String name) {
         this.name = name;
         this.delegate = hardwareMap.servo.get(name);
     }
 
-    public CachingServo(Servo delegate) {
+    public LCHSServo(Servo delegate) {
         this.delegate = delegate;
         name = delegate.getDeviceName();
     }

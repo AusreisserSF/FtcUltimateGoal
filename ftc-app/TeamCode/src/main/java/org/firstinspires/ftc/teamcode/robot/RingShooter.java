@@ -4,14 +4,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
 import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
-import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
+import org.firstinspires.ftc.teamcode.hardware.servo.LCHSServo;
 
 public class RingShooter {
 
     public enum ServoState {
         REST(0.0),
         UP(0.9),
-        DOWN(0.5);
+        DOWN(0.6);
 
         private final double position;
         ServoState(double position) {
@@ -26,7 +26,7 @@ public class RingShooter {
     public CachingMotorEx intakeMotor;
     public CachingMotorEx liftMotor;
     public CachingMotorEx shootMotor;
-    public CachingServo gateServo;
+    public LCHSServo gateServo;
 
     private ServoState gateState;
 
@@ -34,7 +34,7 @@ public class RingShooter {
         intakeMotor = new CachingMotorEx(hardwareMap, "intake");
         liftMotor = new CachingMotorEx(hardwareMap, "lift");
         shootMotor = new CachingMotorEx(hardwareMap, "shoot");
-        gateServo = new CachingServo(hardwareMap, "gate");
+        gateServo = new LCHSServo(hardwareMap, "gate");
     }
 
     public void shootPowerShot() {

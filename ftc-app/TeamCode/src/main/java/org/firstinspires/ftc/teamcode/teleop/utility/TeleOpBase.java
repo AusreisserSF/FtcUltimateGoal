@@ -25,15 +25,7 @@ public abstract class TeleOpBase extends LinearOpMode {
         telemetry.addData("Initializing...", "Please wait until complete");
         telemetry.update();
 
-        try {
-            robot = LCHSRobot.newInstance(this);
-        } catch (ParserConfigurationException pex) {
-            throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());
-        } catch (SAXException sx) {
-            throw new AutonomousRobotException(TAG, "SAX Exception " + sx.getMessage());
-        } catch (IOException iex) {
-            throw new AutonomousRobotException(TAG, "IOException " + iex.getMessage());
-        }
+        robot = LCHSRobot.newInstance(this);
 
         initialize();
 

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.RobotConstants;
@@ -20,7 +21,7 @@ public class LCHSRobot {
 
     private static LCHSRobot instance;
 
-    public static LCHSRobot newInstance(LinearOpMode opMode) throws ParserConfigurationException, SAXException, IOException {
+    public static LCHSRobot newInstance(LinearOpMode opMode) throws AutonomousRobotException {
         instance = new LCHSRobot(opMode);
         return instance;
     }
@@ -34,6 +35,8 @@ public class LCHSRobot {
     public WebcamName webcam1Name;
     public OptimizedIMU imu;
 
+    public RobotConfigXML configXML;
+
     public DriveTrain driveTrain;
     public WobbleArm wobbleArm;
     public RingShooter ringShooter;
@@ -41,11 +44,20 @@ public class LCHSRobot {
     private static final String TAG = "LCHSRobot";
 
 
-    public LCHSRobot(LinearOpMode opMode) throws IOException, SAXException, ParserConfigurationException {
+    public LCHSRobot(LinearOpMode opMode) throws AutonomousRobotException {
 
         String workingDirectory = WorkingDirectory.getWorkingDirectory();
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
-        RobotConfigXML configXML = new RobotConfigXML(xmlDirectory);
+
+        try {
+            configXML = new RobotConfigXML(xmlDirectory);
+        } catch (ParserConfigurationException pex) {
+            throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());
+        } catch (SAXException sx) {
+            throw new AutonomousRobotException(TAG, "SAX Exception " + sx.getMessage());
+        } catch (IOException iex) {
+            throw new AutonomousRobotException(TAG, "IOException " + iex.getMessage());
+        }
 
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;

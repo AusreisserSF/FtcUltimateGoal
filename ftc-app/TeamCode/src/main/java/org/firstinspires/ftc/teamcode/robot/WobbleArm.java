@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
 import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
-import org.firstinspires.ftc.teamcode.hardware.servo.CachingServo;
+import org.firstinspires.ftc.teamcode.hardware.servo.LCHSServo;
 
 import static android.os.SystemClock.sleep;
 
@@ -46,14 +46,14 @@ public class WobbleArm {
     public static final double FLIP_POWER_FACTOR = 0.6;
 
     public CachingMotorEx flipMotor;
-    public CachingServo servo;
+    public LCHSServo servo;
 
     private ServoState servoState;
     private FlipState flipState;
 
     WobbleArm(HardwareMap hardwareMap, RobotConfigXML configXML) {
         flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
-        servo = new CachingServo(hardwareMap, "wobble servo");
+        servo = new LCHSServo(hardwareMap, "wobble servo");
 
        //**TODO Not in the xml file!! configXML.getPath("servo");
     }

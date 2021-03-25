@@ -337,12 +337,9 @@ public class FTCAuto {
             }
 
             case "WAIT_TIME": {
-
                 int waitTime = commandXPath.getInt( "waitTime");
                 sleep(waitTime);
-
                 break;
-
             }
 
             case "ALIGN_TO_TOWER": {
@@ -490,23 +487,24 @@ public class FTCAuto {
 
             case "INTAKE_LIFTER": {
 
-                int dip = 500;
+                double dipVelocity = commandXPath.getDouble("dip", 500);
                 double intakePower = commandXPath.getDouble("intakePower");
                 int intakeTime = commandXPath.getInt("intakeTime");
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(intakePower);
 
-                while (System.currentTimeMillis() < intakeTime) {
-                    if (robot.ringShooter.intakeMotor.getVelocity() < dip) {
+                double timeWhenWeAreDone = System.currentTimeMillis() + intakeTime;
 
+                while (System.currentTimeMillis() < timeWhenWeAreDone) {
+                    if (robot.ringShooter.intakeMotor.getVelocity() < dipVelocity) {
                         robot.ringShooter.intakeMotor.setPower(-1);
                         robot.ringShooter.liftMotor.setPower(-1);
                         sleep(500);
-
+                        robot.ringShooter.intakeMotor.setPower(intakePower);
+                        robot.ringShooter.liftMotor.setPower(intakePower);
                     }
                 }
 
-                sleep(intakeTime);
                 robot.ringShooter.intakeMotor.setPower(0);
                 robot.ringShooter.intakeMotor.setPower(0);
 
