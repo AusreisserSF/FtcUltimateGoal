@@ -22,7 +22,6 @@ public class XPathAccess {
 	private final String processingContext;
 
 	// --------- CONSTRUCTORS ----------
-	//**TODO WHY does XPathAccess needs the element name as an argument; it's in the Element itself.
 	public XPathAccess(XPath pXpath, Element pXMLElement, String pProcessingContext) {
 		xpath = pXpath;
 		xmlElement = pXMLElement;

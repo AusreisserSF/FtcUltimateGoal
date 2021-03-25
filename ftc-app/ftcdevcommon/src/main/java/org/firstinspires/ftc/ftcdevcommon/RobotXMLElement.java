@@ -2,8 +2,6 @@ package org.firstinspires.ftc.ftcdevcommon;
 
 import org.w3c.dom.Element;
 
-//**TODO put into ftcdevcommon ...
-
 // This is a convenience wrapper for a DOM Element to isolate
 // XML access.
 // Holds an XML element and its name.
