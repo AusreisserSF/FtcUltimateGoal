@@ -55,7 +55,7 @@ public class WobbleArm {
         flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
         servo = new CachingServo(hardwareMap, "wobble servo");
 
-        configXML.getPath("servo");
+       //**TODO Not in the xml file!! configXML.getPath("servo");
     }
 
     public ServoState getServoState() {
