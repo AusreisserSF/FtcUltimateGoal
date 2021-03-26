@@ -11,6 +11,7 @@ import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.math.Angle;
+import org.firstinspires.ftc.teamcode.robot.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.firstinspires.ftc.teamcode.auto.vision.*;
 import org.firstinspires.ftc.teamcode.auto.xml.*;
@@ -220,19 +221,23 @@ public class FTCAuto {
         switch (commandName) {
 
             case "MOVE": {
-                double targetClicks = commandXPath.getDouble("distance") * robot.driveTrain.CLICKS_PER_INCH;
-                double marginClicks = commandXPath.getDouble("margin") * robot.driveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
+                double targetClicks = commandXPath.getDouble("distance") * DriveTrain.CLICKS_PER_INCH;
+                double marginClicks = commandXPath.getDouble("margin") * DriveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
                 double power = commandXPath.getDouble("power");
                 double minPower = commandXPath.getDouble("minpower", 0.2);
                 Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
-
                 // optional parameters
                 double intakePower = commandXPath.getDouble("intakePower", 0);
                 double lifterPower = commandXPath.getDouble("lifterPower", 0);
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
+
+                double dipVelocity = commandXPath.getDouble("dip", 500);
+                double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
+                long timeStartedOuttaking = 0;
+                long timeToOuttake = commandXPath.getInt("outtakeTime", 500);
 
 
                 robot.ringShooter.intakeMotor.setPower(intakePower);
@@ -255,6 +260,17 @@ public class FTCAuto {
                         rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), minPower);
                     }
 
+                    if (timeStartedOuttaking == 0 && intakePower != 0 && robot.ringShooter.liftMotor.getVelocity() < dipVelocity) {
+                        robot.ringShooter.intakeMotor.setPower(-outtakePower);
+                        robot.ringShooter.liftMotor.setPower(-outtakePower);
+                        timeStartedOuttaking = System.currentTimeMillis();
+                    }
+
+                    if (timeStartedOuttaking != 0 && System.currentTimeMillis() + timeToOuttake > timeStartedOuttaking) {
+                        robot.ringShooter.intakeMotor.setPower(intakePower);
+                        robot.ringShooter.liftMotor.setPower(intakePower);
+                        timeStartedOuttaking = 0;
+                    }
                     Angle actualHeading = robot.imu.getHeading();
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                     drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
@@ -305,7 +321,7 @@ public class FTCAuto {
             }
 
             case "PARK_WOBBLE_A": {
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.OUT);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.DROP);
                 robot.wobbleArm.waitForFlip();
                 robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
                 break;
@@ -381,6 +397,8 @@ public class FTCAuto {
                     currentVelocity = robot.ringShooter.shootMotor.getVelocity();
                     sleep(20);
                 }
+
+                sleep(1000);
 
                 robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                 robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
@@ -486,9 +504,9 @@ public class FTCAuto {
             }
 
             case "INTAKE_LIFTER": {
-
-                double dipVelocity = commandXPath.getDouble("dip", 500);
+                double dipVelocity = commandXPath.getDouble("dip", 100);
                 double intakePower = commandXPath.getDouble("intakePower");
+                double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
                 int intakeTime = commandXPath.getInt("intakeTime");
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(intakePower);
@@ -496,18 +514,31 @@ public class FTCAuto {
                 double timeWhenWeAreDone = System.currentTimeMillis() + intakeTime;
 
                 while (System.currentTimeMillis() < timeWhenWeAreDone) {
-                    if (robot.ringShooter.intakeMotor.getVelocity() < dipVelocity) {
-                        robot.ringShooter.intakeMotor.setPower(-1);
-                        robot.ringShooter.liftMotor.setPower(-1);
+                    if (robot.ringShooter.liftMotor.getVelocity() < dipVelocity) {
+                        robot.ringShooter.intakeMotor.setPower(-outtakePower);
+                        robot.ringShooter.liftMotor.setPower(-outtakePower);
                         sleep(500);
                         robot.ringShooter.intakeMotor.setPower(intakePower);
                         robot.ringShooter.liftMotor.setPower(intakePower);
                     }
                 }
-
                 robot.ringShooter.intakeMotor.setPower(0);
                 robot.ringShooter.intakeMotor.setPower(0);
 
+                break;
+
+            }
+
+
+            case "FLOATING_WOBBLE": {
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.FLOATING);
+                break;
+            }
+
+            case "LIFTING_FLOATING_WOBBLE": {
+                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
+                sleep(1000);
+                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
                 break;
 
             }

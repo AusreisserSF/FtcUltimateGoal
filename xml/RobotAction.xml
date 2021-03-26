@@ -21,13 +21,12 @@
         <EXECUTE_TARGET_ZONE_STEPS/>
     </OpMode>
     <OpMode id="BLUE_OUTSIDE">
-          <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
+        <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
         <RECOGNIZE_RINGS>
              <ocv_image_provider>vuforia</ocv_image_provider>
         </RECOGNIZE_RINGS>
         <CLOSE_WEBCAM/>
         <EXECUTE_TARGET_ZONE_STEPS/>
-
     </OpMode>
     <OpMode id="TEST">
 

@@ -70,18 +70,20 @@ public class TargetZoneXML {
             xpath = xpathFactory.newXPath();
 
             // Disallow nesting of "EXECUTE_TARGET_ZONE_STEPS"
-            String executePath = "//EXECUTE_TARGET_ZONE_STEPS"; // anywhere in the document
-            Node targetZonesNode = (Node) xpath.evaluate(executePath, document, XPathConstants.NODE);
-            if (targetZonesNode != null)
-                throw new AutonomousRobotException(TAG, "Nested EXECUTE_TARGET_ZONE_STEPS not allowed");              throw new AutonomousRobotException(TAG, "Command EXECUTE_TARGET_ZONE_STEPS not allowed");
+            //String executePath = "//EXECUTE_TARGET_ZONE_STEPS"; // anywhere in the document
+            //Node targetZonesNode = (Node) xpath.evaluate(executePath, document, XPathConstants.NODE);
+           // if (targetZonesNode != null)
+           //     throw new AutonomousRobotException(TAG, "Nested EXECUTE_TARGET_ZONE_STEPS not allowed");              throw new AutonomousRobotException(TAG, "Command EXECUTE_TARGET_ZONE_STEPS not allowed");
 
         } catch (ParserConfigurationException pex) {
             throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());
         } catch (SAXException sx) {
             throw new AutonomousRobotException(TAG, "SAX Exception " + sx.getMessage());
-        } catch (XPathExpressionException xex) {
-            throw new AutonomousRobotException(TAG, "XPath Expression Exception " + xex.getMessage());
-        } catch (IOException iex) {
+        }
+        //catch (XPathExpressionException xex) {
+        //    throw new AutonomousRobotException(TAG, "XPath Expression Exception " + xex.getMessage());
+        //}
+        catch (IOException iex) {
             throw new AutonomousRobotException(TAG, "IOException " + iex.getMessage());
         }
     }

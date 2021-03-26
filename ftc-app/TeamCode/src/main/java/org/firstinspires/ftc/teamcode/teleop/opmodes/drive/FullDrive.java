@@ -86,7 +86,7 @@ public class FullDrive extends BaseDrive {
             if (gamepad2.left_bumper) {
                 robot.ringShooter.shootMotor.setVelocity(1600);
             } else if (gamepad2.right_bumper) {
-                robot.ringShooter.shootMotor.setVelocity(2000); //Allows for Rapid Fire
+                robot.ringShooter.shootMotor.setVelocity(1850); //Allows for Rapid Fire
             }
         }
     }
