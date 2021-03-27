@@ -243,6 +243,7 @@ public class FTCAuto {
                 robot.ringShooter.intakeMotor.setPower(intakePower);
                 robot.ringShooter.liftMotor.setPower(lifterPower);
 
+
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
                 drivePose.y = Math.cos(direction.getRadians());
@@ -398,7 +399,7 @@ public class FTCAuto {
                     sleep(20);
                 }
 
-                sleep(1000);
+                //sleep(1000);
 
                 robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                 robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
@@ -435,6 +436,7 @@ public class FTCAuto {
                 robot.ringShooter.liftMotor.setVelocity(0);
                 break;
             }
+
 
             case "SHOOT_B": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
