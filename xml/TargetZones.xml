@@ -757,7 +757,7 @@
           <intakePower>1.0</intakePower>
           <lifterPower>1.0</lifterPower>
           <direction>180</direction>
-          <distance>20</distance>
+          <distance>15</distance>
           <margin>1.0</margin>
           <power>1.0</power>
           <heading>0.0</heading>

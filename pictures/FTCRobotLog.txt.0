@@ -1,0 +1,2262 @@
+[2021-03-26 14:41:17.547] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 14:41:17.560] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 14:41:19.441] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 14:41:19.455] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 14:41:19.457] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 14:41:19.458] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 14:41:19.462] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 14:41:19.469] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 14:41:19.525] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 14:41:19.550] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 14:41:19.585] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 14:41:19.596] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 14:41:19.625] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 14:41:19.683] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 14:41:19.834] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 14:41:22.314] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 14:41:25.026] [INFO   ] FTCAuto At start 
+[2021-03-26 14:41:25.028] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 14:41:25.029] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 14:41:25.030] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 14:41:25.032] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 14:41:25.041] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 14:41:25.043] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 14:41:25.066] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 14:41:25.086] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261441_25074_IMG.png 
+[2021-03-26 14:41:25.172] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 14:41:25.174] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 14:41:25.175] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261441_25074_ROI.png 
+[2021-03-26 14:41:25.183] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 14:41:25.213] [FINE   ] ImageUtils HSV saturation channel median 11 
+[2021-03-26 14:41:25.214] [FINE   ] ImageUtils HSV value channel median 180 
+[2021-03-26 14:41:25.216] [FINE   ] ImageUtils Adjust HSV saturation by 1 
+[2021-03-26 14:41:25.218] [FINE   ] ImageUtils Adjust HSV value by -20 
+[2021-03-26 14:41:25.223] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 14:41:25.224] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 14:41:25.225] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 14:41:25.232] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261441_25074_ADJ_THR.png 
+[2021-03-26 14:41:25.235] [FINE   ] RingRecognition Number of white pixels 1754 
+[2021-03-26 14:41:25.236] [FINE   ] RingRecognition Found one ring: set Target Zone Goal B 
+[2021-03-26 14:41:25.237] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_B 
+[2021-03-26 14:41:25.238] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 14:41:25.239] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 14:41:25.502] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 14:41:25.504] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 14:41:25.509] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:27.705] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:27.782] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@4f134bf degrees 
+[2021-03-26 14:41:28.773] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:29.403] [FINE   ] FTCAuto Executing FTCAuto command PLACE_WOBBLE 
+[2021-03-26 14:41:31.305] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:32.176] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:32.247] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ec157a8 degrees 
+[2021-03-26 14:41:33.328] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:33.899] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:33.968] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@36d73c0 degrees 
+[2021-03-26 14:41:34.176] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 14:41:36.348] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-26 14:41:36.349] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 14:41:38.063] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 14:41:38.066] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 14:41:39.230] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 14:41:39.231] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 14:41:39.277] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:39.358] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@e89b3ab degrees 
+[2021-03-26 14:41:39.787] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 14:41:39.791] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:41.254] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 14:41:41.259] [FINE   ] FTCAuto Executing FTCAuto command SHOOT_B 
+[2021-03-26 14:41:42.866] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1340.0 
+[2021-03-26 14:41:42.867] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 14:41:42.893] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-26 14:41:42.921] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:43.673] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:43.766] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@be7b877 degrees 
+[2021-03-26 14:41:44.886] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:45.673] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-26 14:41:46.716] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:46.816] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@c7e8881 degrees 
+[2021-03-26 14:41:48.052] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:49.266] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:41:49.361] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@faf84ac degrees 
+[2021-03-26 14:41:50.188] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:41:50.700] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-26 14:41:51.411] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 14:41:51.417] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 14:41:51.418] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 14:50:53.703] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 14:50:53.717] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 14:50:55.587] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 14:50:55.596] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 14:50:55.598] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 14:50:55.599] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 14:50:55.602] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 14:50:55.609] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 14:50:55.654] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 14:50:55.687] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 14:50:55.715] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 14:50:55.722] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 14:50:55.736] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 14:50:55.773] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 14:50:55.919] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 14:50:58.609] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 14:51:10.351] [INFO   ] FTCAuto At start 
+[2021-03-26 14:51:10.353] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 14:51:10.357] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 14:51:10.359] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 14:51:10.364] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 14:51:10.371] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 14:51:10.372] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 14:51:10.400] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 14:51:10.416] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261451_10407_IMG.png 
+[2021-03-26 14:51:10.497] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 14:51:10.499] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 14:51:10.500] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261451_10407_ROI.png 
+[2021-03-26 14:51:10.507] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 14:51:10.540] [FINE   ] ImageUtils HSV saturation channel median 12 
+[2021-03-26 14:51:10.541] [FINE   ] ImageUtils HSV value channel median 180 
+[2021-03-26 14:51:10.545] [FINE   ] ImageUtils Adjust HSV saturation by 0 
+[2021-03-26 14:51:10.546] [FINE   ] ImageUtils Adjust HSV value by -20 
+[2021-03-26 14:51:10.551] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 14:51:10.553] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 14:51:10.554] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 14:51:10.561] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261451_10407_ADJ_THR.png 
+[2021-03-26 14:51:10.564] [FINE   ] RingRecognition Number of white pixels 1599 
+[2021-03-26 14:51:10.565] [FINE   ] RingRecognition Found one ring: set Target Zone Goal B 
+[2021-03-26 14:51:10.567] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_B 
+[2021-03-26 14:51:10.569] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 14:51:10.571] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 14:51:10.850] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 14:51:10.852] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 14:51:10.863] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:13.027] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:13.116] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@26b5ef degrees 
+[2021-03-26 14:51:14.075] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:14.683] [FINE   ] FTCAuto Executing FTCAuto command PLACE_WOBBLE 
+[2021-03-26 14:51:16.523] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:17.440] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:17.515] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@d68e18a degrees 
+[2021-03-26 14:51:18.589] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:19.182] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:19.258] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@9a93773 degrees 
+[2021-03-26 14:51:19.452] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 14:51:21.728] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 14:51:21.730] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 14:51:23.527] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 14:51:23.529] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 14:51:24.819] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 14:51:24.821] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 14:51:24.858] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:24.932] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@cd35bdb degrees 
+[2021-03-26 14:51:25.334] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 14:51:25.339] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:26.810] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 14:51:26.817] [FINE   ] FTCAuto Executing FTCAuto command SHOOT_B 
+[2021-03-26 14:51:28.245] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1320.0 
+[2021-03-26 14:51:28.247] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 14:51:28.276] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-26 14:51:28.290] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:29.027] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:29.101] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@c153066 degrees 
+[2021-03-26 14:51:30.174] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:30.937] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-26 14:51:31.981] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:32.069] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@833e3bb degrees 
+[2021-03-26 14:51:33.233] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:34.466] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 14:51:34.559] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@c8f6b8f degrees 
+[2021-03-26 14:51:35.379] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 14:51:35.878] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-26 14:51:37.460] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 14:51:37.469] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 14:51:37.470] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 15:04:48.399] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:04:48.410] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:04:50.271] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:04:50.280] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:04:50.282] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:04:50.287] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:04:50.289] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:04:50.293] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:04:50.332] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:04:50.382] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:04:50.429] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:04:50.443] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:04:50.459] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:04:50.494] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:04:50.653] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:04:53.181] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:04:58.926] [INFO   ] FTCAuto At start 
+[2021-03-26 15:04:58.928] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:04:58.929] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:04:58.930] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:04:58.935] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:04:58.947] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:04:58.949] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:04:58.957] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:04:58.980] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261504_58964_IMG.png 
+[2021-03-26 15:04:59.070] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:04:59.073] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:04:59.075] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261504_58964_ROI.png 
+[2021-03-26 15:04:59.083] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:04:59.119] [FINE   ] ImageUtils HSV saturation channel median 11 
+[2021-03-26 15:04:59.120] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-26 15:04:59.124] [FINE   ] ImageUtils Adjust HSV saturation by 1 
+[2021-03-26 15:04:59.125] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-26 15:04:59.130] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:04:59.131] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:04:59.132] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:04:59.139] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261504_58964_ADJ_THR.png 
+[2021-03-26 15:04:59.141] [FINE   ] RingRecognition Number of white pixels 0 
+[2021-03-26 15:04:59.142] [FINE   ] RingRecognition No rings detected: set Target Zone Goal A 
+[2021-03-26 15:04:59.143] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_A 
+[2021-03-26 15:04:59.144] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:04:59.145] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:04:59.402] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:04:59.404] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:04:59.409] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:01.173] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:05:01.238] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@9c2e848 degrees 
+[2021-03-26 15:05:01.239] [FINE   ] FTCAuto Executing FTCAuto command PLACE_WOBBLE 
+[2021-03-26 15:05:03.127] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:03.973] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:05.003] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:05:05.072] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@16a22b6 degrees 
+[2021-03-26 15:05:05.335] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:05:07.517] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 15:05:07.519] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:05:09.349] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 15:05:09.351] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:05:10.709] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:05:10.711] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 15:05:10.745] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-26 15:05:10.762] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:05:10.834] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b360d9f degrees 
+[2021-03-26 15:05:11.140] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:11.729] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:05:11.792] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@977e4bb degrees 
+[2021-03-26 15:05:12.574] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:13.396] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-26 15:05:14.437] [FINE   ] FTCAuto Executing FTCAuto command WAIT_TIME 
+[2021-03-26 15:05:15.450] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:16.225] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:05:16.300] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@1288e87 degrees 
+[2021-03-26 15:05:17.049] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:05:18.040] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-26 15:05:19.406] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 15:05:19.413] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 15:05:19.427] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 15:05:19.428] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 15:25:32.016] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:25:32.029] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:25:33.903] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:25:33.915] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:25:33.917] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:25:33.919] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:25:33.921] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:25:33.927] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:25:33.965] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:25:33.994] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:25:34.026] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:25:34.035] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:25:34.059] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:25:34.106] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:25:34.253] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:25:36.821] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:25:40.209] [INFO   ] FTCAuto At start 
+[2021-03-26 15:25:40.210] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:25:40.212] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:25:40.214] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:25:40.228] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:25:40.237] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:25:40.239] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:25:40.246] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:25:40.272] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261525_40254_IMG.png 
+[2021-03-26 15:25:40.359] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:25:40.361] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:25:40.362] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261525_40254_ROI.png 
+[2021-03-26 15:25:40.370] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:25:40.398] [FINE   ] ImageUtils HSV saturation channel median 12 
+[2021-03-26 15:25:40.399] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-26 15:25:40.401] [FINE   ] ImageUtils Adjust HSV saturation by 0 
+[2021-03-26 15:25:40.402] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-26 15:25:40.403] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:25:40.405] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:25:40.407] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:25:40.410] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261525_40254_ADJ_THR.png 
+[2021-03-26 15:25:40.412] [FINE   ] RingRecognition Number of white pixels 0 
+[2021-03-26 15:25:40.413] [FINE   ] RingRecognition No rings detected: set Target Zone Goal A 
+[2021-03-26 15:25:40.414] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_A 
+[2021-03-26 15:25:40.416] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:25:40.418] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:25:40.692] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:25:40.693] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:25:40.697] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 15:25:40.730] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:42.675] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:25:42.737] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@98db6ea degrees 
+[2021-03-26 15:25:42.889] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 15:25:43.918] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:44.780] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:45.887] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:25:45.942] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b8ae745 degrees 
+[2021-03-26 15:25:46.216] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:25:48.292] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 15:25:48.294] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:25:50.101] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 15:25:50.102] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:25:51.533] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 15:25:51.534] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 15:25:51.570] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-26 15:25:51.593] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:25:51.676] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@693ec84 degrees 
+[2021-03-26 15:25:51.999] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:52.685] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:25:52.755] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@4731269 degrees 
+[2021-03-26 15:25:53.688] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:54.662] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-26 15:25:55.701] [FINE   ] FTCAuto Executing FTCAuto command WAIT_TIME 
+[2021-03-26 15:25:56.712] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:57.493] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:25:57.566] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ec95daa degrees 
+[2021-03-26 15:25:58.501] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:25:59.558] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-26 15:26:00.244] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 15:26:00.249] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 15:26:00.258] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 15:26:00.260] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 15:43:49.524] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:43:49.535] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:43:51.419] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:43:51.429] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:43:51.432] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:43:51.433] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:43:51.437] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:43:51.442] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:43:51.477] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:43:51.517] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:43:51.576] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:43:51.595] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:43:51.616] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:43:51.665] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:43:51.797] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:43:54.315] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:43:56.915] [INFO   ] FTCAuto At start 
+[2021-03-26 15:43:56.916] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:43:56.917] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:43:56.918] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:43:56.921] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:43:56.931] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:43:56.932] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:43:56.957] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:43:56.972] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261543_56962_IMG.png 
+[2021-03-26 15:43:57.060] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:43:57.064] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:43:57.065] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261543_56962_ROI.png 
+[2021-03-26 15:43:57.075] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:43:57.104] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 15:43:57.106] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 15:43:57.108] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 15:43:57.109] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 15:43:57.114] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:43:57.115] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:43:57.117] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:43:57.122] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261543_56962_ADJ_THR.png 
+[2021-03-26 15:43:57.125] [FINE   ] RingRecognition Number of white pixels 5050 
+[2021-03-26 15:43:57.128] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 15:43:57.129] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 15:43:57.130] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:43:57.131] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:43:57.369] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:43:57.371] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:43:57.374] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 15:43:57.406] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:00.548] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 15:44:01.570] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:03.547] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:44:03.645] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@70afcb7 degrees 
+[2021-03-26 15:44:03.646] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:44:05.693] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 15:44:05.695] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:44:07.269] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:44:07.270] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:44:08.450] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 15:44:08.451] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 15:44:08.492] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:44:08.587] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@36d73c0 degrees 
+[2021-03-26 15:44:08.804] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:09.443] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 15:44:09.447] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:09.772] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:11.013] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:12.109] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:13.930] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:15.027] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:15.844] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:44:15.959] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@7ddd220 degrees 
+[2021-03-26 15:44:16.192] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:44:16.197] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:44:18.361] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 15:44:18.363] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:44:20.301] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1420.0 
+[2021-03-26 15:44:20.304] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:44:20.339] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:21.028] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 15:44:21.035] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:22.030] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:23.126] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:23.832] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:24.910] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:25.621] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:44:26.706] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:27.506] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:44:27.512] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:44:27.619] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f42e8f3 degrees 
+[2021-03-26 15:44:27.926] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:44:30.162] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:44:30.163] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:44:31.938] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 15:44:31.939] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:44:31.974] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:44:32.702] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 15:44:32.709] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 15:44:32.710] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 15:53:54.503] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:53:54.517] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:53:56.389] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:53:56.399] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:53:56.400] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:53:56.402] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:53:56.404] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:53:56.417] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:53:56.471] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:53:56.516] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:53:56.548] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:53:56.562] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:53:56.590] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:53:56.629] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:53:56.812] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:53:59.405] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:54:02.722] [INFO   ] FTCAuto At start 
+[2021-03-26 15:54:02.723] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:54:02.724] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:54:02.725] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:54:02.731] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:54:02.738] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:54:02.739] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:54:02.750] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:54:02.772] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261554_02757_IMG.png 
+[2021-03-26 15:54:02.874] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:54:02.876] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:54:02.878] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261554_02757_ROI.png 
+[2021-03-26 15:54:02.888] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:54:02.934] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 15:54:02.935] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 15:54:02.936] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 15:54:02.938] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 15:54:02.941] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:54:02.942] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:54:02.944] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:54:02.953] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261554_02757_ADJ_THR.png 
+[2021-03-26 15:54:02.957] [FINE   ] RingRecognition Number of white pixels 4598 
+[2021-03-26 15:54:02.959] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 15:54:02.960] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 15:54:02.961] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:54:02.962] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:54:03.232] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:54:03.234] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:54:03.246] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 15:54:03.277] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:54:06.409] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 15:54:07.435] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 15:54:08.271] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:54:10.293] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:54:10.389] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@67e859e degrees 
+[2021-03-26 15:54:10.390] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 15:54:13.694] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 15:56:05.601] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:56:05.614] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:56:07.490] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:56:07.497] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:56:07.499] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:56:07.501] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:56:07.503] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:56:07.510] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:56:07.557] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:56:07.585] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:56:07.610] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:56:07.619] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:56:07.643] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:56:07.691] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:56:07.825] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:56:10.495] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:56:15.112] [INFO   ] FTCAuto At start 
+[2021-03-26 15:56:15.113] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:56:15.114] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:56:15.115] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:56:15.119] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:56:15.127] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:56:15.128] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:56:15.158] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:56:15.173] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261556_15163_IMG.png 
+[2021-03-26 15:56:15.254] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:56:15.257] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:56:15.258] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261556_15163_ROI.png 
+[2021-03-26 15:56:15.268] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:56:15.298] [FINE   ] ImageUtils HSV saturation channel median 28 
+[2021-03-26 15:56:15.299] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 15:56:15.302] [FINE   ] ImageUtils Adjust HSV saturation by -16 
+[2021-03-26 15:56:15.304] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 15:56:15.308] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:56:15.310] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:56:15.311] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:56:15.319] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261556_15163_ADJ_THR.png 
+[2021-03-26 15:56:15.322] [FINE   ] RingRecognition Number of white pixels 5225 
+[2021-03-26 15:56:15.323] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 15:56:15.325] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 15:56:15.331] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:56:15.331] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:56:15.568] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:56:15.569] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:56:15.575] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 15:56:15.615] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:56:18.757] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 15:56:19.785] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 15:56:20.491] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:56:22.478] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:56:22.569] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@7133bd3 degrees 
+[2021-03-26 15:56:22.570] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:56:25.810] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:56:25.811] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:56:27.144] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 15:56:27.147] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:56:28.055] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 15:56:28.057] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 15:56:28.100] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 15:59:28.532] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 15:59:28.544] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:59:30.417] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 15:59:30.428] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 15:59:30.431] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 15:59:30.433] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 15:59:30.435] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 15:59:30.439] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 15:59:30.485] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:59:30.514] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 15:59:30.539] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 15:59:30.545] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 15:59:30.569] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 15:59:30.607] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 15:59:30.738] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 15:59:33.393] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 15:59:36.322] [INFO   ] FTCAuto At start 
+[2021-03-26 15:59:36.323] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 15:59:36.325] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 15:59:36.328] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 15:59:36.337] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 15:59:36.346] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 15:59:36.347] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 15:59:36.369] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 15:59:36.384] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261559_36375_IMG.png 
+[2021-03-26 15:59:36.508] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 15:59:36.510] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 15:59:36.512] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261559_36375_ROI.png 
+[2021-03-26 15:59:36.521] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 15:59:36.568] [FINE   ] ImageUtils HSV saturation channel median 28 
+[2021-03-26 15:59:36.569] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 15:59:36.571] [FINE   ] ImageUtils Adjust HSV saturation by -16 
+[2021-03-26 15:59:36.573] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 15:59:36.574] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 15:59:36.576] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 15:59:36.578] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 15:59:36.580] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261559_36375_ADJ_THR.png 
+[2021-03-26 15:59:36.581] [FINE   ] RingRecognition Number of white pixels 4690 
+[2021-03-26 15:59:36.582] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 15:59:36.584] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 15:59:36.585] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 15:59:36.586] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 15:59:36.853] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 15:59:36.855] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 15:59:36.862] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 15:59:36.894] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:59:40.073] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 15:59:41.099] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 15:59:41.888] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 15:59:43.874] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 15:59:43.966] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@8b2c6b9 degrees 
+[2021-03-26 15:59:43.967] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 15:59:44.358] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:59:44.360] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 15:59:45.892] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 15:59:45.895] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 15:59:47.218] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 15:59:47.220] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 15:59:47.256] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 16:02:39.120] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:02:39.130] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:02:42.175] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:02:42.182] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:02:42.183] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:02:42.185] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:02:42.192] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:02:42.194] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:02:42.259] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:02:42.304] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:02:42.350] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:02:42.360] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:02:42.380] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:02:42.430] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:02:42.541] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:02:45.222] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:02:56.074] [INFO   ] FTCAuto At start 
+[2021-03-26 16:02:56.075] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:02:56.076] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:02:56.077] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:02:56.081] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:02:56.091] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:02:56.092] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:02:56.101] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:02:56.118] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261602_56107_IMG.png 
+[2021-03-26 16:02:56.205] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:02:56.207] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:02:56.209] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261602_56107_ROI.png 
+[2021-03-26 16:02:56.221] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:02:56.254] [FINE   ] ImageUtils HSV saturation channel median 27 
+[2021-03-26 16:02:56.256] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 16:02:56.259] [FINE   ] ImageUtils Adjust HSV saturation by -15 
+[2021-03-26 16:02:56.261] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 16:02:56.265] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:02:56.268] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:02:56.268] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:02:56.272] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261602_56107_ADJ_THR.png 
+[2021-03-26 16:02:56.274] [FINE   ] RingRecognition Number of white pixels 5355 
+[2021-03-26 16:02:56.275] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:02:56.276] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:02:56.278] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:02:56.279] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:02:56.544] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:02:56.547] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:02:56.552] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:02:56.584] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:02:59.691] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:03:00.713] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:03:01.423] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:03.390] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:03:03.485] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@6cb6598 degrees 
+[2021-03-26 16:03:03.625] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:03:05.812] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:03:05.814] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:03:06.990] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 16:03:06.992] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:03:07.930] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:03:07.931] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:03:07.966] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:03:09.836] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:03:09.941] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@27c8f0c degrees 
+[2021-03-26 16:03:10.415] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:11.051] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:03:11.059] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:11.399] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:12.586] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:13.663] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:16.018] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:17.122] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:17.938] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:03:18.049] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@bb4633b degrees 
+[2021-03-26 16:03:18.507] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:03:18.521] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:03:19.039] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:03:19.040] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:03:20.380] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:03:20.381] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:03:20.419] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:21.084] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:03:22.366] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:03:22.372] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:23.359] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:24.443] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:25.137] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:26.229] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:26.930] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:03:28.013] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:28.778] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:03:28.789] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:03:28.878] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@307e285 degrees 
+[2021-03-26 16:03:29.313] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:03:30.056] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:03:30.057] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:03:32.593] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:03:33.269] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:03:33.275] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 16:03:33.276] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 16:08:26.701] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:08:26.714] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:08:28.591] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:08:28.601] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:08:28.603] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:08:28.605] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:08:28.607] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:08:28.617] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:08:28.659] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:08:28.688] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:08:28.723] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:08:28.734] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:08:28.749] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:08:28.797] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:08:28.917] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:08:31.422] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:08:34.003] [INFO   ] FTCAuto At start 
+[2021-03-26 16:08:34.004] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:08:34.006] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:08:34.007] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:08:34.013] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:08:34.022] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:08:34.024] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:08:34.026] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:08:34.043] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261608_34032_IMG.png 
+[2021-03-26 16:08:34.125] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:08:34.127] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:08:34.129] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261608_34032_ROI.png 
+[2021-03-26 16:08:34.137] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:08:34.175] [FINE   ] ImageUtils HSV saturation channel median 21 
+[2021-03-26 16:08:34.177] [FINE   ] ImageUtils HSV value channel median 160 
+[2021-03-26 16:08:34.179] [FINE   ] ImageUtils Adjust HSV saturation by -9 
+[2021-03-26 16:08:34.182] [FINE   ] ImageUtils Adjust HSV value by 0 
+[2021-03-26 16:08:34.190] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:08:34.194] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:08:34.196] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:08:34.197] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261608_34032_ADJ_THR.png 
+[2021-03-26 16:08:34.199] [FINE   ] RingRecognition Number of white pixels 3059 
+[2021-03-26 16:08:34.200] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:08:34.202] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:08:34.203] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:08:34.204] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:08:34.440] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:08:34.442] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:08:34.446] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:08:34.484] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:37.591] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:08:38.613] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:08:39.348] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:41.301] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:08:41.393] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@e734690 degrees 
+[2021-03-26 16:08:41.394] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:08:43.705] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:08:43.706] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:08:44.766] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:08:44.768] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:08:45.738] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:08:45.739] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:08:45.775] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:08:47.649] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:08:47.738] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@693ec84 degrees 
+[2021-03-26 16:08:47.922] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:48.558] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:08:48.564] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:48.877] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:50.039] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:08:51.109] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:52.923] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:08:54.008] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:08:54.872] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:08:54.961] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@be7b877 degrees 
+[2021-03-26 16:08:55.202] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:08:55.208] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:08:57.076] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to -0.0 
+[2021-03-26 16:08:57.077] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:08:57.936] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:08:57.938] [INFO   ] RobotCommonLog Closing log and writing out the last 2 entries on the queue 
+[2021-03-26 16:19:11.751] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:19:11.762] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:19:11.801] [FINE   ] BLUE_OUTSIDE Unable to find a hardware device with the name "wobble motor" 
+[2021-03-26 16:19:59.193] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:19:59.203] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:20:01.087] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:20:01.099] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:20:01.100] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:20:01.102] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:20:01.103] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:20:01.110] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:20:01.152] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:20:01.178] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:20:01.212] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:20:01.219] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:20:01.241] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:20:01.293] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:20:01.409] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:20:04.031] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:20:06.983] [INFO   ] FTCAuto At start 
+[2021-03-26 16:20:06.984] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:20:06.986] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:20:06.987] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:20:06.993] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:20:07.003] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:20:07.007] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:20:07.010] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:20:07.031] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261620_07017_IMG.png 
+[2021-03-26 16:20:07.129] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:20:07.133] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:20:07.134] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261620_07017_ROI.png 
+[2021-03-26 16:20:07.143] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:20:07.176] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 16:20:07.178] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 16:20:07.180] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 16:20:07.181] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 16:20:07.185] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:20:07.186] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:20:07.187] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:20:07.191] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261620_07017_ADJ_THR.png 
+[2021-03-26 16:20:07.194] [FINE   ] RingRecognition Number of white pixels 3849 
+[2021-03-26 16:20:07.194] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:20:07.195] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:20:07.196] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:20:07.197] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:20:07.454] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:20:07.455] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:20:07.459] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:20:07.495] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:10.649] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:20:11.681] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:20:12.354] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:14.357] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:20:14.450] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@8ba3942 degrees 
+[2021-03-26 16:20:14.451] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:20:16.865] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:20:16.866] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:20:18.146] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:20:18.147] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:20:19.153] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 16:20:19.155] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:20:19.192] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:20:19.415] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:20:19.518] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@3960bec degrees 
+[2021-03-26 16:20:19.804] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:20.446] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:20:20.451] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:20.774] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:22.052] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:23.140] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:24.564] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:25.651] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:26.482] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:20:26.610] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ffeed23 degrees 
+[2021-03-26 16:20:26.860] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:20:26.867] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:20:27.516] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:20:27.517] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:20:28.906] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:20:28.908] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:20:28.952] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:29.638] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:20:30.897] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:20:30.905] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:31.951] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:33.049] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:33.741] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:34.841] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:35.574] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:20:36.655] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:37.440] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:20:37.446] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:20:37.576] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f42e8f3 degrees 
+[2021-03-26 16:20:37.860] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:20:38.583] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:20:38.584] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:20:41.193] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:20:41.912] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:20:41.919] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 16:20:41.920] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 16:25:59.501] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:25:59.511] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:26:01.380] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:26:01.388] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:26:01.389] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:26:01.391] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:26:01.393] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:26:01.399] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:26:01.445] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:26:01.485] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:26:01.518] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:26:01.525] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:26:01.544] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:26:01.620] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:26:01.794] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:26:04.434] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:26:07.860] [INFO   ] FTCAuto At start 
+[2021-03-26 16:26:07.861] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:26:07.863] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:26:07.865] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:26:07.875] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:26:07.881] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:26:07.882] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:26:07.895] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:26:07.910] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261626_07901_IMG.png 
+[2021-03-26 16:26:07.992] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:26:07.995] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:26:07.997] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261626_07901_ROI.png 
+[2021-03-26 16:26:08.003] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:26:08.049] [FINE   ] ImageUtils HSV saturation channel median 23 
+[2021-03-26 16:26:08.051] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 16:26:08.055] [FINE   ] ImageUtils Adjust HSV saturation by -11 
+[2021-03-26 16:26:08.056] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 16:26:08.062] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:26:08.063] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:26:08.064] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:26:08.071] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261626_07901_ADJ_THR.png 
+[2021-03-26 16:26:08.074] [FINE   ] RingRecognition Number of white pixels 3932 
+[2021-03-26 16:26:08.075] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:26:08.076] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:26:08.078] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:26:08.081] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:26:08.333] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:26:08.334] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:26:08.345] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:26:08.381] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:11.541] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:26:12.562] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:26:13.310] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:15.359] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:26:15.448] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ab8bd4e degrees 
+[2021-03-26 16:26:15.449] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:26:21.219] [FINE   ] FTCAuto Executing FTCAuto command CONSTANT_SHOOTER 
+[2021-03-26 16:26:21.245] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:26:21.348] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@8a2ad57 degrees 
+[2021-03-26 16:26:21.606] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:22.213] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:26:22.219] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:22.571] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:23.893] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:26:24.989] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:26.426] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:26:27.520] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:29.021] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:26:30.102] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:31.315] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:26:31.401] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@221f71a degrees 
+[2021-03-26 16:26:31.661] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:26:31.665] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:26:32.155] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:26:32.156] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:26:33.453] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:26:33.454] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:26:33.489] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:26:34.313] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 16:30:28.283] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:30:28.301] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:30:30.181] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:30:30.188] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:30:30.190] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:30:30.192] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:30:30.194] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:30:30.206] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:30:30.269] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:30:30.306] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:30:30.349] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:30:30.356] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:30:30.371] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:30:30.408] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:30:30.537] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:30:33.127] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:30:36.539] [INFO   ] FTCAuto At start 
+[2021-03-26 16:30:36.541] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:30:36.542] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:30:36.544] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:30:36.550] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:30:36.563] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:30:36.564] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:30:36.579] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:30:36.596] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261630_36585_IMG.png 
+[2021-03-26 16:30:36.687] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:30:36.691] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:30:36.692] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261630_36585_ROI.png 
+[2021-03-26 16:30:36.701] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:30:36.735] [FINE   ] ImageUtils HSV saturation channel median 23 
+[2021-03-26 16:30:36.736] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 16:30:36.737] [FINE   ] ImageUtils Adjust HSV saturation by -11 
+[2021-03-26 16:30:36.738] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 16:30:36.744] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:30:36.745] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:30:36.747] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:30:36.750] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261630_36585_ADJ_THR.png 
+[2021-03-26 16:30:36.753] [FINE   ] RingRecognition Number of white pixels 3717 
+[2021-03-26 16:30:36.754] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:30:36.754] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:30:36.756] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:30:36.756] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:30:37.041] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:30:37.044] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:30:37.053] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:30:37.084] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:40.327] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:30:41.349] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:44.263] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:30:44.368] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@55ef8f9 degrees 
+[2021-03-26 16:30:44.458] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:30:44.863] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:30:44.866] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:30:46.387] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:30:46.388] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:30:47.519] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:30:47.521] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:30:47.556] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:30:47.654] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@bbf5133 degrees 
+[2021-03-26 16:30:47.949] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:50.230] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:30:50.237] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:50.603] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:52.129] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:30:53.215] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:54.823] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:30:55.890] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:30:58.824] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:30:59.912] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:31:01.141] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:31:01.238] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@bf993f1 degrees 
+[2021-03-26 16:31:01.538] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:31:01.543] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:31:02.688] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:31:02.689] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:31:03.470] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:31:03.472] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:31:03.513] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:31:04.428] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 16:33:26.580] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:33:26.596] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:33:28.454] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:33:28.460] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:33:28.462] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:33:28.464] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:33:28.468] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:33:28.474] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:33:28.520] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:33:28.572] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:33:28.611] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:33:28.621] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:33:28.638] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:33:28.676] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:33:28.805] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:33:31.490] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:33:35.829] [INFO   ] FTCAuto At start 
+[2021-03-26 16:33:35.831] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:33:35.832] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:33:35.833] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:33:35.843] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:33:35.856] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:33:35.857] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:33:35.886] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:33:35.901] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261633_35893_IMG.png 
+[2021-03-26 16:33:36.005] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:33:36.008] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:33:36.009] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261633_35893_ROI.png 
+[2021-03-26 16:33:36.023] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:33:36.057] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 16:33:36.058] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 16:33:36.060] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 16:33:36.061] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 16:33:36.065] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:33:36.066] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:33:36.068] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:33:36.069] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261633_35893_ADJ_THR.png 
+[2021-03-26 16:33:36.070] [FINE   ] RingRecognition Number of white pixels 3810 
+[2021-03-26 16:33:36.072] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:33:36.073] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:33:36.075] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:33:36.076] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:33:36.354] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:33:36.356] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:33:36.361] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:33:36.395] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:33:39.634] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:33:40.664] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:33:42.807] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:33:42.911] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@4178359 degrees 
+[2021-03-26 16:33:43.021] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:33:43.415] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:33:43.417] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:33:45.175] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:33:45.176] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:33:46.355] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:33:46.357] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:33:46.396] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:33:46.490] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b12f4c9 degrees 
+[2021-03-26 16:33:46.765] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:33:52.585] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:33:52.595] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:33:52.906] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:33:53.939] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:40:09.100] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:40:09.111] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:40:10.987] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:40:10.993] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:40:10.995] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:40:10.997] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:40:10.999] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:40:11.006] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:40:11.049] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:40:11.071] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:40:11.103] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:40:11.113] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:40:11.130] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:40:11.175] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:40:11.287] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:40:14.053] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:40:16.728] [INFO   ] FTCAuto At start 
+[2021-03-26 16:40:16.731] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:40:16.733] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:40:16.735] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:40:16.738] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:40:16.753] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:40:16.754] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:40:16.772] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:40:16.790] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261640_16779_IMG.png 
+[2021-03-26 16:40:16.869] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:40:16.872] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:40:16.874] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261640_16779_ROI.png 
+[2021-03-26 16:40:16.884] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:40:16.914] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 16:40:16.915] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 16:40:16.916] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 16:40:16.917] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 16:40:16.920] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:40:16.921] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:40:16.923] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:40:16.930] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261640_16779_ADJ_THR.png 
+[2021-03-26 16:40:16.933] [FINE   ] RingRecognition Number of white pixels 4671 
+[2021-03-26 16:40:16.934] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:40:16.935] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:40:16.936] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:40:16.937] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:40:17.184] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:40:17.185] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:40:17.193] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:40:17.228] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:20.497] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:40:21.533] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:23.586] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:40:23.674] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@55ef8f9 degrees 
+[2021-03-26 16:40:23.732] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:40:24.837] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:40:24.839] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:40:25.487] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:40:25.488] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:40:26.184] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-26 16:40:26.185] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:40:26.220] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:40:26.317] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@1241c6d degrees 
+[2021-03-26 16:40:26.635] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:27.256] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:40:27.261] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:27.604] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:28.868] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:40:29.948] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:33.065] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:40:34.137] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:36.933] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:40:38.007] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:39.203] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:40:39.299] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@faf84ac degrees 
+[2021-03-26 16:40:39.608] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:40:39.615] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:40:40.794] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:40:40.795] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:40:41.517] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1440.0 
+[2021-03-26 16:40:41.518] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:40:42.367] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:40:42.369] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:40:42.405] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:40:43.216] [FINE   ] FTCAuto Executing FTCAuto command BREAK_POINT 
+[2021-03-26 16:42:15.861] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:42:15.873] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:42:17.746] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:42:17.754] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:42:17.756] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:42:17.758] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:42:17.760] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:42:17.769] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:42:17.807] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:42:17.842] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:42:17.889] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:42:17.899] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:42:17.928] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:42:17.964] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:42:18.084] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:42:20.699] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:42:23.653] [INFO   ] FTCAuto At start 
+[2021-03-26 16:42:23.654] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:42:23.655] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:42:23.656] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:42:23.659] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:42:23.666] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:42:23.667] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:42:23.689] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:42:23.705] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261642_23695_IMG.png 
+[2021-03-26 16:42:23.791] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:42:23.794] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:42:23.795] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261642_23695_ROI.png 
+[2021-03-26 16:42:23.807] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:42:23.850] [FINE   ] ImageUtils HSV saturation channel median 28 
+[2021-03-26 16:42:23.851] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 16:42:23.854] [FINE   ] ImageUtils Adjust HSV saturation by -16 
+[2021-03-26 16:42:23.855] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 16:42:23.860] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:42:23.861] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:42:23.863] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:42:23.871] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261642_23695_ADJ_THR.png 
+[2021-03-26 16:42:23.873] [FINE   ] RingRecognition Number of white pixels 5601 
+[2021-03-26 16:42:23.877] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:42:23.880] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:42:23.882] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:42:23.884] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:42:24.165] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:42:24.167] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:42:24.178] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:42:24.209] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:27.474] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:42:28.495] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:30.519] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:42:30.615] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b8f42c7 degrees 
+[2021-03-26 16:42:30.735] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:42:32.094] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:42:32.095] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:42:32.726] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:42:32.728] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:42:33.685] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 16:42:33.687] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:42:33.723] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:42:33.810] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@2ba6a51 degrees 
+[2021-03-26 16:42:34.163] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:34.781] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:42:34.786] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:35.119] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:36.553] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:42:37.618] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:39.559] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:42:40.652] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:42.921] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:42:44.011] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:45.192] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:42:45.298] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ddccec6 degrees 
+[2021-03-26 16:42:45.584] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:42:45.589] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:42:46.802] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:42:46.804] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:42:47.635] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:42:47.637] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:42:48.505] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:42:48.506] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:42:48.541] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:42:49.394] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:42:49.403] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 16:42:49.405] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 16:53:17.643] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:53:17.656] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:53:19.524] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:53:19.533] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:53:19.534] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:53:19.536] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:53:19.538] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:53:19.547] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:53:19.586] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:53:19.610] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:53:19.654] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:53:19.662] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:53:19.680] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:53:19.719] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:53:19.849] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:53:22.309] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:53:24.761] [INFO   ] FTCAuto At start 
+[2021-03-26 16:53:24.763] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:53:24.764] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:53:24.766] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:53:24.773] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:53:24.786] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:53:24.787] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:53:24.807] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:53:24.823] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261653_24814_IMG.png 
+[2021-03-26 16:53:24.913] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:53:24.915] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:53:24.917] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261653_24814_ROI.png 
+[2021-03-26 16:53:24.923] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:53:24.953] [FINE   ] ImageUtils HSV saturation channel median 26 
+[2021-03-26 16:53:24.954] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 16:53:24.956] [FINE   ] ImageUtils Adjust HSV saturation by -14 
+[2021-03-26 16:53:24.957] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 16:53:24.959] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:53:24.960] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:53:24.962] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:53:24.964] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261653_24814_ADJ_THR.png 
+[2021-03-26 16:53:24.966] [FINE   ] RingRecognition Number of white pixels 4955 
+[2021-03-26 16:53:24.967] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:53:24.968] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:53:24.969] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:53:24.970] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:53:25.223] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:53:25.224] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:53:25.228] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:53:25.259] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:28.121] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:53:29.146] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:31.074] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:53:31.163] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@22eeb2a degrees 
+[2021-03-26 16:53:31.288] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:53:32.456] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:53:32.457] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:53:33.257] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 16:53:33.258] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:53:34.053] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:53:34.055] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:53:34.089] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:53:34.198] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@d53d5fc degrees 
+[2021-03-26 16:53:34.492] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:35.071] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:53:35.080] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:35.430] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:36.596] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:53:37.681] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:38.971] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:53:40.154] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:41.507] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:53:42.595] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:44.115] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:53:44.210] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@fb34463 degrees 
+[2021-03-26 16:53:44.481] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:53:44.490] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:53:45.779] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:53:45.781] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:53:46.637] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1440.0 
+[2021-03-26 16:53:46.640] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:53:48.416] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:53:49.160] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:53:49.187] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 16:53:49.188] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 16:59:19.967] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 16:59:19.977] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:59:21.837] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 16:59:21.848] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 16:59:21.851] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 16:59:21.853] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 16:59:21.855] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 16:59:21.867] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 16:59:21.908] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:59:21.945] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 16:59:21.976] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 16:59:21.988] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 16:59:22.010] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 16:59:22.049] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 16:59:22.182] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 16:59:24.720] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 16:59:28.233] [INFO   ] FTCAuto At start 
+[2021-03-26 16:59:28.235] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 16:59:28.236] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 16:59:28.237] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 16:59:28.244] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 16:59:28.250] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 16:59:28.251] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 16:59:28.281] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 16:59:28.297] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261659_28286_IMG.png 
+[2021-03-26 16:59:28.378] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 16:59:28.380] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 16:59:28.381] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261659_28286_ROI.png 
+[2021-03-26 16:59:28.390] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 16:59:28.421] [FINE   ] ImageUtils HSV saturation channel median 23 
+[2021-03-26 16:59:28.422] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 16:59:28.423] [FINE   ] ImageUtils Adjust HSV saturation by -11 
+[2021-03-26 16:59:28.425] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 16:59:28.427] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 16:59:28.428] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 16:59:28.429] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 16:59:28.432] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261659_28286_ADJ_THR.png 
+[2021-03-26 16:59:28.433] [FINE   ] RingRecognition Number of white pixels 5390 
+[2021-03-26 16:59:28.434] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 16:59:28.435] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 16:59:28.436] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 16:59:28.440] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 16:59:28.683] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 16:59:28.684] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:59:28.694] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 16:59:28.732] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:31.692] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 16:59:32.727] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:34.643] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:59:34.738] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f1566ef degrees 
+[2021-03-26 16:59:34.858] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:59:36.076] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:59:36.077] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:59:36.802] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 16:59:36.804] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:59:37.619] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 16:59:37.620] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:59:37.656] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:59:37.741] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@bfa00 degrees 
+[2021-03-26 16:59:38.049] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:38.621] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 16:59:38.628] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:38.913] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:40.681] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:59:41.752] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:43.355] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:59:44.439] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:45.656] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 16:59:46.740] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:48.322] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 16:59:48.405] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b6a5a8d degrees 
+[2021-03-26 16:59:48.712] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 16:59:48.720] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 16:59:49.855] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:59:49.857] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 16:59:50.504] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 16:59:50.506] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 16:59:51.349] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 16:59:51.352] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 16:59:51.387] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 16:59:52.152] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 16:59:52.160] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 16:59:52.161] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 17:47:01.482] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 17:47:01.492] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 17:47:03.362] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 17:47:03.371] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 17:47:03.372] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 17:47:03.373] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 17:47:03.375] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 17:47:03.379] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 17:47:03.424] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 17:47:03.459] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 17:47:03.495] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 17:47:03.507] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 17:47:03.524] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 17:47:03.564] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 17:47:03.721] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 17:47:06.131] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 17:47:49.929] [INFO   ] FTCAuto At start 
+[2021-03-26 17:47:49.930] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 17:47:49.932] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 17:47:49.932] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 17:47:49.938] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 17:47:49.950] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 17:47:49.951] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 17:47:49.977] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 17:47:50.001] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03261747_49985_IMG.png 
+[2021-03-26 17:47:50.086] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 17:47:50.088] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 17:47:50.089] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03261747_49985_ROI.png 
+[2021-03-26 17:47:50.095] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 17:47:50.127] [FINE   ] ImageUtils HSV saturation channel median 23 
+[2021-03-26 17:47:50.128] [FINE   ] ImageUtils HSV value channel median 144 
+[2021-03-26 17:47:50.129] [FINE   ] ImageUtils Adjust HSV saturation by -11 
+[2021-03-26 17:47:50.130] [FINE   ] ImageUtils Adjust HSV value by 16 
+[2021-03-26 17:47:50.134] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 17:47:50.135] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 17:47:50.136] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 17:47:50.141] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03261747_49985_ADJ_THR.png 
+[2021-03-26 17:47:50.143] [FINE   ] RingRecognition Number of white pixels 4986 
+[2021-03-26 17:47:50.144] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 17:47:50.146] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 17:47:50.147] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 17:47:50.148] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 17:47:50.420] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 17:47:50.421] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 17:47:50.427] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 17:47:50.458] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:47:53.523] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 17:47:54.554] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:47:56.515] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 17:47:56.606] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@9471152 degrees 
+[2021-03-26 17:47:56.607] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 17:47:57.894] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 17:47:57.895] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 17:47:58.624] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 17:47:58.626] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 17:47:59.434] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 17:47:59.435] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 17:47:59.469] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 17:47:59.587] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@6ec2777 degrees 
+[2021-03-26 17:47:59.874] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:00.553] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 17:48:00.558] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:00.887] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:02.015] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 17:48:03.099] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:04.459] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 17:48:05.541] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:06.864] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 17:48:08.121] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:10.344] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 17:48:10.434] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@be1b186 degrees 
+[2021-03-26 17:48:10.704] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 17:48:10.714] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 17:48:12.192] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 17:48:12.193] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 17:48:13.038] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1440.0 
+[2021-03-26 17:48:13.039] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 17:48:14.673] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 17:48:15.480] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 17:48:15.501] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 17:48:15.503] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 20:24:45.007] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 20:24:45.014] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 20:24:46.857] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 20:24:46.871] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 20:24:46.873] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 20:24:46.876] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 20:24:46.878] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 20:24:46.883] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 20:24:46.931] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 20:24:46.974] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 20:24:47.024] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 20:24:47.034] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 20:24:47.054] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 20:24:47.084] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 20:24:47.215] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 20:24:49.662] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 20:24:52.242] [INFO   ] FTCAuto At start 
+[2021-03-26 20:24:52.243] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 20:24:52.244] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 20:24:52.245] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 20:24:52.255] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 20:24:52.264] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 20:24:52.266] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 20:24:52.291] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 20:24:52.313] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03262024_52300_IMG.png 
+[2021-03-26 20:24:52.393] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 20:24:52.396] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 20:24:52.397] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03262024_52300_ROI.png 
+[2021-03-26 20:24:52.412] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 20:24:52.442] [FINE   ] ImageUtils HSV saturation channel median 28 
+[2021-03-26 20:24:52.444] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-26 20:24:52.447] [FINE   ] ImageUtils Adjust HSV saturation by -16 
+[2021-03-26 20:24:52.448] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-26 20:24:52.465] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 20:24:52.467] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 20:24:52.468] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 20:24:52.472] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03262024_52300_ADJ_THR.png 
+[2021-03-26 20:24:52.476] [FINE   ] RingRecognition Number of white pixels 4277 
+[2021-03-26 20:24:52.480] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-26 20:24:52.485] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-26 20:24:52.488] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 20:24:52.489] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 20:24:52.743] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 20:24:52.745] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 20:24:52.752] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-26 20:24:52.783] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:24:55.976] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-26 20:24:56.995] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:24:59.041] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:24:59.158] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@1cec1e3 degrees 
+[2021-03-26 20:24:59.265] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 20:25:00.604] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 20:25:00.606] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 20:25:01.404] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 20:25:01.405] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 20:25:02.337] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-26 20:25:02.338] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 20:25:02.375] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:25:02.467] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b79502f degrees 
+[2021-03-26 20:25:02.779] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:03.401] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 20:25:03.408] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:03.728] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:05.101] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 20:25:06.198] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:08.802] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 20:25:10.019] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:11.687] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-26 20:25:12.779] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:15.274] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:25:15.359] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@e5bf991 degrees 
+[2021-03-26 20:25:15.697] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 20:25:15.704] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 20:25:16.974] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-26 20:25:16.975] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 20:25:17.754] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-26 20:25:17.755] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 20:25:19.013] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1440.0 
+[2021-03-26 20:25:19.014] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 20:25:19.049] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:25:19.877] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 20:25:19.884] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 20:25:19.886] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-26 20:27:15.294] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-26 20:27:15.303] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 20:27:17.179] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-26 20:27:17.195] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-26 20:27:17.197] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-26 20:27:17.198] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-26 20:27:17.200] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-26 20:27:17.210] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-26 20:27:17.259] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 20:27:17.289] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-26 20:27:17.319] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-26 20:27:17.326] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-26 20:27:17.343] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-26 20:27:17.391] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-26 20:27:17.517] [FINE   ] FTCAuto wait for initialization 
+[2021-03-26 20:27:20.084] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-26 20:27:25.400] [INFO   ] FTCAuto At start 
+[2021-03-26 20:27:25.402] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-26 20:27:25.404] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-26 20:27:25.405] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-26 20:27:25.409] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-26 20:27:25.416] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-26 20:27:25.417] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-26 20:27:25.435] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-26 20:27:25.456] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03262027_25444_IMG.png 
+[2021-03-26 20:27:25.547] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-26 20:27:25.548] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-26 20:27:25.549] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03262027_25444_ROI.png 
+[2021-03-26 20:27:25.556] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-26 20:27:25.585] [FINE   ] ImageUtils HSV saturation channel median 15 
+[2021-03-26 20:27:25.586] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-26 20:27:25.587] [FINE   ] ImageUtils Adjust HSV saturation by -3 
+[2021-03-26 20:27:25.588] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-26 20:27:25.591] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-26 20:27:25.592] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-26 20:27:25.597] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-26 20:27:25.598] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03262027_25444_ADJ_THR.png 
+[2021-03-26 20:27:25.600] [FINE   ] RingRecognition Number of white pixels 1308 
+[2021-03-26 20:27:25.604] [FINE   ] RingRecognition Found one ring: set Target Zone Goal B 
+[2021-03-26 20:27:25.606] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_B 
+[2021-03-26 20:27:25.607] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-26 20:27:25.610] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-26 20:27:25.847] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-26 20:27:25.849] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 20:27:25.856] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:28.128] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:28.203] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f31ce31 degrees 
+[2021-03-26 20:27:29.258] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:29.870] [FINE   ] FTCAuto Executing FTCAuto command PLACE_WOBBLE 
+[2021-03-26 20:27:31.650] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:32.582] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:32.651] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@68d7eb4 degrees 
+[2021-03-26 20:27:33.802] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:34.365] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:34.444] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@6bea895 degrees 
+[2021-03-26 20:27:34.629] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-26 20:27:35.894] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 20:27:35.895] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 20:27:36.732] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-26 20:27:36.733] [FINE   ] FTCAuto Shot count 2 
+[2021-03-26 20:27:37.908] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-26 20:27:37.909] [FINE   ] FTCAuto Shot count 3 
+[2021-03-26 20:27:37.944] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:38.041] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b9be105 degrees 
+[2021-03-26 20:27:38.451] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-26 20:27:38.458] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:40.035] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-26 20:27:40.046] [FINE   ] FTCAuto Executing FTCAuto command SHOOT_B 
+[2021-03-26 20:27:41.915] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1380.0 
+[2021-03-26 20:27:41.917] [FINE   ] FTCAuto Shot count 1 
+[2021-03-26 20:27:41.953] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-26 20:27:41.973] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:42.722] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:42.813] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@1bd9bd6 degrees 
+[2021-03-26 20:27:43.991] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:44.824] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-26 20:27:45.896] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:45.984] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@470836b degrees 
+[2021-03-26 20:27:47.251] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:48.519] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-26 20:27:48.622] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ce2c90c degrees 
+[2021-03-26 20:27:49.678] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-26 20:27:50.182] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-26 20:27:51.754] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-26 20:27:51.761] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-26 20:27:51.762] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 14:54:09.951] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 14:54:09.961] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 14:54:11.834] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 14:54:11.843] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 14:54:11.846] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 14:54:11.849] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 14:54:11.851] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 14:54:11.865] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 14:54:11.900] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 14:54:11.923] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 14:54:11.951] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 14:54:11.964] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 14:54:11.978] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 14:54:12.024] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 14:54:12.147] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 14:54:13.365] [INFO   ] RobotCommonLog Closing log and writing out the last 2 entries on the queue 
+[2021-03-27 14:54:13.366] [FINE   ] BLUE_OUTSIDE Caught InterruptedException; rethrowing 
+[2021-03-27 14:54:13.368] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 14:59:50.266] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 14:59:50.279] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 14:59:52.162] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 14:59:52.168] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 14:59:52.169] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 14:59:52.170] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 14:59:52.171] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 14:59:52.176] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 14:59:52.210] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 14:59:52.235] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 14:59:52.264] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 14:59:52.273] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 14:59:52.292] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 14:59:52.349] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 14:59:52.470] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 14:59:54.884] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:00:19.737] [INFO   ] FTCAuto At start 
+[2021-03-27 15:00:19.738] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 15:00:19.739] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 15:00:19.740] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 15:00:19.753] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 15:00:19.763] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 15:00:19.764] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 15:00:19.777] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 15:00:19.801] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271500_19787_IMG.png 
+[2021-03-27 15:00:19.898] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 15:00:19.899] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 15:00:19.901] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271500_19787_ROI.png 
+[2021-03-27 15:00:19.913] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 15:00:19.947] [FINE   ] ImageUtils HSV saturation channel median 17 
+[2021-03-27 15:00:19.948] [FINE   ] ImageUtils HSV value channel median 188 
+[2021-03-27 15:00:19.949] [FINE   ] ImageUtils Adjust HSV saturation by -5 
+[2021-03-27 15:00:19.951] [FINE   ] ImageUtils Adjust HSV value by -28 
+[2021-03-27 15:00:19.952] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 15:00:19.954] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 15:00:19.955] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 15:00:19.958] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271500_19787_ADJ_THR.png 
+[2021-03-27 15:00:19.959] [FINE   ] RingRecognition Number of white pixels 2543 
+[2021-03-27 15:00:19.960] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-27 15:00:19.961] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-27 15:00:19.962] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 15:00:19.963] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 15:00:20.220] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 15:00:20.222] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:00:20.233] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 15:00:20.265] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:23.343] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 15:00:24.380] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:26.328] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:00:26.429] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@580f90a degrees 
+[2021-03-27 15:00:26.576] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 15:00:28.175] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-27 15:00:28.176] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:00:28.914] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 15:00:28.915] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 15:00:30.939] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:00:31.035] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@652a686 degrees 
+[2021-03-27 15:00:31.360] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:31.968] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 15:00:31.974] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:32.335] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:33.377] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 15:00:34.451] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:35.744] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 15:00:36.816] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:38.502] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 15:00:39.582] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:41.748] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:00:41.846] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@1314458 degrees 
+[2021-03-27 15:00:42.108] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:00:42.115] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 15:00:43.212] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-27 15:00:43.214] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:00:45.826] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-27 15:00:45.827] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 15:00:47.485] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:00:48.240] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 15:00:48.254] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 15:00:48.255] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 15:08:50.441] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 15:08:50.453] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:08:52.341] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:08:52.353] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 15:08:52.355] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 15:08:52.357] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 15:08:52.358] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 15:08:52.370] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 15:08:52.420] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:08:52.450] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 15:08:52.486] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 15:08:52.497] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:08:52.518] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 15:08:52.563] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 15:08:52.715] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 15:08:55.173] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:09:02.230] [INFO   ] FTCAuto At start 
+[2021-03-27 15:09:02.232] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 15:09:02.233] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 15:09:02.235] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 15:09:02.244] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 15:09:02.253] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 15:09:02.255] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 15:09:02.265] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 15:09:02.283] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271509_02273_IMG.png 
+[2021-03-27 15:09:02.381] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 15:09:02.384] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 15:09:02.385] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271509_02273_ROI.png 
+[2021-03-27 15:09:02.394] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 15:09:02.423] [FINE   ] ImageUtils HSV saturation channel median 18 
+[2021-03-27 15:09:02.425] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-27 15:09:02.428] [FINE   ] ImageUtils Adjust HSV saturation by -6 
+[2021-03-27 15:09:02.429] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-27 15:09:02.435] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 15:09:02.436] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 15:09:02.437] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 15:09:02.440] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271509_02273_ADJ_THR.png 
+[2021-03-27 15:09:02.441] [FINE   ] RingRecognition Number of white pixels 1587 
+[2021-03-27 15:09:02.442] [FINE   ] RingRecognition Found one ring: set Target Zone Goal B 
+[2021-03-27 15:09:02.443] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_B 
+[2021-03-27 15:09:02.444] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 15:09:02.445] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 15:09:02.706] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 15:09:02.708] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:09:02.716] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:04.936] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:05.013] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@fc8ad53 degrees 
+[2021-03-27 15:09:05.945] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:06.560] [FINE   ] FTCAuto Executing FTCAuto command PLACE_WOBBLE 
+[2021-03-27 15:09:08.328] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:09.229] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:09.296] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@2e2103e degrees 
+[2021-03-27 15:09:10.366] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:10.939] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:11.008] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@fede916 degrees 
+[2021-03-27 15:09:11.253] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 15:09:12.418] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 15:09:12.419] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:09:13.244] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-27 15:09:13.245] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 15:09:14.295] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 15:09:14.297] [FINE   ] FTCAuto Shot count 3 
+[2021-03-27 15:09:14.330] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:14.410] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@8d0c3c6 degrees 
+[2021-03-27 15:09:14.810] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 15:09:14.814] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:16.271] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:09:16.284] [FINE   ] FTCAuto Executing FTCAuto command SHOOT_B 
+[2021-03-27 15:09:20.264] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1380.0 
+[2021-03-27 15:09:20.266] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:09:20.298] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-27 15:09:20.313] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:21.039] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:21.126] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@ecc855a degrees 
+[2021-03-27 15:09:22.205] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:23.005] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-27 15:09:24.051] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:24.120] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@faf84ac degrees 
+[2021-03-27 15:09:25.309] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:26.590] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:09:26.678] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f42e8f3 degrees 
+[2021-03-27 15:09:27.554] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:09:28.066] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-27 15:09:29.528] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 15:09:29.534] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 15:09:29.537] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 15:17:02.168] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 15:17:02.181] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:17:04.037] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:17:04.045] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 15:17:04.047] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 15:17:04.049] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 15:17:04.051] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 15:17:04.056] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 15:17:04.097] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:17:04.131] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 15:17:04.167] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 15:17:04.176] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:17:04.198] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 15:17:04.254] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 15:17:04.383] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 15:17:06.767] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:17:19.138] [INFO   ] FTCAuto At start 
+[2021-03-27 15:17:19.140] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 15:17:19.142] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 15:17:19.143] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 15:17:19.155] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 15:17:19.164] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 15:17:19.166] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 15:17:19.176] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 15:17:19.202] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271517_19187_IMG.png 
+[2021-03-27 15:17:19.314] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 15:17:19.318] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 15:17:19.319] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271517_19187_ROI.png 
+[2021-03-27 15:17:19.324] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 15:17:19.376] [FINE   ] ImageUtils HSV saturation channel median 29 
+[2021-03-27 15:17:19.377] [FINE   ] ImageUtils HSV value channel median 152 
+[2021-03-27 15:17:19.378] [FINE   ] ImageUtils Adjust HSV saturation by -17 
+[2021-03-27 15:17:19.380] [FINE   ] ImageUtils Adjust HSV value by 8 
+[2021-03-27 15:17:19.383] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 15:17:19.386] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 15:17:19.388] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 15:17:19.389] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271517_19187_ADJ_THR.png 
+[2021-03-27 15:17:19.390] [FINE   ] RingRecognition Number of white pixels 4945 
+[2021-03-27 15:17:19.391] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-27 15:17:19.393] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-27 15:17:19.395] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 15:17:19.398] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 15:17:19.651] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 15:17:19.652] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:17:19.659] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 15:17:19.688] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:22.684] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 15:17:23.714] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:25.753] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:17:25.867] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@a00aded degrees 
+[2021-03-27 15:17:26.133] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 15:17:27.706] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-27 15:17:27.708] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:17:28.578] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 15:17:28.579] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 15:17:30.482] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:17:30.567] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@29f159 degrees 
+[2021-03-27 15:17:30.893] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:31.515] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 15:17:31.521] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:31.852] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:33.079] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 15:17:34.161] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:35.615] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 15:17:36.687] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:17:50.102] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 15:17:50.105] [FINE   ] BLUE_OUTSIDE null 
+[2021-03-27 15:17:50.106] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 15:17:50.107] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 15:26:01.046] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 15:26:01.051] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:26:02.902] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:26:02.910] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 15:26:02.911] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 15:26:02.914] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 15:26:02.915] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 15:26:02.920] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 15:26:02.957] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:26:02.988] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 15:26:03.030] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 15:26:03.051] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:26:03.065] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 15:26:03.108] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 15:26:03.233] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 15:26:05.686] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:43:16.828] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 15:43:16.834] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:43:18.690] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:43:18.704] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 15:43:18.707] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 15:43:18.708] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 15:43:18.710] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 15:43:18.718] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 15:43:18.759] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:43:18.796] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 15:43:18.848] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 15:43:18.854] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:43:18.879] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 15:43:18.916] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 15:43:19.038] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 15:43:21.474] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:43:31.461] [INFO   ] FTCAuto At start 
+[2021-03-27 15:43:31.462] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 15:43:31.463] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 15:43:31.464] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 15:43:31.472] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 15:43:31.484] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 15:43:31.486] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 15:43:31.518] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 15:43:31.539] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271543_31527_IMG.png 
+[2021-03-27 15:43:31.637] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 15:43:31.639] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 15:43:31.641] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271543_31527_ROI.png 
+[2021-03-27 15:43:31.649] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 15:43:31.686] [FINE   ] ImageUtils HSV saturation channel median 11 
+[2021-03-27 15:43:31.688] [FINE   ] ImageUtils HSV value channel median 188 
+[2021-03-27 15:43:31.693] [FINE   ] ImageUtils Adjust HSV saturation by 1 
+[2021-03-27 15:43:31.694] [FINE   ] ImageUtils Adjust HSV value by -28 
+[2021-03-27 15:43:31.697] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 15:43:31.698] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 15:43:31.700] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 15:43:31.702] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271543_31527_ADJ_THR.png 
+[2021-03-27 15:43:31.705] [FINE   ] RingRecognition Number of white pixels 0 
+[2021-03-27 15:43:31.706] [FINE   ] RingRecognition No rings detected: set Target Zone Goal A 
+[2021-03-27 15:43:31.707] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_A 
+[2021-03-27 15:43:31.708] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 15:43:31.709] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 15:43:31.960] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 15:43:31.961] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 15:43:31.966] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 15:43:31.997] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:33.916] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:43:33.980] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@cdf8d4a degrees 
+[2021-03-27 15:43:33.981] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 15:43:35.017] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:35.858] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:36.988] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:43:37.048] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@5c35325 degrees 
+[2021-03-27 15:43:37.302] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 15:43:38.538] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-27 15:43:38.540] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 15:43:39.302] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-27 15:43:39.303] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 15:43:40.287] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-27 15:43:40.289] [FINE   ] FTCAuto Shot count 3 
+[2021-03-27 15:43:40.323] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-27 15:43:40.349] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:43:40.405] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@b0ac77f degrees 
+[2021-03-27 15:43:40.729] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:41.445] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:43:41.506] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@78b5011 degrees 
+[2021-03-27 15:43:42.471] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:43.499] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-27 15:43:44.541] [FINE   ] FTCAuto Executing FTCAuto command WAIT_TIME 
+[2021-03-27 15:43:45.555] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:46.369] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 15:43:46.445] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@f23d803 degrees 
+[2021-03-27 15:43:47.489] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 15:43:48.577] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-27 15:43:49.467] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 15:43:49.474] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 15:43:49.481] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 15:43:49.482] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 15:51:14.968] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 15:51:14.973] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:51:16.816] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 15:51:16.823] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 15:51:16.825] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 15:51:16.827] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 15:51:16.830] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 15:51:16.841] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 15:51:16.883] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:51:16.916] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 15:51:16.955] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 15:51:16.964] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 15:51:16.985] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 15:51:17.025] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 15:51:17.163] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 15:51:19.615] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 15:51:27.217] [INFO   ] FTCAuto At start 
+[2021-03-27 16:01:56.220] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 16:01:56.225] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:01:58.072] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:01:58.079] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 16:01:58.080] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 16:01:58.081] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 16:01:58.083] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 16:01:58.091] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 16:01:58.134] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:01:58.160] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 16:01:58.192] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 16:01:58.205] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:01:58.231] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 16:01:58.276] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 16:01:58.403] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 16:02:00.809] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 16:02:14.017] [INFO   ] FTCAuto At start 
+[2021-03-27 16:02:14.018] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 16:02:14.019] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 16:02:14.020] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 16:02:14.022] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 16:02:14.030] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 16:02:14.031] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 16:02:14.043] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 16:02:14.058] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271602_14048_IMG.png 
+[2021-03-27 16:02:14.135] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 16:02:14.137] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 16:02:14.139] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271602_14048_ROI.png 
+[2021-03-27 16:02:14.146] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 16:02:14.175] [FINE   ] ImageUtils HSV saturation channel median 23 
+[2021-03-27 16:02:14.176] [FINE   ] ImageUtils HSV value channel median 160 
+[2021-03-27 16:02:14.177] [FINE   ] ImageUtils Adjust HSV saturation by -11 
+[2021-03-27 16:02:14.178] [FINE   ] ImageUtils Adjust HSV value by 0 
+[2021-03-27 16:02:14.180] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 16:02:14.181] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 16:02:14.182] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 16:02:14.185] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271602_14048_ADJ_THR.png 
+[2021-03-27 16:02:14.186] [FINE   ] RingRecognition Number of white pixels 3780 
+[2021-03-27 16:02:14.187] [FINE   ] RingRecognition Found four rings: set Target Zone Goal C 
+[2021-03-27 16:02:14.188] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_C 
+[2021-03-27 16:02:14.189] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 16:02:14.190] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 16:02:14.455] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 16:02:14.457] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 16:02:14.460] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 16:02:14.493] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:17.598] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 16:02:18.628] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:20.623] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:02:20.723] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@9edb442 degrees 
+[2021-03-27 16:02:20.882] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 16:02:22.122] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 16:02:22.123] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 16:02:22.862] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1580.0 
+[2021-03-27 16:02:22.864] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 16:02:23.734] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1560.0 
+[2021-03-27 16:02:23.736] [FINE   ] FTCAuto Shot count 3 
+[2021-03-27 16:02:23.771] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:02:23.882] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@9794954 degrees 
+[2021-03-27 16:02:24.213] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:24.816] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 16:02:24.820] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:25.156] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:26.301] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 16:02:27.381] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:32.434] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 16:02:33.520] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:35.412] [FINE   ] FTCAuto Executing FTCAuto command INTAKE_LIFTER 
+[2021-03-27 16:02:36.486] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:38.764] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:02:38.847] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@dffdc67 degrees 
+[2021-03-27 16:02:39.219] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 16:02:39.223] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 16:02:40.482] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1460.0 
+[2021-03-27 16:02:40.483] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 16:02:43.098] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:02:43.797] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 16:02:43.805] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 16:02:43.807] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 16:10:20.009] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 16:10:20.014] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:10:21.850] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:10:21.859] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 16:10:21.860] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 16:10:21.862] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 16:10:21.864] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 16:10:21.869] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 16:10:21.905] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:10:21.928] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 16:10:21.970] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 16:10:22.008] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:10:22.019] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 16:10:22.063] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 16:10:22.200] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 16:10:24.784] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 16:10:31.837] [INFO   ] FTCAuto At start 
+[2021-03-27 16:10:31.838] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 16:10:31.841] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 16:10:31.842] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 16:10:31.848] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 16:10:31.861] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 16:10:31.862] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 16:10:31.868] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 16:10:31.883] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271610_31874_IMG.png 
+[2021-03-27 16:10:31.973] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 16:10:31.976] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 16:10:31.978] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271610_31874_ROI.png 
+[2021-03-27 16:10:31.986] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 16:10:32.015] [FINE   ] ImageUtils HSV saturation channel median 11 
+[2021-03-27 16:10:32.017] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-27 16:10:32.019] [FINE   ] ImageUtils Adjust HSV saturation by 1 
+[2021-03-27 16:10:32.020] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-27 16:10:32.023] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 16:10:32.025] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 16:10:32.028] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 16:10:32.030] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271610_31874_ADJ_THR.png 
+[2021-03-27 16:10:32.032] [FINE   ] RingRecognition Number of white pixels 0 
+[2021-03-27 16:10:32.035] [FINE   ] RingRecognition No rings detected: set Target Zone Goal A 
+[2021-03-27 16:10:32.036] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_A 
+[2021-03-27 16:10:32.037] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 16:10:32.037] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 16:10:32.317] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 16:10:32.319] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 16:10:32.330] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 16:10:32.364] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:34.344] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:10:34.395] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@d45b582 degrees 
+[2021-03-27 16:10:34.396] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 16:10:35.419] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:36.193] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:37.327] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:10:37.412] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@adee894 degrees 
+[2021-03-27 16:10:37.729] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 16:10:39.037] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-27 16:10:39.038] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 16:10:39.981] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1480.0 
+[2021-03-27 16:10:39.983] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 16:10:40.909] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1500.0 
+[2021-03-27 16:10:40.910] [FINE   ] FTCAuto Shot count 3 
+[2021-03-27 16:10:40.944] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-27 16:10:40.976] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:10:41.044] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@beb35d7 degrees 
+[2021-03-27 16:10:41.397] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:42.104] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:10:42.164] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@2f68ba9 degrees 
+[2021-03-27 16:10:43.164] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:44.229] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-27 16:10:45.266] [FINE   ] FTCAuto Executing FTCAuto command WAIT_TIME 
+[2021-03-27 16:10:46.275] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:47.112] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:10:47.174] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@242dcdb degrees 
+[2021-03-27 16:10:48.174] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:10:49.335] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-27 16:10:51.173] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 16:10:51.178] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 16:10:51.189] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 16:10:51.190] [INFO   ] RobotCommonLog Shutting down log 
+[2021-03-27 16:17:50.493] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-03-27 16:17:50.499] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:17:52.337] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-03-27 16:17:52.344] [INFO   ] RobotActionXML In RobotActionXML; opened and parsed the XML file 
+[2021-03-27 16:17:52.345] [INFO   ] RobotActionXML Found 5 OpModes 
+[2021-03-27 16:17:52.347] [CONFIG ] FTCAuto Minimum logging level FINER 
+[2021-03-27 16:17:52.348] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-03-27 16:17:52.352] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-03-27 16:17:52.385] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:17:52.412] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-03-27 16:17:52.444] [FINE   ] TowerParametersXML Parsing XML tower_parameters 
+[2021-03-27 16:17:52.452] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-03-27 16:17:52.471] [FINE   ] CommonParametersXML Parsing XML gray_parameters 
+[2021-03-27 16:17:52.518] [FINE   ] TargetZoneXML Processing target zone xml for OpMode BLUE_OUTSIDE 
+[2021-03-27 16:17:52.658] [FINE   ] FTCAuto wait for initialization 
+[2021-03-27 16:17:55.128] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-03-27 16:18:08.030] [INFO   ] FTCAuto At start 
+[2021-03-27 16:18:08.031] [INFO   ] FTCAuto OpMode: BLUE_OUTSIDE, Alliance: RED 
+[2021-03-27 16:18:08.033] [FINE   ] RobotActionXML Found a matching opmode BLUE_OUTSIDE 
+[2021-03-27 16:18:08.034] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WOBBLE_SERVO 
+[2021-03-27 16:18:08.036] [FINE   ] FTCAuto Executing FTCAuto command RECOGNIZE_RINGS 
+[2021-03-27 16:18:08.045] [FINE   ] FTCAuto Image provider vuforia 
+[2021-03-27 16:18:08.047] [FINE   ] RingRecognition In RingRecognition.findGoldRings 
+[2021-03-27 16:18:08.054] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-03-27 16:18:08.071] [FINE   ] RingRecognition Writing original image /storage/emulated/0/Pictures/images/Image_03271618_08060_IMG.png 
+[2021-03-27 16:18:08.146] [FINE   ] RingRecognition Image width 800, height 448 
+[2021-03-27 16:18:08.148] [FINE   ] ImageUtils Image ROI x 585, y 260, width 200, height 130 
+[2021-03-27 16:18:08.152] [FINE   ] RingRecognition Writing image ROI /storage/emulated/0/Pictures/images/Image_03271618_08060_ROI.png 
+[2021-03-27 16:18:08.159] [FINE   ] RingRecognition Target hue levels: low 5, high 30 
+[2021-03-27 16:18:08.189] [FINE   ] ImageUtils HSV saturation channel median 11 
+[2021-03-27 16:18:08.191] [FINE   ] ImageUtils HSV value channel median 184 
+[2021-03-27 16:18:08.192] [FINE   ] ImageUtils Adjust HSV saturation by 1 
+[2021-03-27 16:18:08.194] [FINE   ] ImageUtils Adjust HSV value by -24 
+[2021-03-27 16:18:08.196] [FINE   ] RingRecognition Adjusted image levels: saturation low 12, value low 160 
+[2021-03-27 16:18:08.198] [FINE   ] RingRecognition Actual inRange HSV levels: hue low 5, hue high 30 
+[2021-03-27 16:18:08.200] [FINE   ] RingRecognition Actual inRange HSV levels: saturation low 10, value low 120 
+[2021-03-27 16:18:08.202] [FINE   ] RingRecognition Writing /storage/emulated/0/Pictures/images/Image_03271618_08060_ADJ_THR.png 
+[2021-03-27 16:18:08.203] [FINE   ] RingRecognition Number of white pixels 0 
+[2021-03-27 16:18:08.206] [FINE   ] RingRecognition No rings detected: set Target Zone Goal A 
+[2021-03-27 16:18:08.208] [FINE   ] FTCAuto Found Target Zone TARGET_ZONE_A 
+[2021-03-27 16:18:08.209] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-03-27 16:18:08.210] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-03-27 16:18:08.472] [FINE   ] FTCAuto Executing FTCAuto command EXECUTE_TARGET_ZONE_STEPS 
+[2021-03-27 16:18:08.474] [FINE   ] FTCAuto Executing FTCAuto command GATE_DOWN 
+[2021-03-27 16:18:08.478] [FINE   ] FTCAuto Executing FTCAuto command FLOATING_WOBBLE 
+[2021-03-27 16:18:08.510] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:10.519] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:18:10.565] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@dc2d298 degrees 
+[2021-03-27 16:18:10.566] [FINE   ] FTCAuto Executing FTCAuto command LIFTING_FLOATING_WOBBLE 
+[2021-03-27 16:18:11.586] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:12.426] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:13.555] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:18:13.618] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@a132ce5 degrees 
+[2021-03-27 16:18:13.923] [FINE   ] FTCAuto Executing FTCAuto command SHOOT 
+[2021-03-27 16:18:15.151] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-27 16:18:15.153] [FINE   ] FTCAuto Shot count 1 
+[2021-03-27 16:18:15.949] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1540.0 
+[2021-03-27 16:18:15.951] [FINE   ] FTCAuto Shot count 2 
+[2021-03-27 16:18:16.998] [FINE   ] FTCAuto Presume shot taken; dip in shooter motor velocity to 1520.0 
+[2021-03-27 16:18:16.999] [FINE   ] FTCAuto Shot count 3 
+[2021-03-27 16:18:17.034] [FINE   ] FTCAuto Executing FTCAuto command LOWER_WOBBLE_ARM 
+[2021-03-27 16:18:17.063] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:18:17.122] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@3821955 degrees 
+[2021-03-27 16:18:17.461] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:18.190] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:18:18.272] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@651a337 degrees 
+[2021-03-27 16:18:19.396] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:20.451] [FINE   ] FTCAuto Executing FTCAuto command LIFT_WOBBLE_ARM 
+[2021-03-27 16:18:21.482] [FINE   ] FTCAuto Executing FTCAuto command WAIT_TIME 
+[2021-03-27 16:18:22.505] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:23.377] [FINE   ] FTCAuto Executing FTCAuto command TURN 
+[2021-03-27 16:18:23.439] [FINE   ] FTCAuto Turn by org.firstinspires.ftc.teamcode.math.Angle@32e0b79 degrees 
+[2021-03-27 16:18:24.546] [FINE   ] FTCAuto Executing FTCAuto command MOVE 
+[2021-03-27 16:18:25.654] [FINE   ] FTCAuto Executing FTCAuto command PARK_WOBBLE_A 
+[2021-03-27 16:18:26.411] [FINE   ] FTCAuto Executing FTCAuto command GATE_UP 
+[2021-03-27 16:18:26.423] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-03-27 16:18:26.439] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-03-27 16:18:26.441] [INFO   ] RobotCommonLog Shutting down log 

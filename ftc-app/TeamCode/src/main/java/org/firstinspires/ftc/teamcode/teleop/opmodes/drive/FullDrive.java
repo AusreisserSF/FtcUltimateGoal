@@ -84,7 +84,7 @@ public class FullDrive extends BaseDrive {
         if (ringPowerShotButton.is(Button.State.TAP)) {
             robot.ringShooter.shootMotor.setVelocity(0);
             if (gamepad2.left_bumper) {
-                robot.ringShooter.shootMotor.setVelocity(1600);
+                robot.ringShooter.shootMotor.setVelocity(1475);
             } else if (gamepad2.right_bumper) {
                 robot.ringShooter.shootMotor.setVelocity(1850); //Allows for Rapid Fire
             }
