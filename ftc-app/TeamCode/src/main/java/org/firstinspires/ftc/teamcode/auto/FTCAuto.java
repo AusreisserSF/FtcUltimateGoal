@@ -310,54 +310,56 @@ public class FTCAuto {
                 break;
             }
 
-            case "PLACE_WOBBLE": {
-                int waitTime = commandXPath.getInt("waitTime");
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.OUT);
-                robot.wobbleArm.waitForFlip();
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
-                sleep(waitTime);
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
+            case "WOBBLE_MOTOR": {
+                String stringState = commandXPath.getString("state");
+                WobbleArm.FlipState state = WobbleArm.FlipState.DROP;
+
+                switch (stringState) {
+                    case "out":
+                        state = WobbleArm.FlipState.OUT;
+                        break;
+                    case "floating":
+                        state = WobbleArm.FlipState.FLOATING;
+                        break;
+                    case "rest":
+                        state = WobbleArm.FlipState.REST;
+                        break;
+                    case "in":
+                        state = WobbleArm.FlipState.IN;
+                        break;
+                    case "intake":
+                        state = WobbleArm.FlipState.INTAKE;
+                        break;
+                    case "drop":
+                        state = WobbleArm.FlipState.DROP;
+                        break;
+                }
+                robot.wobbleArm.setFlipState(state);
                 break;
             }
 
-            case "PARK_WOBBLE_A": {
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.DROP);
-                robot.wobbleArm.waitForFlip();
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
+            case "WOBBLE_SERVO":{
+
+                String stringState = commandXPath.getString("state");
+                WobbleArm.ServoState state = WobbleArm.ServoState.REST;
+
+                switch(stringState){
+                    case "close":{
+                        state = WobbleArm.ServoState.HOLD;
+                        break;
+                    }
+                    case "neutral":{
+                        state = WobbleArm.ServoState.REST;
+                        break;
+                    }
+                    case "release":
+                        state = WobbleArm.ServoState.RELEASE;
+                        break;
+                }
+                robot.wobbleArm.setServoState(state);
                 break;
             }
 
-            case "LOWER_WOBBLE_ARM": {
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.INTAKE);
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
-                break;
-            }
-
-            case "CLOSE_WOBBLE_SERVO": {
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.HOLD);
-                break;
-            }
-
-            case "NEUTRAL_WOBBLE_SERVO": {
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.REST);
-                break;
-            }
-
-            case "LIFT_WOBBLE_ARM": {
-                int waitTime = commandXPath.getInt("waitTime");
-                robot.wobbleArm.waitForFlip();
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.HOLD);
-                sleep(waitTime);
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
-                break;
-            }
-
-            case "WAIT_TIME": {
-                int waitTime = commandXPath.getInt( "waitTime");
-                sleep(waitTime);
-                break;
-            }
 
             case "ALIGN_TO_TOWER": {
                 String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
@@ -391,6 +393,12 @@ public class FTCAuto {
                 //optional parameters
                 double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
                 int maxShotCount = commandXPath.getInt("maxShotCount",3);
+                boolean powerShot = commandXPath.getBoolean("powerShot", false);
+
+                if (powerShot){
+                    robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                    robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                }
 
                 robot.ringShooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
@@ -399,69 +407,12 @@ public class FTCAuto {
                     sleep(20);
                 }
 
-                //sleep(1000);
+                sleep(500);
 
-                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
-
-                int shotCount = 0;
-                long timeout = System.currentTimeMillis() + waitTime;
-                while (System.currentTimeMillis() < timeout) {
-                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                    if (currentVelocity < dip) {
-                        shotCount++;
-                        RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
-                        RobotLogCommon.d(TAG, "Shot count " + shotCount);
-                        if (shotCount == maxShotCount)
-                            break;
-
-                        robot.ringShooter.intakeMotor.setVelocity(0);
-                        robot.ringShooter.liftMotor.setVelocity(0);
-                        sleep(100);
-
-                        // Get back up to speed
-                        currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                        while (currentVelocity < shootVelocity) {
-                            currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                            sleep(20);
-                        }
-
-                        robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                        robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
-                    }
+                if (!powerShot){
+                    robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
+                    robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                 }
-
-                robot.ringShooter.shootMotor.setVelocity(0);
-                robot.ringShooter.intakeMotor.setVelocity(0);
-                robot.ringShooter.liftMotor.setVelocity(0);
-                break;
-            }
-
-
-            case "SHOOT_B": {
-                double shootVelocity = commandXPath.getDouble("shootVelocity");
-                double intakeVelocity = commandXPath.getDouble("intakeVelocity");
-                int waitTime = commandXPath.getInt("waitTime");
-                int dip = commandXPath.getInt("shootVelocityDip");
-
-                //optional parameters
-                double lifterVelocity = 2500;
-                int maxShotCount = commandXPath.getInt("maxShotCount",3);
-
-                robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
-                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
-
-                double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                while (currentVelocity < shootVelocity) {
-                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
-                    sleep(20);
-                }
-
-                robot.ringShooter.setServoState(RingShooter.ServoState.DOWN);
-                robot.ringShooter.intakeMotor.setVelocity(0);
-                sleep(100);
-                robot.ringShooter.intakeMotor.setVelocity(2000);
 
                 int shotCount = 0;
                 long timeout = System.currentTimeMillis() + waitTime;
@@ -497,15 +448,6 @@ public class FTCAuto {
             }
 
             case "INTAKE": {
-                int power = commandXPath.getInt("power");
-                int time = commandXPath.getInt("time");
-                robot.ringShooter.intakeMotor.setPower(power);
-                sleep(time);
-                robot.ringShooter.intakeMotor.setPower(0);
-                break;
-            }
-
-            case "INTAKE_LIFTER": {
                 double dipVelocity = commandXPath.getDouble("dip", 100);
                 double intakePower = commandXPath.getDouble("intakePower");
                 double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
@@ -527,20 +469,6 @@ public class FTCAuto {
                 robot.ringShooter.intakeMotor.setPower(0);
                 robot.ringShooter.intakeMotor.setPower(0);
 
-                break;
-
-            }
-
-
-            case "FLOATING_WOBBLE": {
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.FLOATING);
-                break;
-            }
-
-            case "LIFTING_FLOATING_WOBBLE": {
-                robot.wobbleArm.setServoState(WobbleArm.ServoState.RELEASE);
-                sleep(1000);
-                robot.wobbleArm.setFlipState(WobbleArm.FlipState.IN);
                 break;
 
             }
@@ -679,31 +607,38 @@ public class FTCAuto {
                 break;
             }
 
-            case "SLEEP": {
+            case "SLEEP": { //I want sleep :)
                 int sleepValue = commandXPath.getInt("ms");
                 RobotLogCommon.d(TAG, "Pause by " + sleepValue + " milliseconds");
                 sleep(sleepValue);
                 break;
             }
 
-            case "BREAK_POINT": {
+            case "BREAKPOINT": {
                 while (!linearOpMode.gamepad1.a) {
                     sleep(1);
                 }
                 break;
             }
 
-            case "GATE_UP": {
-                RingShooter.ServoState servoState = RingShooter.ServoState.UP;
-                robot.ringShooter.setServoState(servoState);
+            case "GATE": {
+                String stringState = commandXPath.getString("state");
+                RingShooter.ServoState state = RingShooter.ServoState.REST;
 
-                break;
-            }
-
-            case "GATE_DOWN": {
-                RingShooter.ServoState servoState = RingShooter.ServoState.DOWN;
-                robot.ringShooter.setServoState(servoState);
-
+                switch(stringState){
+                    case "down":{
+                        state = RingShooter.ServoState.DOWN;
+                        break;
+                    }
+                    case "rest":{
+                        state = RingShooter.ServoState.REST;
+                        break;
+                    }
+                    case "up":
+                        state = RingShooter.ServoState.UP;
+                        break;
+                }
+                robot.ringShooter.setServoState(state);
                 break;
             }
 
