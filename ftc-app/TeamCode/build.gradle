@@ -20,4 +20,12 @@ dependencies {
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
     implementation project(path: ':opencv-4.5.1')
     implementation project(path: ':ftcdevcommon')
+
+
+    implementation 'com.spartronics4915.lib:ftc265:2.1.8'
+
+}
+
+repositories {
+    maven { url = "https://maven.0x778.tk" }
 }
