@@ -48,14 +48,14 @@ public class T265Reader {
             return; // nothing to do
         readerActivated = true;
 
-        // Start a thread that accesses localization data from the T265.
+        t265Camera.start(); // start the camera stream
         readerInformationAvailable = false; // make sure the synchronization flag starts off false
         latestPose = null;
 
         // Start up the T265 reader as a CompletableFuture.
         RobotLogCommon.d(TAG, "Starting T265 reader thread");
 
-        t265Camera.start();
+
         t265ReaderCallable = new T265ReaderCallable(countDownLatch);
         readerFuture = CommonUtils.launchAsync(t265ReaderCallable);
 
@@ -69,9 +69,9 @@ public class T265Reader {
             return; // nothing to do
         readerActivated = false;
 
-        // Stop the reader and wait for the reader to complete.        
-        t265Camera.stop();
+        // Stop the reader and wait for it to complete.
         t265ReaderCallable.stopThread();
+        t265Camera.stop();
         CommonUtils.getFutureCompletion(readerFuture);
     }
 
@@ -84,6 +84,7 @@ public class T265Reader {
         readerLock.lock();
         if (!readerActivated)
             throw new AutonomousRobotException(TAG, "getT265Pose(): T265 is not activated");
+
         try {
             boolean waitVal = true;
             long now = System.currentTimeMillis();

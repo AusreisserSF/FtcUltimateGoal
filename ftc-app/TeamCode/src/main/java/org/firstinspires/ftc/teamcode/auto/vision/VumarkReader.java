@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -34,8 +33,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-// Class that has member functions to launch a thread that continuously reads Vumarks and posts the results,
-// to read the data assoicates with the most recently read Vumark, and to shut down the reading of Vumarks.
+// Class that continuously reads Vumark data and posts the results.
 public class VumarkReader {
 
     private static final String TAG = "VumarkReader";
@@ -78,6 +76,8 @@ public class VumarkReader {
     private boolean vumarksActivated = false;
 
     // Thread-related.
+    private final CountDownLatch countDownLatch = new CountDownLatch(1);
+    private VumarkReaderCallable vumarkReaderCallable;
     private CompletableFuture<Void> vumarkReaderFuture;
     private final Lock vumarkLock = new ReentrantLock();
     private final Condition vumarkCondition = vumarkLock.newCondition();
@@ -161,38 +161,34 @@ public class VumarkReader {
     }
 
     // Turn on for Vumark recognition.
-    public void activateVumarkRecognition() throws InterruptedException {
+    public synchronized void activateVumarkRecognition() throws InterruptedException {
         if (vumarksActivated)
             return; // nothing to do
+        vumarksActivated = true;
 
         targetsUltimateGoal.activate();
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        stopVumarkReader.set(false);
-
-        // Start a thread that looks for Vumarks.
-        vumarkLock.lock();
         vumarkInformationAvailable = false; // make sure the synchronization flag starts off false
         lastLocation = null;
-        vumarkLock.unlock();
 
         // Start up the Vumark reader as a CompletableFuture.
         RobotLogCommon.d(TAG, "Starting Vumark reader thread");
-        vumarkReaderFuture = CommonUtils.launchAsync(new VumarkReaderCallable(countDownLatch));
+
+        vumarkReaderCallable = new VumarkReaderCallable(countDownLatch);
+        vumarkReaderFuture = CommonUtils.launchAsync(vumarkReaderCallable);
 
         // Wait here until the thread is off and running.
         countDownLatch.await();
-        vumarksActivated = true;
     }
 
     // Turn off when done with Vumark recognition.
-    public void deactivateVumarkRecognition() throws IOException, InterruptedException {
+    public synchronized void deactivateVumarkRecognition() throws IOException, InterruptedException {
         if (!vumarksActivated)
             return; // nothing to do
+        vumarksActivated = false;
 
-        stopVumarkReader.set(true);
+        // Stop the reader and wait for it to complete.
+        vumarkReaderCallable.stopThread();
         targetsUltimateGoal.deactivate();
-
-        // Wait for the reader to complete.
         CommonUtils.getFutureCompletion(vumarkReaderFuture);
     }
 
@@ -200,11 +196,12 @@ public class VumarkReader {
     // empty Optional if no Vumark is in view and the timer expires.
     public Optional<Pair<Pose, String>> getVumarkPose(int pTimeout) throws InterruptedException {
 
+        RobotLogCommon.d(TAG, "Looking for a Vumark with timeout value " + pTimeout + " ms");
+
+        vumarkLock.lock();
         if (!vumarksActivated)
             throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
 
-        RobotLogCommon.d(TAG, "Looking for a Vumark with timeout value " + pTimeout + " ms");
-        vumarkLock.lock();
         try {
             boolean waitVal = true;
             long now = System.currentTimeMillis();
@@ -217,7 +214,7 @@ public class VumarkReader {
             }
 
             if (!waitVal || (now >= deadline)) {
-//                RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
+            // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
                 return Optional.empty();
             }
 
@@ -237,18 +234,16 @@ public class VumarkReader {
             lastLocation = null;
             vumarkInformationAvailable = false;
             vumarkLock.unlock();
-//            RobotLogCommon.d(TAG, "Exiting getRobotLocationFromVumark");
+            // RobotLogCommon.d(TAG, "Exiting getRobotLocationFromVumark");
         }
     }
 
     // Looks for a Vumark and, if present, makes the transformation matrix available
     // to the main thread.
-    private class VumarkReaderCallable implements Callable<Void> {
-
-        private final CountDownLatch countDownLatch;
+    private class VumarkReaderCallable extends AutoWorker<Void> {
 
         VumarkReaderCallable(CountDownLatch pCountDownLatch) {
-            countDownLatch = pCountDownLatch;
+            super(pCountDownLatch);
         }
 
         public Void call() {
@@ -272,7 +267,7 @@ public class VumarkReader {
                          */
                         robotTransformationMatrix = ((VuforiaTrackableDefaultListener) trackable.getListener()).getRobotLocation();
                         if (robotTransformationMatrix != null) {
-//                            RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
+                        // RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
                             vumarkLock.lock();
                             try {
                                 vumarkInformationAvailable = true;
