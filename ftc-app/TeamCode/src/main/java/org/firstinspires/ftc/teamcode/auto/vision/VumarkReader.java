@@ -253,6 +253,8 @@ public class VumarkReader {
     }
 
     // Creates a median Pose from the most recent pNumSamples queue entries for the requested Vumark.
+    // If the number of queue entries is less than pNumSamples, this method supplies the median for
+    // however many queue entries are present.
     public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
 
         vumarkLock.lock();
@@ -277,8 +279,6 @@ public class VumarkReader {
                 return Optional.empty();
             }
 
-            //**TODO Actually you should collect Vumarks from Vuforia until you have
-            // pNumSamples on the queue ...
             // Create the median Pose.
             // Collect the last pNumSamples entries from the queue.
             Deque<Pose> vumarkDeque = trackedVumarks.get(pVumark);
@@ -293,6 +293,7 @@ public class VumarkReader {
             // https://stackoverflow.com/questions/43667989/finding-the-median-value-from-a-list-of-objects-using-java-8
             // and
             // https://stackoverflow.com/questions/10791568/calculating-average-of-an-array-list
+            RobotLogCommon.d(TAG, "Calculating the median for " + entriesToCollect + " queue entries");
             double medianX = medianCollection
                     .stream().map(p -> p.x)
                     .mapToDouble(x -> x).sorted()
