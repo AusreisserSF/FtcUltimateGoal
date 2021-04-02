@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.auto.xml.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -148,7 +149,8 @@ public class FTCAuto {
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
 
             // Prepare to read Vumarks but don't start yet.
-            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer);
+            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer,
+                    new ArrayList<VumarkReader.SupportedVumark>(Arrays.asList(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL)));
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -521,18 +523,18 @@ public class FTCAuto {
                 if (vumarkReader == null)
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
-                Optional<Pair<Pose, String>> vumark;
+                Optional<Pose> vumark;
                 for (int i = 0; i < 20; i++) {
-                    vumark = vumarkReader.getVumarkPose(1000);
+                    vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
                         RobotLogCommon.d(TAG, "Vumark is not visible");
                         linearOpMode.telemetry.addData("Vumark ", "not visible");
                         linearOpMode.telemetry.update();
                     } else {
-                        Pair<Pose, String> robotPoseAtVumark = vumark.get();
-                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + robotPoseAtVumark.second);
+                        Pose robotPoseAtVumark = vumark.get();
+                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
                         String poseString = String.format("Pose x %.1f in., y %.1f in, angle %.1f deg.",
-                                robotPoseAtVumark.first.x, robotPoseAtVumark.first.y, robotPoseAtVumark.first.r);
+                                robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                         RobotLogCommon.d(TAG, poseString);
 
                         linearOpMode.telemetry.addData("Vumark ", poseString);
@@ -554,10 +556,10 @@ public class FTCAuto {
                 if (vumarkReader == null)
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
-                Optional<Pair<Pose, String>> vumark = vumarkReader.getVumarkPose(1000);
+                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                 if (vumark.isPresent()) {
 
-                    Pose currentPose = new Pose(vumark.get().first.x, vumark.get().first.y, robot.imu.getIntegratedHeading().getDegrees());
+                    Pose currentPose = new Pose(vumark.get().x, vumark.get().y, robot.imu.getIntegratedHeading().getDegrees());
                     Pose diffPose = currentPose.subtract(targetPose);
 
                     linearOpMode.telemetry.setAutoClear(true);
@@ -578,10 +580,10 @@ public class FTCAuto {
                         linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
                         linearOpMode.telemetry.update();
 
-                        Optional<Pair<Pose, String>> newVumark = vumarkReader.getVumarkPose(1000);
+                        Optional<Pose> newVumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                         if (newVumark.isPresent())
                             vumark = newVumark;
-                        currentPose = new Pose(vumark.get().first.x, vumark.get().first.y, robot.imu.getIntegratedHeading().getDegrees());
+                        currentPose = new Pose(vumark.get().x, vumark.get().y, robot.imu.getIntegratedHeading().getDegrees());
                         diffPose = currentPose.subtract(targetPose);
                         sleep(20);
                     }

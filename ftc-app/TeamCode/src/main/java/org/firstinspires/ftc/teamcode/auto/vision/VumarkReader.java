@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.CommonUtils;
-import org.firstinspires.ftc.ftcdevcommon.Pair;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -16,16 +15,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.math.Pose;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -51,20 +54,30 @@ public class VumarkReader {
     private static final float quadField = 36 * MM_PER_INCH;
 
     // Vumark identifiers
+    public enum SupportedVumark {BLUE_TOWER_GOAL, FRONT_WALL}
+
     // The values below are used to determine whether the reported Vumark angle places the robot to the CW (left) or CCW side
     // (right) of dead center.
 
     // Trackables index 0
-    public static final String BLUE_TOWER_GOAL = "BlueTowerGoal";
+    public static final String BLUE_TOWER_GOAL = "BLUE_TOWER_GOAL";
     public static final double BLUE_TOWER_CW = 0.0;
     public static final double BLUE_TOWER_DEAD_CENTER = 90.0;
     public static final double BLUE_TOWER_CCW = 180;
 
+    //## Because we're only running the blue alliance during the virtual
+    // competitions, comment out the red Vumarks.
     // Trackables index 1
-    public static final String RED_TOWER_GOAL = "RedTowerGoal";
-    public static final double RED_TOWER_CW = 0.0;
-    public static final double RED_TOWER_DEAD_CENTER = 90.0;
-    public static final double RED_TOWER_CCW = 180.0;
+    //public static final String RED_TOWER_GOAL = "RED_TOWER_GOAL";
+    //public static final double RED_TOWER_CW = 0.0;
+    // public static final double RED_TOWER_DEAD_CENTER = 90.0;
+    // public static final double RED_TOWER_CCW = 180.0;
+
+    // Trackables index 4
+    public static final String FRONT_WALL = "FRONT_WALL";
+    public static final double FRONT_WALL_CW = 180.0;
+    public static final double FRONT_WALL_DEAD_CENTER = 90.0;
+    public static final double FRONT_WALL_CCW = 0.0;
 
     // Use the values from the Vumark sample: they reflect the position of the camera on the front of the robot.
     private final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: AutoCamera is 110 mm in front of robot center
@@ -79,27 +92,36 @@ public class VumarkReader {
     private final CountDownLatch countDownLatch = new CountDownLatch(1);
     private VumarkReaderCallable vumarkReaderCallable;
     private CompletableFuture<Void> vumarkReaderFuture;
-    private final Lock vumarkLock = new ReentrantLock();
+    private final ReentrantLock vumarkLock = new ReentrantLock();
     private final Condition vumarkCondition = vumarkLock.newCondition();
-    private boolean vumarkInformationAvailable = false;
-    private Pair<OpenGLMatrix, String> lastLocation;
     private final AtomicBoolean stopVumarkReader = new AtomicBoolean();
 
     private final VuforiaTrackables targetsUltimateGoal;
     private final List<VuforiaTrackable> allTrackables = new ArrayList<>();
 
-    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer) {
+    // Store Vumark data separately so that it can be retrieved separately.
+    public static final int VUMARK_DEQUE_DEPTH = 19;
+    private final Map<SupportedVumark, Deque<Pose>> trackedVumarks = new HashMap<>();
+
+    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer,
+                        List<SupportedVumark> pVumarksToTrack) {
         linearOpMode = pLinearOpMode;
+        pVumarksToTrack.forEach(v -> trackedVumarks.put(v, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)));
 
         targetsUltimateGoal = pAutoVuforiaLocalizer.loadTrackablesFromAsset("UltimateGoal");
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
         blueTowerGoalTarget.setName(BLUE_TOWER_GOAL);
-        VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
-        redTowerGoalTarget.setName(RED_TOWER_GOAL);
+
+        //VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
+        //redTowerGoalTarget.setName(RED_TOWER_GOAL);
+
+        VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
+        frontWallTarget.setName("FrontWallTarget");
 
         // To add all allTrackables.addAll(targetsUltimateGoal);
         allTrackables.add(blueTowerGoalTarget);
-        allTrackables.add(redTowerGoalTarget);
+        //## red allTrackables.add(redTowerGoalTarget);
+        allTrackables.add(frontWallTarget);
 
         /*
           In order for localization to work, we need to tell the system where each target is on the field, and
@@ -124,9 +146,13 @@ public class VumarkReader {
                 .translation(halfField, quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        redTowerGoalTarget.setLocation(OpenGLMatrix
-                .translation(halfField, -quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+        frontWallTarget.setLocation(OpenGLMatrix
+                .translation(-halfField, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
+
+        //## redTowerGoalTarget.setLocation(OpenGLMatrix
+        //     .translation(halfField, -quadField, mmTargetHeight)
+        //     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
         /*
           Create a transformation matrix describing where the phone is on the robot.
@@ -160,15 +186,14 @@ public class VumarkReader {
         }
     }
 
-    // Turn on for Vumark recognition.
+    // Turn on Vumark recognition.
     public synchronized void activateVumarkRecognition() throws InterruptedException {
         if (vumarksActivated)
             return; // nothing to do
         vumarksActivated = true;
 
         targetsUltimateGoal.activate();
-        vumarkInformationAvailable = false; // make sure the synchronization flag starts off false
-        lastLocation = null;
+        trackedVumarks.entrySet().forEach(e -> e.getValue().clear()); // clear all deques
 
         // Start up the Vumark reader as a CompletableFuture.
         RobotLogCommon.d(TAG, "Starting Vumark reader thread");
@@ -190,15 +215,16 @@ public class VumarkReader {
         vumarkReaderCallable.stopThread();
         targetsUltimateGoal.deactivate();
         CommonUtils.getFutureCompletion(vumarkReaderFuture);
+        trackedVumarks.entrySet().forEach(e -> e.getValue().clear()); // clear all deques
     }
 
     // Returns the robot's pose (x, y, and rotation) from the most recently read Vumark or an
     // empty Optional if no Vumark is in view and the timer expires.
-    public Optional<Pair<Pose, String>> getVumarkPose(int pTimeout) throws InterruptedException {
-
-        RobotLogCommon.d(TAG, "Looking for a Vumark with timeout value " + pTimeout + " ms");
+    public Optional<Pose> getMostRecentVumarkPose(SupportedVumark pVumark, int pTimeout) throws InterruptedException {
 
         vumarkLock.lock();
+
+        RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " with timeout value " + pTimeout + " ms");
         if (!vumarksActivated)
             throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
 
@@ -206,7 +232,7 @@ public class VumarkReader {
             boolean waitVal = true;
             long now = System.currentTimeMillis();
             long deadline = now + pTimeout;
-            while (!vumarkInformationAvailable && (now < deadline)) {
+            while (trackedVumarks.get(pVumark).isEmpty() && (now < deadline)) {
                 waitVal = vumarkCondition.await(deadline - now, TimeUnit.MILLISECONDS);
                 if (!waitVal)
                     break; // timed out
@@ -214,31 +240,82 @@ public class VumarkReader {
             }
 
             if (!waitVal || (now >= deadline)) {
-            // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
+                // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
                 return Optional.empty();
             }
 
-            // Got a Vumark. Extract and repackage the relevant information.
-            VectorF translation = lastLocation.first.getTranslation();
-            double poseX = translation.get(0) / MM_PER_INCH;
-            double poseY = translation.get(1) / MM_PER_INCH;
-            // double poseZ = translation.get(2) / MM_PER_INCH;
-
-            // Get the rotation of the robot in degrees.
-            Orientation rotation = Orientation.getOrientation(lastLocation.first, EXTRINSIC, XYZ, DEGREES);
-            double poseR = rotation.thirdAngle;
-
-            return Optional.of(Pair.create(new Pose(poseX, poseY, poseR), lastLocation.second));
-
+            // Get the most recent Vumark of the requested type from its deque.
+            return Optional.of(trackedVumarks.get(pVumark).getLast());
         } finally {
-            lastLocation = null;
-            vumarkInformationAvailable = false;
             vumarkLock.unlock();
             // RobotLogCommon.d(TAG, "Exiting getRobotLocationFromVumark");
         }
     }
 
-    // Looks for a Vumark and, if present, makes the transformation matrix available
+    // Creates a median Pose from the most recent pNumSamples queue entries for the requested Vumark.
+    public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
+
+        vumarkLock.lock();
+
+        RobotLogCommon.d(TAG, "Calculating median for Vumark " + pVumark + " with timeout value " + pTimeout + " ms over " + pNumSamples + " samples");
+        if (!vumarksActivated)
+            throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
+
+        try {
+            boolean waitVal = true;
+            long now = System.currentTimeMillis();
+            long deadline = now + pTimeout;
+            while (trackedVumarks.get(pVumark).isEmpty() && (now < deadline)) {
+                waitVal = vumarkCondition.await(deadline - now, TimeUnit.MILLISECONDS);
+                if (!waitVal)
+                    break; // timed out
+                now = System.currentTimeMillis();
+            }
+
+            if (!waitVal || (now >= deadline)) {
+                // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
+                return Optional.empty();
+            }
+
+            //**TODO Actually you should collect Vumarks from Vuforia until you have
+            // pNumSamples on the queue ...
+            // Create the median Pose.
+            // Collect the last pNumSamples entries from the queue.
+            Deque<Pose> vumarkDeque = trackedVumarks.get(pVumark);
+            int dequeSize = vumarkDeque.size();
+            int entriesToCollect = pNumSamples > dequeSize || pNumSamples > VUMARK_DEQUE_DEPTH ? dequeSize : pNumSamples;
+            List<Pose> medianCollection = vumarkDeque.stream().skip(Math.max(0, dequeSize - entriesToCollect)).collect(Collectors.toList());
+
+            vumarkLock.unlock();
+
+            // Now we have a collection of Pose instances. We want the median of each component of the Pose: x, y, and rotation.
+            // Found two stackoverflow posts that helped:
+            // https://stackoverflow.com/questions/43667989/finding-the-median-value-from-a-list-of-objects-using-java-8
+            // and
+            // https://stackoverflow.com/questions/10791568/calculating-average-of-an-array-list
+            double medianX = medianCollection
+                    .stream().map(p -> p.x)
+                    .mapToDouble(x -> x).sorted()
+                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+
+            double medianY = medianCollection
+                    .stream().map(p -> p.y)
+                    .mapToDouble(y -> y).sorted()
+                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+
+            double medianR = medianCollection
+                    .stream().map(p -> p.r)
+                    .mapToDouble(r -> r).sorted()
+                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+
+            return Optional.of(new Pose(medianX, medianY, medianR));
+        } finally {
+            if (vumarkLock.isHeldByCurrentThread())
+                vumarkLock.unlock();
+        }
+    }
+
+    // Looks for a Vumark and, if present, makes the pose data available
     // to the main thread.
     private class VumarkReaderCallable extends AutoWorker<Void> {
 
@@ -250,34 +327,65 @@ public class VumarkReader {
             RobotLogCommon.d(TAG, "In Vumark thread");
             countDownLatch.countDown(); // signal that I'm running
 
-            OpenGLMatrix robotTransformationMatrix;
+            // Read Vumarks continually. If a Vumark is not visible or a request
+            // for its location returns null, clear its deque. Otherwise transform
+            // its data into a Pose and put the Pose on the Vumark's deque.
             String trackableName;
-
+            SupportedVumark supportedVumark;
+            OpenGLMatrix robotTransformationMatrix;
             while (linearOpMode.opModeIsActive() && !stopVumarkReader.get()) {
                 for (VuforiaTrackable trackable : allTrackables) {
-                    if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                        trackableName = trackable.getName();
-                        // This floods the log; don't use!! RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName);
+                    trackableName = trackable.getName();
+                    supportedVumark = SupportedVumark.valueOf(trackableName);
+                    if (!((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
+                        vumarkLock.lock();
+                        trackedVumarks.get(supportedVumark).clear();
+                        vumarkLock.unlock();
+                        continue;
+                    }
 
-                        // Comment from the example ConceptVuforiaNavigation.java.
+                    // A Vumark is visible. See if you can get the robot's location from it.
+                    // This floods the log; don't use!! RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName);
+
+                    // Comment from the example ConceptVuforiaNavigation.java.
                         /*
                           getUpdatedRobotLocation() will return null if no new information is available since
                           the last time that call was made, or if the trackable is not currently visible.
                           getRobotLocation() will return null if the trackable is not currently visible.
                          */
-                        robotTransformationMatrix = ((VuforiaTrackableDefaultListener) trackable.getListener()).getRobotLocation();
-                        if (robotTransformationMatrix != null) {
-                        // RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
-                            vumarkLock.lock();
-                            try {
-                                vumarkInformationAvailable = true;
-                                lastLocation = Pair.create(robotTransformationMatrix, trackableName);
-                                vumarkCondition.signal(); // let the main thread know
-                            } finally {
-                                vumarkLock.unlock();
-                            }
-                            break;
+                    robotTransformationMatrix = ((VuforiaTrackableDefaultListener) trackable.getListener()).getRobotLocation();
+
+                    // RobotLogCommon.v(TAG, "Got location information from Vumark " + trackableName);
+                    vumarkLock.lock();
+                    try {
+                        if (robotTransformationMatrix == null) {
+                            trackedVumarks.get(supportedVumark).clear();
+                            continue;
                         }
+
+                        // Got a Vumark. Extract and repackage the relevant information.
+                        VectorF translation = robotTransformationMatrix.getTranslation();
+                        double poseX = translation.get(0) / MM_PER_INCH;
+                        double poseY = translation.get(1) / MM_PER_INCH;
+                        // double poseZ = translation.get(2) / MM_PER_INCH;
+
+                        // Get the rotation of the robot in degrees.
+                        Orientation rotation = Orientation.getOrientation(robotTransformationMatrix, EXTRINSIC, XYZ, DEGREES);
+                        double poseR = rotation.thirdAngle;
+
+                        // Put the pose onto the correct deque. But if the deque is full throw away the
+                        // oldest entry.
+                        Pose pose = new Pose(poseX, poseY, poseR);
+                        Deque<Pose> vumarkDeque = trackedVumarks.get(supportedVumark);
+                        if (!vumarkDeque.offerLast(pose)) {
+                            // The deque is full.
+                            vumarkDeque.removeFirst(); // make room
+                            vumarkDeque.offerLast(pose);
+                        }
+
+                        vumarkCondition.signal(); // let the main thread know
+                    } finally {
+                        vumarkLock.unlock();
                     }
                 }
             }
