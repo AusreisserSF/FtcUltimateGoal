@@ -15,6 +15,7 @@ public class LocalizationCamera {
 
     private T265Camera slamra;
 
+    //**TODO DO NOT USE: getLastReceivedCameraUpdate() can return null
     public LocalizationCamera(HardwareMap hardwareMap) {
 
         Transform2d cameraToRobot = new Transform2d();
@@ -27,6 +28,10 @@ public class LocalizationCamera {
 
     public void start() {
         slamra.start();
+    }
+
+    public void stop() {
+        slamra.stop();
     }
 
     public Pose getPose() {
