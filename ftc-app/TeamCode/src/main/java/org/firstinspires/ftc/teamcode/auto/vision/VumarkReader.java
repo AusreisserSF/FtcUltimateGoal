@@ -254,8 +254,10 @@ public class VumarkReader {
     }
 
     // Creates a median Pose from the requested number of samples for the requested Vumark.
-    // If the timeout value is reached before the requested number of samples has been
-    // collected, this method returns the median of however many queue entries are present.
+    // This method is intended to be used when the robot is stationary. If the timeout
+    // expires before any samples have been collected, this method returns an empty Optional.
+    // If at least one sample has been collected but the timeout expires before the requested
+    // number has been collected, this method returns the median of the collected samples.
     public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
 
         vumarkLock.lock();
@@ -277,22 +279,23 @@ public class VumarkReader {
                 now = System.currentTimeMillis();
             }
 
+            // Did we collect any samples at all?
             if (!waitVal || (now >= deadline)) {
                 // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
-                return Optional.empty();
+                return Optional.empty(); // no
             }
 
             // The queue may contain one or more Vumarks. Drain them to a local collection.
             List<Pose> collectedVumarks = trackedVumarks.get(pVumark).stream().collect(Collectors.toCollection(ArrayList::new));
-            trackedVumarks.get(pVumark).clear(); // start fresh for additional Vumarks
             int samplesCollected = collectedVumarks.size();
+            trackedVumarks.get(pVumark).clear(); // start fresh for additional Vumarks
 
-            // Keep collecting Vumarks until you reach the requested number of samples or
-            // you time out.
+            // Keep collecting Vumarks until we reach the requested number of samples or
+            // we time out.
             while ((trackedVumarks.get(pVumark).size() + samplesCollected) < entriesToCollect && (now < deadline)) {
                 waitVal = vumarkCondition.await(deadline - now, TimeUnit.MILLISECONDS);
                 if (!waitVal)
-                    break; // timed out while waiting for the first Vumark
+                    break; // timed out while waiting for additional Vumarks
                 now = System.currentTimeMillis();
             }
 
