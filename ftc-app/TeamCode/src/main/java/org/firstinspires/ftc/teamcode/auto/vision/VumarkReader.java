@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.math.Pose;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
@@ -252,17 +253,19 @@ public class VumarkReader {
         }
     }
 
-    // Creates a median Pose from the most recent pNumSamples queue entries for the requested Vumark.
-    // If the number of queue entries is less than pNumSamples, this method supplies the median for
-    // however many queue entries are present.
+    // Creates a median Pose from the requested number of samples for the requested Vumark.
+    // If the timeout value is reached before the requested number of samples has been
+    // collected, this method returns the median of however many queue entries are present.
     public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
 
         vumarkLock.lock();
 
-        RobotLogCommon.d(TAG, "Calculating median for Vumark " + pVumark + " with timeout value " + pTimeout + " ms over " + pNumSamples + " samples");
+        RobotLogCommon.d(TAG, "Calculating median for Vumark " + pVumark + " over " + pNumSamples + " samples with a timeout value of " + pTimeout + " ms");
         if (!vumarksActivated)
             throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
 
+        trackedVumarks.get(pVumark).clear(); // start fresh
+        int entriesToCollect = pNumSamples <= 0 || pNumSamples > VUMARK_DEQUE_DEPTH ? VUMARK_DEQUE_DEPTH : pNumSamples;
         try {
             boolean waitVal = true;
             long now = System.currentTimeMillis();
@@ -270,7 +273,7 @@ public class VumarkReader {
             while (trackedVumarks.get(pVumark).isEmpty() && (now < deadline)) {
                 waitVal = vumarkCondition.await(deadline - now, TimeUnit.MILLISECONDS);
                 if (!waitVal)
-                    break; // timed out
+                    break; // timed out while waiting for the first Vumark
                 now = System.currentTimeMillis();
             }
 
@@ -279,35 +282,49 @@ public class VumarkReader {
                 return Optional.empty();
             }
 
-            // Create the median Pose.
-            // Collect the last pNumSamples entries from the queue.
-            Deque<Pose> vumarkDeque = trackedVumarks.get(pVumark);
-            int dequeSize = vumarkDeque.size();
-            int entriesToCollect = pNumSamples > dequeSize || pNumSamples > VUMARK_DEQUE_DEPTH ? dequeSize : pNumSamples;
-            List<Pose> medianCollection = vumarkDeque.stream().skip(Math.max(0, dequeSize - entriesToCollect)).collect(Collectors.toList());
+            // The queue may contain one or more Vumarks. Drain them to a local collection.
+            List<Pose> collectedVumarks = trackedVumarks.get(pVumark).stream().collect(Collectors.toCollection(ArrayList::new));
+            trackedVumarks.get(pVumark).clear(); // start fresh for additional Vumarks
+            int samplesCollected = collectedVumarks.size();
 
-            vumarkLock.unlock();
+            // Keep collecting Vumarks until you reach the requested number of samples or
+            // you time out.
+            while ((trackedVumarks.get(pVumark).size() + samplesCollected) < entriesToCollect && (now < deadline)) {
+                waitVal = vumarkCondition.await(deadline - now, TimeUnit.MILLISECONDS);
+                if (!waitVal)
+                    break; // timed out while waiting for the first Vumark
+                now = System.currentTimeMillis();
+            }
 
-            // Now we have a collection of Pose instances. We want the median of each component of the Pose: x, y, and rotation.
+            // Reached the requested number of samples or timed out.
+            // The queue may contain zero or more Vumarks. Drain them to a local collection.
+            List<Pose> additionalVumarks = trackedVumarks.get(pVumark).stream().collect(Collectors.toCollection(ArrayList::new));
+
+            vumarkLock.unlock(); // release the lock and work only with local data
+
+            // After the next line we have a collection of Pose instances. We want the median
+            // of each component of the Pose: x, y, and rotation.
+            collectedVumarks.addAll(additionalVumarks); // combine
+
             // Found two stackoverflow posts that helped:
             // https://stackoverflow.com/questions/43667989/finding-the-median-value-from-a-list-of-objects-using-java-8
             // and
             // https://stackoverflow.com/questions/10791568/calculating-average-of-an-array-list
-            RobotLogCommon.d(TAG, "Calculating the median for " + entriesToCollect + " queue entries");
-            double medianX = medianCollection
+            RobotLogCommon.d(TAG, "Calculating the median for data from " + collectedVumarks.size() + " Vumarks");
+            double medianX = collectedVumarks
                     .stream().map(p -> p.x)
                     .mapToDouble(x -> x).sorted()
-                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
 
-            double medianY = medianCollection
+            double medianY = collectedVumarks
                     .stream().map(p -> p.y)
                     .mapToDouble(y -> y).sorted()
-                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
 
-            double medianR = medianCollection
+            double medianR = collectedVumarks
                     .stream().map(p -> p.r)
                     .mapToDouble(r -> r).sorted()
-                    .skip((medianCollection.size() - 1) / 2).limit(2 - medianCollection.size() % 2).average().getAsDouble();
+                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
 
             return Optional.of(new Pose(medianX, medianY, medianR));
         } finally {
