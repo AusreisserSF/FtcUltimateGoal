@@ -88,9 +88,6 @@ public class FTCAuto {
             throws ParserConfigurationException, SAXException, XPathException, IOException, InterruptedException {
 
         RobotLogCommon.c(TAG, "FTCAuto constructor");
-        // RobotLogCommon outputs to text file on robot.
-        // RobotLog can output to live logcat on Android Studio.
-        RobotLog.dd(TAG, "FTCAuto Constructor");
 
         // A failure in OpenCV initialization will prevent us from recognizing
         // the ring stack or the Vumark below a tower goal.
@@ -527,8 +524,8 @@ public class FTCAuto {
                 for (int i = 0; i < 20; i++) {
                     vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
-                        RobotLogCommon.d(TAG, "Vumark is not visible");
-                        linearOpMode.telemetry.addData("Vumark ", "not visible");
+                        RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
+                        linearOpMode.telemetry.addData("\"Most recent Vumark ", "not visible");
                         linearOpMode.telemetry.update();
                     } else {
                         Pose robotPoseAtVumark = vumark.get();
@@ -541,6 +538,24 @@ public class FTCAuto {
                         linearOpMode.telemetry.update();
                     }
                     sleep(500);
+
+                    // From a stationary position, get the median Vumark values over 11 samples.
+                    vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL,1500, 11);
+                    if (!vumark.isPresent()) {
+                        RobotLogCommon.d(TAG, "Vumark median: Vumark not visible");
+                        linearOpMode.telemetry.addData("Vumark median:  ", "Vumark not visible");
+                        linearOpMode.telemetry.update();
+                    }
+                    else {
+                        Pose robotPoseAtVumark = vumark.get();
+                        RobotLogCommon.d(TAG, "Median pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                        String poseString = String.format("Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                                robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
+                        RobotLogCommon.d(TAG, poseString);
+
+                        linearOpMode.telemetry.addData("Median pose at Vumark ", poseString);
+                        linearOpMode.telemetry.update();
+                    }
                 }
                 break;
             }
