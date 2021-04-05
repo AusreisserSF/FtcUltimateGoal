@@ -2,36 +2,48 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
-import org.firstinspires.ftc.ftcdevcommon.Pair;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.auto.vision.FileImage;
+import org.firstinspires.ftc.teamcode.auto.vision.ImageProvider;
+import org.firstinspires.ftc.teamcode.auto.vision.RingParameters;
+import org.firstinspires.ftc.teamcode.auto.vision.RingRecognition;
+import org.firstinspires.ftc.teamcode.auto.vision.RingReturn;
+import org.firstinspires.ftc.teamcode.auto.vision.T265Reader;
+import org.firstinspires.ftc.teamcode.auto.vision.TowerGoalAlignment;
+import org.firstinspires.ftc.teamcode.auto.vision.TowerParameters;
+import org.firstinspires.ftc.teamcode.auto.vision.VuforiaImage;
+import org.firstinspires.ftc.teamcode.auto.vision.VuforiaWebcam;
+import org.firstinspires.ftc.teamcode.auto.vision.VumarkReader;
+import org.firstinspires.ftc.teamcode.auto.xml.AutoCommandXML;
+import org.firstinspires.ftc.teamcode.auto.xml.RingParametersXML;
+import org.firstinspires.ftc.teamcode.auto.xml.RobotActionXML;
+import org.firstinspires.ftc.teamcode.auto.xml.TargetZoneXML;
+import org.firstinspires.ftc.teamcode.auto.xml.TowerParametersXML;
 import org.firstinspires.ftc.teamcode.math.Angle;
-import org.firstinspires.ftc.teamcode.robot.DriveTrain;
-import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
-import org.firstinspires.ftc.teamcode.auto.vision.*;
-import org.firstinspires.ftc.teamcode.auto.xml.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.logging.Level;
-
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
+import org.firstinspires.ftc.teamcode.robot.DriveTrain;
+import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.firstinspires.ftc.teamcode.robot.RingShooter;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.logging.Level;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -54,8 +66,8 @@ public class FTCAuto {
     private VuforiaWebcam vuforiaWebcam;
     private VuforiaLocalizer vuforiaLocalizer;
     private VumarkReader vumarkReader;
+    private T265Reader t265Reader;
 
-    private final RobotConfigXML configXML;
     private final RobotActionXML actionXML;
     private final XPathFactory xpathFactory = XPathFactory.newInstance();
     private final XPath xpath = xpathFactory.newXPath();
@@ -106,9 +118,8 @@ public class FTCAuto {
         robot = new LCHSRobot(linearOpMode);
         robot.initializeIMU();
 
-        // Read the robot configuration file.
+        // Get the directory for the various configuration files.
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
-        configXML = new RobotConfigXML(xmlDirectory);
 
         // Read the robot action file for all opmodes.
         actionXML = new RobotActionXML(xmlDirectory);
@@ -147,7 +158,7 @@ public class FTCAuto {
 
             // Prepare to read Vumarks but don't start yet.
             vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer,
-                    new ArrayList<VumarkReader.SupportedVumark>(Arrays.asList(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL)));
+                    new ArrayList<>(Collections.singletonList(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL)));
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -205,12 +216,6 @@ public class FTCAuto {
     // Using the XML elements ane attributes from the configuration file, RobotConfig.xml,
     // execute the command.
     private void doCommand(RobotActionXML.CommandXML pCommand) throws InterruptedException, XPathException, IOException {
-
-        XPathAccess configXPath; // XPath access to elements in the configuration file
-
-        //** As needed in the commands below. Example:
-        //configXPath = configXML.getPath("WOBBLE_SERVO");
-        //String upDown = configXPath.getString("position");
 
         // Set up XPath access to the current action command.
         XPathAccess commandXPath = new XPathAccess(xpath, pCommand.getCommandElement(), pCommand.getCommandId());
@@ -520,7 +525,8 @@ public class FTCAuto {
                 if (vumarkReader == null)
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
-                Optional<Pose> vumark;
+                // Get a head start on reading Vumarks instead of including a <SLEEP>1000</SLEEP> in the XML file.
+                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);;
                 for (int i = 0; i < 20; i++) {
                     vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
@@ -530,7 +536,7 @@ public class FTCAuto {
                     } else {
                         Pose robotPoseAtVumark = vumark.get();
                         RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
-                        String poseString = String.format("Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                        String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                                 robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                         RobotLogCommon.d(TAG, poseString);
 
@@ -549,7 +555,7 @@ public class FTCAuto {
                     else {
                         Pose robotPoseAtVumark = vumark.get();
                         RobotLogCommon.d(TAG, "Median pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
-                        String poseString = String.format("Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                        String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                                 robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                         RobotLogCommon.d(TAG, poseString);
 
@@ -571,7 +577,8 @@ public class FTCAuto {
                 if (vumarkReader == null)
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
-                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
+                // Lengthen the timeout instead of including a <SLEEP>1000</SLEEP> in the XML file.
+                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 2000);
                 if (vumark.isPresent()) {
 
                     Pose currentPose = new Pose(vumark.get().x, vumark.get().y, robot.imu.getIntegratedHeading().getDegrees());
@@ -615,6 +622,51 @@ public class FTCAuto {
                     RobotLogCommon.i(TAG, "Shutting down Vuforia");
                     Objects.requireNonNull(vuforiaLocalizer.getCamera()).close();
                     vuforiaLocalizer = null;
+                }
+                break;
+            }
+
+            case "ACTIVATE_T265_READER": {
+                if (t265Reader != null)
+                    throw new AutonomousRobotException(TAG, "T265 reader already activated");
+
+                double encoderMeasurementCovariance = commandXPath.getDouble("encoder_measurement_covariance", 0.8);
+
+                t265Reader = new T265Reader(robot.hardwareMap, linearOpMode);
+                // Increase the covariance value to trust encoder odometry less when fusing encoder measurements with VSLAM
+                t265Reader.activateT265Localization(encoderMeasurementCovariance);
+                break;
+            }
+
+            case "DEACTIVATE_T265_READER": {
+                if (t265Reader != null) {
+                    t265Reader.deactivateT265Localization();
+                    t265Reader = null;
+                }
+                break;
+            }
+
+            case "TEST_T265_READER": {
+                if (t265Reader == null)
+                    throw new AutonomousRobotException(TAG, "T265 reader not initialized");
+
+                Optional<Pose> t265Pose;
+                for (int i = 0; i < 20; i++) {
+                    t265Pose = t265Reader.getT265Pose(1000);
+                    if (!t265Pose.isPresent()) {
+                        RobotLogCommon.d(TAG, "T265: data not available");
+                        linearOpMode.telemetry.addData("T265 ", "data not available");
+                        linearOpMode.telemetry.update();
+                    } else {
+                        Pose robotPoseFromT265 = t265Pose.get();
+                        String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                                robotPoseFromT265.x, robotPoseFromT265.y, robotPoseFromT265.r);
+                        RobotLogCommon.d(TAG, "Robot pose from T265 " + poseString);
+
+                        linearOpMode.telemetry.addData("T265 ", poseString);
+                        linearOpMode.telemetry.update();
+                    }
+                    sleep(500);
                 }
                 break;
             }

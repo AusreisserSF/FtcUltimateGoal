@@ -50,16 +50,15 @@ public class T265Reader {
 
     // Turn on T265 localization. Returns false if the T265 device could not be
     // initialized.
-    public synchronized boolean activateT265Localization() throws InterruptedException {
+    public synchronized boolean activateT265Localization(double pEncoderMeasurementCovariance) throws InterruptedException {
         if (readerActivated)
             return true;
         readerActivated = true;
 
         Transform2d cameraToRobot = new Transform2d();
-        double encoderMeasurementCovariance = 0.8; // Increase this value to trust encoder odometry less when fusing encoder measurements with VSLAM
         Pose2d startingPose = new Pose2d(0, 0, new Rotation2d());
 
-        t265Camera = new T265Camera(cameraToRobot, encoderMeasurementCovariance, hardwareMap.appContext);
+        t265Camera = new T265Camera(cameraToRobot, pEncoderMeasurementCovariance, hardwareMap.appContext);
         if (t265Camera == null)
             return false; // nothing to do
 
