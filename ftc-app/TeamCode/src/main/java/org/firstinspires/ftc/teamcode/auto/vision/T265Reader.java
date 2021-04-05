@@ -48,10 +48,11 @@ public class T265Reader {
         linearOpMode = pLinearOpMode;
     }
 
-    // Turn on T265 localization.
-    public synchronized void activateT265Localization() throws InterruptedException {
+    // Turn on T265 localization. Returns false if the T265 device could not be
+    // initialized.
+    public synchronized boolean activateT265Localization() throws InterruptedException {
         if (readerActivated)
-            return; // nothing to do
+            return true;
         readerActivated = true;
 
         Transform2d cameraToRobot = new Transform2d();
@@ -60,7 +61,7 @@ public class T265Reader {
 
         t265Camera = new T265Camera(cameraToRobot, encoderMeasurementCovariance, hardwareMap.appContext);
         if (t265Camera == null)
-            return; // nothing to do
+            return false; // nothing to do
 
         t265Camera.setPose(startingPose);
         t265Camera.start(); // start the camera stream
@@ -75,6 +76,7 @@ public class T265Reader {
 
         // Wait here until the thread is off and running.
         countDownLatch.await();
+        return true;
     }
 
     // Turn off when done with T265 localization.
