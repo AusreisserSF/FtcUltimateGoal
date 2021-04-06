@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.spartronics4915.lib.T265Camera;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
@@ -566,52 +568,96 @@ public class FTCAuto {
                 break;
             }
 
-            case "MOVE_WITH_VUMARK": {
+
+            case "MOVE_WITH_T265_WITHOUT_READER": {
+                robot.initializeT265Camera();
+
                 Pose targetPose = AutoCommandXML.getPose(commandXPath, "target");
                 Pose marginPose = AutoCommandXML.getPose(commandXPath, "margin");
+
                 double power = commandXPath.getDouble("power", 1.0);
                 PIDController xPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.x, "x");
                 PIDController yPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.y, "y");
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.r, "r");
 
-                if (vumarkReader == null)
-                    throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
+                T265Camera.CameraUpdate slamraUpdate = robot.slamra.getLastReceivedCameraUpdate();
+                Pose2d t265Pose = slamraUpdate.pose;
+                Pose currentPose = new Pose(t265Pose.getTranslation().getX(), t265Pose.getTranslation().getY(), robot.imu.getIntegratedHeading().getDegrees());
+                Pose diffPose = currentPose.subtract(targetPose);
 
-                // Lengthen the timeout instead of including a <SLEEP>1000</SLEEP> in the XML file.
-                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 2000);
-                if (vumark.isPresent()) {
+                linearOpMode.telemetry.setAutoClear(true);
+                while (Math.abs(diffPose.x) > marginPose.x || Math.abs(diffPose.y) > marginPose.y || Math.abs(diffPose.r) > marginPose.r) {
+                    Pose drivePose = new Pose();
+                    drivePose.x = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
+                    drivePose.y = LCHSMath.clipPower(-yPIDController.getCorrectedOutput(currentPose.y));
+                    drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
+                    robot.driveTrain.drive(drivePose, power);
 
-                    Pose currentPose = new Pose(vumark.get().x, vumark.get().y, robot.imu.getIntegratedHeading().getDegrees());
+                    linearOpMode.telemetry.addData("currentPose", currentPose.toString(",\t"));
+                    linearOpMode.telemetry.addData("diffPose", diffPose.toString(",\t"));
+                    linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
+                    linearOpMode.telemetry.update();
+
+                    slamraUpdate = robot.slamra.getLastReceivedCameraUpdate();
+                    t265Pose = slamraUpdate.pose;
+                    currentPose = new Pose(t265Pose.getTranslation().getX(), t265Pose.getTranslation().getY(), robot.imu.getIntegratedHeading().getDegrees());
+                    diffPose = currentPose.subtract(targetPose);
+                    sleep(20);
+                }
+
+                robot.slamra.stop();
+
+                break;
+            }
+
+
+            case "MOVE_WITH_T265": {
+                Pose targetPose = AutoCommandXML.getPose(commandXPath, "target");
+                Pose marginPose = AutoCommandXML.getPose(commandXPath, "margin");
+                int newPoseTimeout = commandXPath.getInt("poseTimeout", 1000);
+                double power = commandXPath.getDouble("power", 1.0);
+                PIDController xPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.x, "x");
+                PIDController yPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.y, "y");
+                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.r, "r");
+
+                if (t265Reader == null)
+                    throw new AutonomousRobotException(TAG, "T265 reader is null");
+
+                // Increase the covariance value to trust encoder odometry less when fusing encoder measurements with VSLAM
+                double encoderMeasurementCovariance = commandXPath.getDouble("encoder_measurement_covariance", 0.8);
+                t265Reader = new T265Reader(robot.hardwareMap, linearOpMode);
+                t265Reader.activateT265Localization(encoderMeasurementCovariance);
+
+                Optional<Pose> t265Pose = t265Reader.getT265Pose(newPoseTimeout);
+                if (t265Pose.isPresent()) {
+
+                    Pose currentPose = new Pose(t265Pose.get().x, t265Pose.get().y, robot.imu.getIntegratedHeading().getDegrees());
                     Pose diffPose = currentPose.subtract(targetPose);
 
                     linearOpMode.telemetry.setAutoClear(true);
                     while (Math.abs(diffPose.x) > marginPose.x || Math.abs(diffPose.y) > marginPose.y || Math.abs(diffPose.r) > marginPose.r) {
                         Pose drivePose = new Pose();
-                        // vuforia's x is robot's y
-                        drivePose.y = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
-                        drivePose.x = LCHSMath.clipPower(yPIDController.getCorrectedOutput(currentPose.y));
+                        drivePose.x = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
+                        drivePose.y = LCHSMath.clipPower(-yPIDController.getCorrectedOutput(currentPose.y));
                         drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
                         robot.driveTrain.drive(drivePose, power);
 
-                        RobotLogCommon.d("currentPose", currentPose.toString());
-                        RobotLogCommon.d("diffPose", diffPose.toString());
-                        RobotLogCommon.d("drivePose", drivePose.toString());
-
+                        linearOpMode.telemetry.addData("t265pose", t265Pose.get().toString(",\t"));
                         linearOpMode.telemetry.addData("currentPose", currentPose.toString(",\t"));
                         linearOpMode.telemetry.addData("diffPose", diffPose.toString(",\t"));
                         linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
                         linearOpMode.telemetry.update();
 
-                        Optional<Pose> newVumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
-                        if (newVumark.isPresent())
-                            vumark = newVumark;
-                        currentPose = new Pose(vumark.get().x, vumark.get().y, robot.imu.getIntegratedHeading().getDegrees());
+                        Optional<Pose> newT265Pose = t265Reader.getT265Pose(newPoseTimeout);
+                        if (newT265Pose.isPresent())
+                            t265Pose = newT265Pose;
+                        currentPose = new Pose(t265Pose.get().x, t265Pose.get().y, robot.imu.getIntegratedHeading().getDegrees());
                         diffPose = currentPose.subtract(targetPose);
                         sleep(20);
                     }
                 } else {
-                    RobotLogCommon.d(TAG, "Vumark not present");
-                    linearOpMode.telemetry.addData("Vumark", "not present :(");
+                    RobotLogCommon.d(TAG, "T265 reading not present");
+                    linearOpMode.telemetry.addData("T265", "reading not present :(");
                     linearOpMode.telemetry.update();
                 }
                 break;

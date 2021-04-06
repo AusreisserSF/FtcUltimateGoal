@@ -743,7 +743,6 @@
 
         <GATE_DOWN></GATE_DOWN>
 
-        <!-- second shoot -->
         <SHOOT>
           <shootVelocity>1575</shootVelocity>
           <intakeVelocity>2200</intakeVelocity>

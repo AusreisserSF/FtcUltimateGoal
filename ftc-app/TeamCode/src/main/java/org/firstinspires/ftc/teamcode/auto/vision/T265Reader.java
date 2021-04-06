@@ -147,9 +147,11 @@ public class T265Reader {
                     try {
                         readerInformationAvailable = true;
 
+                        // our Pose class (x side/side, y forward/back), meters to inches
+                        double INCHES_PER_METER = 39.37;
                         latestPose = new Pose(
-                                update.pose.getTranslation().getX(),
-                                update.pose.getTranslation().getY(),
+                                update.pose.getTranslation().getY() * INCHES_PER_METER,
+                                update.pose.getTranslation().getX() * INCHES_PER_METER,
                                 update.pose.getRotation().getDegrees()
                         );
 
