@@ -9,14 +9,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 // frame.
 public abstract class AutoWorker<T> implements Callable<T> {
 
-    // The CountDownLatch can be used to signal that the thread
-    // is up and running. 
-    protected final CountDownLatch countDownLatch;
     private AtomicBoolean stopThread = new AtomicBoolean();
 
-    public AutoWorker(CountDownLatch pCountDownLatch) {
-        countDownLatch = pCountDownLatch;
-    }
+    public AutoWorker() {}
 
     @Override
     public abstract T call() throws InterruptedException;

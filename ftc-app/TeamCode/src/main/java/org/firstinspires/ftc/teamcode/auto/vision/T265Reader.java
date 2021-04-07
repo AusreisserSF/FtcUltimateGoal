@@ -132,7 +132,7 @@ public class T265Reader {
     private class T265ReaderCallable extends AutoWorker<Void> {
 
         T265ReaderCallable(CountDownLatch pCountDownLatch) {
-            super(pCountDownLatch);
+            super();
         }
 
         public Void call() {

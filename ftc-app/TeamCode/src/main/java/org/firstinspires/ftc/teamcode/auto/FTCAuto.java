@@ -206,6 +206,9 @@ public class FTCAuto {
             if (vumarkReader != null)
                 vumarkReader.deactivateVumarkRecognition();
 
+            if (t265Reader != null)
+                t265Reader.deactivateT265Localization();
+
             RobotLogCommon.i(TAG, "Exiting FTCAuto");
             linearOpMode.telemetry.addData("FTCAuto", "COMPLETE");
             linearOpMode.telemetry.update();
@@ -533,7 +536,7 @@ public class FTCAuto {
                     vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
                         RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
-                        linearOpMode.telemetry.addData("\"Most recent Vumark ", "not visible");
+                        linearOpMode.telemetry.addData("Most recent Vumark ", "not visible");
                         linearOpMode.telemetry.update();
                     } else {
                         Pose robotPoseAtVumark = vumark.get();
@@ -545,6 +548,7 @@ public class FTCAuto {
                         linearOpMode.telemetry.addData("Vumark ", poseString);
                         linearOpMode.telemetry.update();
                     }
+                }
                     sleep(500);
 
                     // From a stationary position, get the median Vumark values over 11 samples.
@@ -564,7 +568,7 @@ public class FTCAuto {
                         linearOpMode.telemetry.addData("Median pose at Vumark ", poseString);
                         linearOpMode.telemetry.update();
                     }
-                }
+
                 break;
             }
 
@@ -680,7 +684,9 @@ public class FTCAuto {
 
                 t265Reader = new T265Reader(robot.hardwareMap, linearOpMode);
                 // Increase the covariance value to trust encoder odometry less when fusing encoder measurements with VSLAM
-                t265Reader.activateT265Localization(encoderMeasurementCovariance);
+                if (!t265Reader.activateT265Localization(encoderMeasurementCovariance)) {
+                    throw new AutonomousRobotException(TAG, "Cannot activate T265 reader");
+                }
                 break;
             }
 
