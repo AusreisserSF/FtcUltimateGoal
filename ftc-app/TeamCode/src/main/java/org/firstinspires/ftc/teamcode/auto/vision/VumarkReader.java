@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.math.Pose;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +25,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -95,7 +92,6 @@ public class VumarkReader {
     private CompletableFuture<Void> vumarkReaderFuture;
     private final ReentrantLock vumarkLock = new ReentrantLock();
     private final Condition vumarkCondition = vumarkLock.newCondition();
-    private final AtomicBoolean stopVumarkReader = new AtomicBoolean();
 
     private final VuforiaTrackables targetsUltimateGoal;
     private final List<VuforiaTrackable> allTrackables = new ArrayList<>();
@@ -289,7 +285,7 @@ public class VumarkReader {
             }
 
             // The queue may contain one or more Vumarks. Drain them to a local collection.
-            List<Pose> collectedVumarks = trackedVumarks.get(pVumark).stream().collect(Collectors.toCollection(ArrayList::new));
+            List<Pose> collectedVumarks = new ArrayList<>(trackedVumarks.get(pVumark));
             int samplesCollected = collectedVumarks.size();
             trackedVumarks.get(pVumark).clear(); // start fresh for additional Vumarks
 
@@ -304,7 +300,7 @@ public class VumarkReader {
 
             // Reached the requested number of samples or timed out.
             // The queue may contain zero or more Vumarks. Drain them to a local collection.
-            List<Pose> additionalVumarks = trackedVumarks.get(pVumark).stream().collect(Collectors.toCollection(ArrayList::new));
+            List<Pose> additionalVumarks = new ArrayList<>(trackedVumarks.get(pVumark));
 
             vumarkLock.unlock(); // release the lock and work only with local data
 
@@ -360,19 +356,19 @@ public class VumarkReader {
             OpenGLMatrix robotTransformationMatrix;
             int vumarkVisibleCount = 0;
             RobotLogCommon.d(TAG, "Before while");
-            while (linearOpMode.opModeIsActive() && !stopVumarkReader.get()) {
-                if (++vumarkVisibleCount % 10 == 0)
-                    RobotLogCommon.d(TAG, "In while");
+            while (linearOpMode.opModeIsActive() && !stopThreadRequested()) {
+                if (vumarkVisibleCount++ % 10 == 0)
+                    RobotLogCommon.d(TAG, "In while; count " + vumarkVisibleCount);
 
                 for (VuforiaTrackable trackable : allTrackables) {
                     trackableName = trackable.getName();
                     supportedVumark = SupportedVumark.valueOf(trackableName);
                     if (vumarkVisibleCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Looking for Vuforia trackable " + trackableName);
+                        RobotLogCommon.d(TAG, "Looking for Vuforia trackable " + trackableName + ", count " + vumarkVisibleCount);
 
                     if (!((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                        if (++vumarkVisibleCount % 10 == 0)
-                            RobotLogCommon.d(TAG, "Vuforia trackable " + trackableName + " not visible");
+                        if (vumarkVisibleCount % 10 == 0)
+                            RobotLogCommon.d(TAG, "Vuforia trackable " + trackableName + " not visible, count " + vumarkVisibleCount);
 
                         vumarkLock.lock();
                         trackedVumarks.get(supportedVumark).clear();
@@ -382,7 +378,7 @@ public class VumarkReader {
 
                     // A Vumark is visible. See if you can get the robot's location from it.
                     if (vumarkVisibleCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName);
+                        RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName+ ", count " + vumarkVisibleCount);
 
                     // Comment from the example ConceptVuforiaNavigation.java.
                         /*
