@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.spartronics4915.lib.T265Camera;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
@@ -15,7 +13,6 @@ import org.firstinspires.ftc.teamcode.auto.vision.ImageProvider;
 import org.firstinspires.ftc.teamcode.auto.vision.RingParameters;
 import org.firstinspires.ftc.teamcode.auto.vision.RingRecognition;
 import org.firstinspires.ftc.teamcode.auto.vision.RingReturn;
-import org.firstinspires.ftc.teamcode.auto.vision.T265Reader;
 import org.firstinspires.ftc.teamcode.auto.vision.TowerGoalAlignment;
 import org.firstinspires.ftc.teamcode.auto.vision.TowerParameters;
 import org.firstinspires.ftc.teamcode.auto.vision.VuforiaImage;
@@ -68,7 +65,6 @@ public class FTCAuto {
     private VuforiaWebcam vuforiaWebcam;
     private VuforiaLocalizer vuforiaLocalizer;
     private VumarkReader vumarkReader;
-    private T265Reader t265Reader;
 
     private final RobotActionXML actionXML;
     private final XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -205,9 +201,6 @@ public class FTCAuto {
 
             if (vumarkReader != null)
                 vumarkReader.deactivateVumarkRecognition();
-
-            if (t265Reader != null)
-                t265Reader.deactivateT265Localization();
 
             RobotLogCommon.i(TAG, "Exiting FTCAuto");
             linearOpMode.telemetry.addData("FTCAuto", "COMPLETE");
@@ -572,153 +565,11 @@ public class FTCAuto {
                 break;
             }
 
-
-            case "MOVE_WITH_T265_WITHOUT_READER": {
-                robot.initializeT265Camera();
-
-                Pose targetPose = AutoCommandXML.getPose(commandXPath, "target");
-                Pose marginPose = AutoCommandXML.getPose(commandXPath, "margin");
-
-                double power = commandXPath.getDouble("power", 1.0);
-                PIDController xPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.x, "x");
-                PIDController yPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.y, "y");
-                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.r, "r");
-
-                T265Camera.CameraUpdate slamraUpdate = robot.slamra.getLastReceivedCameraUpdate();
-                Pose2d t265Pose = slamraUpdate.pose;
-                Pose currentPose = new Pose(t265Pose.getTranslation().getX(), t265Pose.getTranslation().getY(), robot.imu.getIntegratedHeading().getDegrees());
-                Pose diffPose = currentPose.subtract(targetPose);
-
-                linearOpMode.telemetry.setAutoClear(true);
-                while (Math.abs(diffPose.x) > marginPose.x || Math.abs(diffPose.y) > marginPose.y || Math.abs(diffPose.r) > marginPose.r) {
-                    Pose drivePose = new Pose();
-                    drivePose.x = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
-                    drivePose.y = LCHSMath.clipPower(-yPIDController.getCorrectedOutput(currentPose.y));
-                    drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
-                    robot.driveTrain.drive(drivePose, power);
-
-                    linearOpMode.telemetry.addData("currentPose", currentPose.toString(",\t"));
-                    linearOpMode.telemetry.addData("diffPose", diffPose.toString(",\t"));
-                    linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
-                    linearOpMode.telemetry.update();
-
-                    slamraUpdate = robot.slamra.getLastReceivedCameraUpdate();
-                    t265Pose = slamraUpdate.pose;
-                    currentPose = new Pose(t265Pose.getTranslation().getX(), t265Pose.getTranslation().getY(), robot.imu.getIntegratedHeading().getDegrees());
-                    diffPose = currentPose.subtract(targetPose);
-                    sleep(20);
-                }
-
-                robot.slamra.stop();
-
-                break;
-            }
-
-
-            case "MOVE_WITH_T265": {
-                Pose targetPose = AutoCommandXML.getPose(commandXPath, "target");
-                Pose marginPose = AutoCommandXML.getPose(commandXPath, "margin");
-                int newPoseTimeout = commandXPath.getInt("poseTimeout", 1000);
-                double power = commandXPath.getDouble("power", 1.0);
-                PIDController xPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.x, "x");
-                PIDController yPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.y, "y");
-                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetPose.r, "r");
-
-                if (t265Reader == null)
-                    throw new AutonomousRobotException(TAG, "T265 reader is null");
-
-                // Increase the covariance value to trust encoder odometry less when fusing encoder measurements with VSLAM
-                double encoderMeasurementCovariance = commandXPath.getDouble("encoder_measurement_covariance", 0.8);
-                t265Reader = new T265Reader(robot.hardwareMap, linearOpMode);
-                t265Reader.activateT265Localization(encoderMeasurementCovariance);
-
-                Optional<Pose> t265Pose = t265Reader.getT265Pose(newPoseTimeout);
-                if (t265Pose.isPresent()) {
-
-                    Pose currentPose = new Pose(t265Pose.get().x, t265Pose.get().y, robot.imu.getIntegratedHeading().getDegrees());
-                    Pose diffPose = currentPose.subtract(targetPose);
-
-                    linearOpMode.telemetry.setAutoClear(true);
-                    while (Math.abs(diffPose.x) > marginPose.x || Math.abs(diffPose.y) > marginPose.y || Math.abs(diffPose.r) > marginPose.r) {
-                        Pose drivePose = new Pose();
-                        drivePose.x = LCHSMath.clipPower(-xPIDController.getCorrectedOutput(currentPose.x));
-                        drivePose.y = LCHSMath.clipPower(-yPIDController.getCorrectedOutput(currentPose.y));
-                        drivePose.r = LCHSMath.clipPower(-rPIDController.getCorrectedOutput(currentPose.r));
-                        robot.driveTrain.drive(drivePose, power);
-
-                        linearOpMode.telemetry.addData("t265pose", t265Pose.get().toString(",\t"));
-                        linearOpMode.telemetry.addData("currentPose", currentPose.toString(",\t"));
-                        linearOpMode.telemetry.addData("diffPose", diffPose.toString(",\t"));
-                        linearOpMode.telemetry.addData("drivePose", drivePose.toString(",\t"));
-                        linearOpMode.telemetry.update();
-
-                        Optional<Pose> newT265Pose = t265Reader.getT265Pose(newPoseTimeout);
-                        if (newT265Pose.isPresent())
-                            t265Pose = newT265Pose;
-                        currentPose = new Pose(t265Pose.get().x, t265Pose.get().y, robot.imu.getIntegratedHeading().getDegrees());
-                        diffPose = currentPose.subtract(targetPose);
-                        sleep(20);
-                    }
-                } else {
-                    RobotLogCommon.d(TAG, "T265 reading not present");
-                    linearOpMode.telemetry.addData("T265", "reading not present :(");
-                    linearOpMode.telemetry.update();
-                }
-                break;
-            }
-
             case "CLOSE_WEBCAM": {
                 if (vuforiaLocalizer != null) {
                     RobotLogCommon.i(TAG, "Shutting down Vuforia");
                     Objects.requireNonNull(vuforiaLocalizer.getCamera()).close();
                     vuforiaLocalizer = null;
-                }
-                break;
-            }
-
-            case "ACTIVATE_T265_READER": {
-                if (t265Reader != null)
-                    throw new AutonomousRobotException(TAG, "T265 reader already activated");
-
-                double encoderMeasurementCovariance = commandXPath.getDouble("encoder_measurement_covariance", 0.8);
-
-                t265Reader = new T265Reader(robot.hardwareMap, linearOpMode);
-                // Increase the covariance value to trust encoder odometry less when fusing encoder measurements with VSLAM
-                if (!t265Reader.activateT265Localization(encoderMeasurementCovariance)) {
-                    throw new AutonomousRobotException(TAG, "Cannot activate T265 reader");
-                }
-                break;
-            }
-
-            case "DEACTIVATE_T265_READER": {
-                if (t265Reader != null) {
-                    t265Reader.deactivateT265Localization();
-                    t265Reader = null;
-                }
-                break;
-            }
-
-            case "TEST_T265_READER": {
-                if (t265Reader == null)
-                    throw new AutonomousRobotException(TAG, "T265 reader not initialized");
-
-                Optional<Pose> t265Pose;
-                for (int i = 0; i < 20; i++) {
-                    t265Pose = t265Reader.getT265Pose(1000);
-                    if (!t265Pose.isPresent()) {
-                        RobotLogCommon.d(TAG, "T265: data not available");
-                        linearOpMode.telemetry.addData("T265 ", "data not available");
-                        linearOpMode.telemetry.update();
-                    } else {
-                        Pose robotPoseFromT265 = t265Pose.get();
-                        String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
-                                robotPoseFromT265.x, robotPoseFromT265.y, robotPoseFromT265.r);
-                        RobotLogCommon.d(TAG, "Robot pose from T265 " + poseString);
-
-                        linearOpMode.telemetry.addData("T265 ", poseString);
-                        linearOpMode.telemetry.update();
-                    }
-                    sleep(500);
                 }
                 break;
             }
