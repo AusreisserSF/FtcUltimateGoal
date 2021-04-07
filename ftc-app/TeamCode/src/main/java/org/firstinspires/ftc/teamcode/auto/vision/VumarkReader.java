@@ -200,6 +200,7 @@ public class VumarkReader {
         vumarkReaderFuture = CommonUtils.launchAsync(vumarkReaderCallable);
 
         // Wait here until the thread is off and running.
+        RobotLogCommon.d(TAG, "Wait for CountDownLatch");
         countDownLatch.await();
         RobotLogCommon.d(TAG, "Wait for CountDownLatch done");
     }
@@ -221,9 +222,10 @@ public class VumarkReader {
     // empty Optional if no Vumark is in view and the timer expires.
     public Optional<Pose> getMostRecentVumarkPose(SupportedVumark pVumark, int pTimeout) throws InterruptedException {
 
-        vumarkLock.lock();
-
         RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " with timeout value " + pTimeout + " ms");
+        vumarkLock.lock();
+        RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " acquired lock");
+
         if (!vumarksActivated)
             throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
 
@@ -354,31 +356,31 @@ public class VumarkReader {
             String trackableName;
             SupportedVumark supportedVumark;
             OpenGLMatrix robotTransformationMatrix;
-            int vumarkVisibleCount = 0;
+            int vumarkLoopCount = 0;
             RobotLogCommon.d(TAG, "Before while");
             while (linearOpMode.opModeIsActive() && !stopThreadRequested()) {
-                if (vumarkVisibleCount++ % 10 == 0)
-                    RobotLogCommon.d(TAG, "In while; count " + vumarkVisibleCount);
+                if (vumarkLoopCount % 10 == 0)
+                    RobotLogCommon.d(TAG, "In while; count " + vumarkLoopCount);
 
                 for (VuforiaTrackable trackable : allTrackables) {
                     trackableName = trackable.getName();
                     supportedVumark = SupportedVumark.valueOf(trackableName);
-                    if (vumarkVisibleCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Looking for Vuforia trackable " + trackableName + ", count " + vumarkVisibleCount);
+                    if (vumarkLoopCount % 10 == 0)
+                        RobotLogCommon.d(TAG, "Looking for Vuforia trackable " + trackableName + ", count " + vumarkLoopCount);
 
                     if (!((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                        if (vumarkVisibleCount % 10 == 0)
-                            RobotLogCommon.d(TAG, "Vuforia trackable " + trackableName + " not visible, count " + vumarkVisibleCount);
+                        if (vumarkLoopCount % 10 == 0)
+                            RobotLogCommon.d(TAG, "Vuforia trackable " + trackableName + " not visible, count " + vumarkLoopCount);
 
                         vumarkLock.lock();
-                        trackedVumarks.get(supportedVumark).clear();
+                        //**trackedVumarks.get(supportedVumark).clear();
                         vumarkLock.unlock();
                         continue;
                     }
 
                     // A Vumark is visible. See if you can get the robot's location from it.
-                    if (vumarkVisibleCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName+ ", count " + vumarkVisibleCount);
+                    if (vumarkLoopCount % 10 == 0)
+                        RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName+ ", count " + vumarkLoopCount);
 
                     // Comment from the example ConceptVuforiaNavigation.java.
                         /*
@@ -390,7 +392,7 @@ public class VumarkReader {
                     vumarkLock.lock();
                     try {
                         if (robotTransformationMatrix == null) {
-                            trackedVumarks.get(supportedVumark).clear();
+                            //**trackedVumarks.get(supportedVumark).clear();
                             RobotLogCommon.v(TAG, "Got empty location information from Vumark " + trackableName);
                             continue;
                         }
@@ -421,6 +423,7 @@ public class VumarkReader {
                         vumarkLock.unlock();
                     }
                 }
+                vumarkLoopCount++;
             }
 
             return null;
