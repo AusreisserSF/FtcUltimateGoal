@@ -32,6 +32,8 @@ public class CommonUtils {
             } catch (Throwable ex) {
                 cf.completeExceptionally(ex);
             }
+        }).exceptionally(ex -> {
+            throw new AutonomousRobotException(CommonUtils.class.getSimpleName(), ex.getMessage());
         });
         return cf;
     }

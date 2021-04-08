@@ -155,8 +155,7 @@ public class FTCAuto {
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
 
             // Prepare to read Vumarks but don't start yet.
-            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer,
-                    new ArrayList<>(Collections.singletonList(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL)));
+            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer);
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -340,17 +339,17 @@ public class FTCAuto {
                 break;
             }
 
-            case "WOBBLE_SERVO":{
+            case "WOBBLE_SERVO": {
 
                 String stringState = commandXPath.getString("state");
                 WobbleArm.ServoState state = WobbleArm.ServoState.REST;
 
-                switch(stringState){
-                    case "close":{
+                switch (stringState) {
+                    case "close": {
                         state = WobbleArm.ServoState.HOLD;
                         break;
                     }
-                    case "neutral":{
+                    case "neutral": {
                         state = WobbleArm.ServoState.REST;
                         break;
                     }
@@ -394,10 +393,10 @@ public class FTCAuto {
 
                 //optional parameters
                 double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
-                int maxShotCount = commandXPath.getInt("maxShotCount",3);
+                int maxShotCount = commandXPath.getInt("maxShotCount", 3);
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
 
-                if (powerShot){
+                if (powerShot) {
                     robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                     robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                 }
@@ -411,7 +410,7 @@ public class FTCAuto {
 
                 sleep(500);
 
-                if (!powerShot){
+                if (!powerShot) {
                     robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
                     robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
                 }
@@ -524,7 +523,8 @@ public class FTCAuto {
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
                 // Get a head start on reading Vumarks instead of including a <SLEEP>1000</SLEEP> in the XML file.
-                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);;
+                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
+                ;
                 for (int i = 0; i < 20; i++) {
                     vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
@@ -542,25 +542,26 @@ public class FTCAuto {
                         linearOpMode.telemetry.update();
                     }
                 }
-                    sleep(500);
 
-                    // From a stationary position, get the median Vumark values over 11 samples.
-                    vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL,1500, 11);
-                    if (!vumark.isPresent()) {
-                        RobotLogCommon.d(TAG, "Vumark median: Vumark not visible");
-                        linearOpMode.telemetry.addData("Vumark median:  ", "Vumark not visible");
-                        linearOpMode.telemetry.update();
-                    }
-                    else {
-                        Pose robotPoseAtVumark = vumark.get();
-                        RobotLogCommon.d(TAG, "Median pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
-                        String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
-                                robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
-                        RobotLogCommon.d(TAG, poseString);
+                RobotLogCommon.d(TAG, "Done with getMostRecentVumarkPose");
 
-                        linearOpMode.telemetry.addData("Median pose at Vumark ", poseString);
-                        linearOpMode.telemetry.update();
-                    }
+                // From a stationary position, get the median Vumark values over 11 samples.
+                RobotLogCommon.d(TAG, "Calling getMedianVumarkPose");
+                vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1500, 11);
+                if (!vumark.isPresent()) {
+                    RobotLogCommon.d(TAG, "Vumark median: Vumark not visible");
+                    linearOpMode.telemetry.addData("Vumark median:  ", "Vumark not visible");
+                    linearOpMode.telemetry.update();
+                } else {
+                    Pose robotPoseAtVumark = vumark.get();
+                    RobotLogCommon.d(TAG, "Median pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                    String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                            robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
+                    RobotLogCommon.d(TAG, poseString);
+
+                    linearOpMode.telemetry.addData("Median pose at Vumark ", poseString);
+                    linearOpMode.telemetry.update();
+                }
 
                 break;
             }
@@ -597,12 +598,12 @@ public class FTCAuto {
                 String stringState = commandXPath.getString("state");
                 RingShooter.ServoState state = RingShooter.ServoState.REST;
 
-                switch(stringState){
-                    case "down":{
+                switch (stringState) {
+                    case "down": {
                         state = RingShooter.ServoState.DOWN;
                         break;
                     }
-                    case "rest":{
+                    case "rest": {
                         state = RingShooter.ServoState.REST;
                         break;
                     }
@@ -616,7 +617,6 @@ public class FTCAuto {
 
             default: {
                 throw new AutonomousRobotException(TAG, "No support for the command " + commandName);
-
             }
         }
     }

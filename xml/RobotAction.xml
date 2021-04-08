@@ -34,49 +34,6 @@
         <TEST_VUMARK_READER/>
         <DEACTIVATE_VUMARK_READER/>
         <CLOSE_WEBCAM/>
-        <ACTIVATE_VUMARK_READER/>
-
-        <!-- <ACTIVATE_T265_READER>
-            <encoder_measurement_covariance>
-              0.8
-            </encoder_measurement_covariance>
-        </ACTIVATE_T265_READER>
-        <TEST_T265_READER/>
-        <DEACTIVATE_T265_READER/> -->
-        
-
-        <!-- <ACTIVATE_T265_READER>
-            <encoder_measurement_covariance>0.8</encoder_measurement_covariance>
-        </ACTIVATE_T265_READER>
-        <MOVE_WITH_T265>
-          <target_pose>
-               <x>5</x>
-               <y>0</y>
-               <r>0</r>
-          </target_pose>
-          <margin_pose>
-               <x>0.5</x>
-               <y>0.5</y>
-               <r>1.0</r>
-          </margin_pose>
-          <power>0.5</power>
-          <x_pid>
-               <p>0.02</p>
-               <i>0.0001</i>
-               <d>0.0</d>
-          </x_pid>
-          <y_pid>
-               <p>0.025</p>
-               <i>0.0001</i>
-               <d>0.0</d>
-          </y_pid>
-          <r_pid>
-               <p>0.02</p>
-               <i>0.0001</i>
-               <d>0.0</d>
-          </r_pid>
-        </MOVE_WITH_T265>
-        <DEACTIVATE_T265_READER/> -->
             
      </OpMode>
 </RobotAction>

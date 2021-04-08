@@ -27,6 +27,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -35,6 +37,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 // Class that continuously reads Vumark data and posts the results.
+//## Not designed as a Singleton and not intended that an instance
+//## of this class be shared between thread.
 public class VumarkReader {
 
     private static final String TAG = "VumarkReader";
@@ -100,10 +104,12 @@ public class VumarkReader {
     public static final int VUMARK_DEQUE_DEPTH = 19;
     private final Map<SupportedVumark, Deque<Pose>> trackedVumarks = new HashMap<>();
 
-    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer,
-                        List<SupportedVumark> pVumarksToTrack) {
+    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer) {
         linearOpMode = pLinearOpMode;
-        pVumarksToTrack.forEach(v -> trackedVumarks.put(v, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)));
+
+        // Allocate a Deque for all supported vumark enum values.
+        Stream.of(SupportedVumark.values())
+                        .forEach(vumark -> trackedVumarks.put(vumark, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)));
 
         targetsUltimateGoal = pAutoVuforiaLocalizer.loadTrackablesFromAsset("UltimateGoal");
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
@@ -200,9 +206,8 @@ public class VumarkReader {
         vumarkReaderFuture = CommonUtils.launchAsync(vumarkReaderCallable);
 
         // Wait here until the thread is off and running.
-        RobotLogCommon.d(TAG, "Wait for CountDownLatch");
         countDownLatch.await();
-        RobotLogCommon.d(TAG, "Wait for CountDownLatch done");
+        RobotLogCommon.d(TAG, "Wait for CountDownLatch done; Vumark reader thread is running");
     }
 
     // Turn off when done with Vumark recognition.
@@ -223,13 +228,11 @@ public class VumarkReader {
     public Optional<Pose> getMostRecentVumarkPose(SupportedVumark pVumark, int pTimeout) throws InterruptedException {
 
         RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " with timeout value " + pTimeout + " ms");
-        vumarkLock.lock();
-        RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " acquired lock");
 
+        vumarkLock.lock();
         if (!vumarksActivated)
             throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
 
-        RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " before try");
         try {
             boolean waitVal = true;
             long now = System.currentTimeMillis();
@@ -261,11 +264,11 @@ public class VumarkReader {
     // number has been collected, this method returns the median of the collected samples.
     public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
 
-        vumarkLock.lock();
-
         RobotLogCommon.d(TAG, "Calculating median for Vumark " + pVumark + " over " + pNumSamples + " samples with a timeout value of " + pTimeout + " ms");
+
+        vumarkLock.lock();
         if (!vumarksActivated)
-            throw new AutonomousRobotException(TAG, "getRobotLocationFromVumark(): Vuforia is not activated");
+            throw new AutonomousRobotException(TAG, "getMedianVumarkPose(): Vuforia is not activated");
 
         trackedVumarks.get(pVumark).clear(); // start fresh
         int entriesToCollect = pNumSamples <= 0 || pNumSamples > VUMARK_DEQUE_DEPTH ? VUMARK_DEQUE_DEPTH : pNumSamples;
@@ -282,7 +285,7 @@ public class VumarkReader {
 
             // Did we collect any samples at all?
             if (!waitVal || (now >= deadline)) {
-                // RobotLogCommon.d(TAG, "Timed out waiting for a Vumark " + pTimeout + " ms");
+                RobotLogCommon.d(TAG, "Timed out waiting for Vumark " + pVumark + " with timeout value " + pTimeout + " ms");
                 return Optional.empty(); // no
             }
 
@@ -309,6 +312,14 @@ public class VumarkReader {
             // After the next line we have a collection of Pose instances. We want the median
             // of each component of the Pose: x, y, and rotation.
             collectedVumarks.addAll(additionalVumarks); // combine
+
+            // But first trim the final collection to the requested number of Vumarks.
+            int vumarksToSkip = collectedVumarks.size() - entriesToCollect;
+            List<Pose> finalVumarkCollection;
+            if (vumarksToSkip <= 0)
+                finalVumarkCollection = collectedVumarks;
+            else
+                finalVumarkCollection = collectedVumarks.stream().skip(vumarksToSkip).collect(Collectors.toCollection(ArrayList::new));
 
             // Found two stackoverflow posts that helped:
             // https://stackoverflow.com/questions/43667989/finding-the-median-value-from-a-list-of-objects-using-java-8
@@ -348,7 +359,6 @@ public class VumarkReader {
         public Void call() {
             RobotLogCommon.d(TAG, "In Vumark thread");
             countDownLatch.countDown(); // signal that I'm running
-            RobotLogCommon.d(TAG, "CountDownLatch decremented");
 
             // Read Vumarks continually. If a Vumark is not visible or a request
             // for its location returns null, clear its deque. Otherwise transform
@@ -356,32 +366,19 @@ public class VumarkReader {
             String trackableName;
             SupportedVumark supportedVumark;
             OpenGLMatrix robotTransformationMatrix;
-            int vumarkLoopCount = 0;
-            RobotLogCommon.d(TAG, "Before while");
             while (linearOpMode.opModeIsActive() && !stopThreadRequested()) {
-                if (vumarkLoopCount % 10 == 0)
-                    RobotLogCommon.d(TAG, "In while; count " + vumarkLoopCount);
-
                 for (VuforiaTrackable trackable : allTrackables) {
                     trackableName = trackable.getName();
                     supportedVumark = SupportedVumark.valueOf(trackableName);
-                    if (vumarkLoopCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Looking for Vuforia trackable " + trackableName + ", count " + vumarkLoopCount);
 
                     if (!((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                        if (vumarkLoopCount % 10 == 0)
-                            RobotLogCommon.d(TAG, "Vuforia trackable " + trackableName + " not visible, count " + vumarkLoopCount);
-
                         vumarkLock.lock();
-                        //**trackedVumarks.get(supportedVumark).clear();
+                        trackedVumarks.get(supportedVumark).clear();
                         vumarkLock.unlock();
                         continue;
                     }
 
                     // A Vumark is visible. See if you can get the robot's location from it.
-                    if (vumarkLoopCount % 10 == 0)
-                        RobotLogCommon.d(TAG, "Vuforia trackable is visible " + trackableName+ ", count " + vumarkLoopCount);
-
                     // Comment from the example ConceptVuforiaNavigation.java.
                         /*
                           getUpdatedRobotLocation() will return null if no new information is available since
@@ -392,7 +389,7 @@ public class VumarkReader {
                     vumarkLock.lock();
                     try {
                         if (robotTransformationMatrix == null) {
-                            //**trackedVumarks.get(supportedVumark).clear();
+                            trackedVumarks.get(supportedVumark).clear();
                             RobotLogCommon.v(TAG, "Got empty location information from Vumark " + trackableName);
                             continue;
                         }
@@ -423,7 +420,6 @@ public class VumarkReader {
                         vumarkLock.unlock();
                     }
                 }
-                vumarkLoopCount++;
             }
 
             return null;
