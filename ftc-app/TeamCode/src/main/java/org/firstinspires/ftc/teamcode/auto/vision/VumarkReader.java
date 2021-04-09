@@ -56,30 +56,36 @@ public class VumarkReader {
     private static final float quadField = 36 * MM_PER_INCH;
 
     // Vumark identifiers
-    public enum SupportedVumark {BLUE_TOWER_GOAL, FRONT_WALL}
+    public enum SupportedVumark {BLUE_TOWER_GOAL,  RED_TOWER_GOAL, RED_ALLIANCE, BLUE_ALLIANCE, FRONT_WALL}
 
-    // The values below are used to determine whether the reported Vumark angle places the robot to the CW (left) or CCW side
-    // (right) of dead center.
+    // From ConceptVuforiaUltimateGoalNavigationWebcam.java
+     /*
+        VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
+        blueTowerGoalTarget.setName("Blue Tower Goal Target");
+        VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
+        redTowerGoalTarget.setName("Red Tower Goal Target");
+        VuforiaTrackable redAllianceTarget = targetsUltimateGoal.get(2);
+        redAllianceTarget.setName("Red Alliance Target");
+        VuforiaTrackable blueAllianceTarget = targetsUltimateGoal.get(3);
+        blueAllianceTarget.setName("Blue Alliance Target");
+        VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
+        frontWallTarget.setName("Front Wall Target");
+     */
 
     // Trackables index 0
-    public static final String BLUE_TOWER_GOAL = "BLUE_TOWER_GOAL";
-    public static final double BLUE_TOWER_CW = 0.0;
-    public static final double BLUE_TOWER_DEAD_CENTER = 90.0;
-    public static final double BLUE_TOWER_CCW = 180;
+    public static final String BLUE_TOWER_GOAL = "BLUE_TOWER_GOAL"; // girls' basketball
 
-    //## Because we're only running the blue alliance during the virtual
-    // competitions, comment out the red Vumarks.
     // Trackables index 1
-    //public static final String RED_TOWER_GOAL = "RED_TOWER_GOAL";
-    //public static final double RED_TOWER_CW = 0.0;
-    // public static final double RED_TOWER_DEAD_CENTER = 90.0;
-    // public static final double RED_TOWER_CCW = 180.0;
+    public static final String RED_TOWER_GOAL = "RED_TOWER_GOAL"; // volleyball
+
+    // Trackables index 2
+    public static final String RED_ALLIANCE = "RED_ALLIANCE"; // equipment
+
+    // Trackables index 3
+    public static final String BLUE_ALLIANCE = "BLUE_ALLIANCE"; // soccer celebration
 
     // Trackables index 4
-    public static final String FRONT_WALL = "FRONT_WALL";
-    public static final double FRONT_WALL_CW = 180.0;
-    public static final double FRONT_WALL_DEAD_CENTER = 90.0;
-    public static final double FRONT_WALL_CCW = 0.0;
+    public static final String FRONT_WALL = "FRONT_WALL"; // hands
 
     // Use the values from the Vumark sample: they reflect the position of the camera on the front of the robot.
     private final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: AutoCamera is 110 mm in front of robot center
@@ -104,8 +110,19 @@ public class VumarkReader {
     public static final int VUMARK_DEQUE_DEPTH = 19;
     private final Map<SupportedVumark, Deque<Pose>> trackedVumarks = new HashMap<>();
 
+    //**TODO caller sends in list of active Vumarks derived from XML.
     public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer) {
         linearOpMode = pLinearOpMode;
+
+        //**TODO iterate through the List of active Vumark enumeration values for the
+        // selected OpMode.
+        // for each value switch on SupportedVumark
+        // each case --
+        // get the VuforiaTrackable, set the name
+        // set the location
+        // add to class variable allTrackables
+        // add to trackedVumarks with an empty queue
+        //!! watch out for pose requests for uninitialized trackables - throw
 
         // Allocate a Deque for all supported vumark enum values.
         Stream.of(SupportedVumark.values())
@@ -115,15 +132,21 @@ public class VumarkReader {
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
         blueTowerGoalTarget.setName(BLUE_TOWER_GOAL);
 
-        //VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
-        //redTowerGoalTarget.setName(RED_TOWER_GOAL);
+        VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
+        redTowerGoalTarget.setName(RED_TOWER_GOAL);
+
+        VuforiaTrackable redAllianceTarget = targetsUltimateGoal.get(2);
+        redAllianceTarget.setName(RED_ALLIANCE);
+
+        VuforiaTrackable blueAllianceTarget = targetsUltimateGoal.get(3);
+        blueAllianceTarget.setName(BLUE_ALLIANCE);
 
         VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
         frontWallTarget.setName(FRONT_WALL);
 
         // To add all allTrackables.addAll(targetsUltimateGoal);
         allTrackables.add(blueTowerGoalTarget);
-        //## red allTrackables.add(redTowerGoalTarget);
+        allTrackables.add(blueAllianceTarget);
         allTrackables.add(frontWallTarget);
 
         /*
@@ -149,13 +172,21 @@ public class VumarkReader {
                 .translation(halfField, quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
+        redTowerGoalTarget.setLocation(OpenGLMatrix
+                .translation(halfField, -quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+
+        redAllianceTarget.setLocation(OpenGLMatrix
+                .translation(0, -halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
+
+        blueAllianceTarget.setLocation(OpenGLMatrix
+                .translation(0, halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+
         frontWallTarget.setLocation(OpenGLMatrix
                 .translation(-halfField, 0, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
-
-        //## redTowerGoalTarget.setLocation(OpenGLMatrix
-        //     .translation(halfField, -quadField, mmTargetHeight)
-        //     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
         /*
           Create a transformation matrix describing where the phone is on the robot.
