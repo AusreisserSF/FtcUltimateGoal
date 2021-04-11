@@ -56,7 +56,7 @@ public class VumarkReader {
     private static final float quadField = 36 * MM_PER_INCH;
 
     // Vumark identifiers
-    public enum SupportedVumark {BLUE_TOWER_GOAL,  RED_TOWER_GOAL, RED_ALLIANCE, BLUE_ALLIANCE, FRONT_WALL}
+    public enum SupportedVumark {BLUE_TOWER_GOAL, RED_TOWER_GOAL, RED_ALLIANCE, BLUE_ALLIANCE, FRONT_WALL}
 
     // From ConceptVuforiaUltimateGoalNavigationWebcam.java
      /*
@@ -111,44 +111,11 @@ public class VumarkReader {
     private final Map<SupportedVumark, Deque<Pose>> trackedVumarks = new HashMap<>();
 
     //**TODO caller sends in list of active Vumarks derived from XML.
-    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer) {
+    public VumarkReader(LinearOpMode pLinearOpMode, VuforiaLocalizer pAutoVuforiaLocalizer,
+                        List<SupportedVumark> pVumarksOfInterest) {
         linearOpMode = pLinearOpMode;
 
-        //**TODO iterate through the List of active Vumark enumeration values for the
-        // selected OpMode.
-        // for each value switch on SupportedVumark
-        // each case --
-        // get the VuforiaTrackable, set the name
-        // set the location
-        // add to class variable allTrackables
-        // add to trackedVumarks with an empty queue
-        //!! watch out for pose requests for uninitialized trackables - throw
-
-        // Allocate a Deque for all supported vumark enum values.
-        Stream.of(SupportedVumark.values())
-                        .forEach(vumark -> trackedVumarks.put(vumark, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)));
-
-        targetsUltimateGoal = pAutoVuforiaLocalizer.loadTrackablesFromAsset("UltimateGoal");
-        VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
-        blueTowerGoalTarget.setName(BLUE_TOWER_GOAL);
-
-        VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
-        redTowerGoalTarget.setName(RED_TOWER_GOAL);
-
-        VuforiaTrackable redAllianceTarget = targetsUltimateGoal.get(2);
-        redAllianceTarget.setName(RED_ALLIANCE);
-
-        VuforiaTrackable blueAllianceTarget = targetsUltimateGoal.get(3);
-        blueAllianceTarget.setName(BLUE_ALLIANCE);
-
-        VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
-        frontWallTarget.setName(FRONT_WALL);
-
-        // To add all allTrackables.addAll(targetsUltimateGoal);
-        allTrackables.add(blueTowerGoalTarget);
-        allTrackables.add(blueAllianceTarget);
-        allTrackables.add(frontWallTarget);
-
+        // From the FTC sample ConceptVuforiaUltimateGoalNavigationWebcam.java
         /*
           In order for localization to work, we need to tell the system where each target is on the field, and
           where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
@@ -167,28 +134,77 @@ public class VumarkReader {
            coordinate system (the center of the field), facing up.
          */
 
-        // The tower goal targets are located a quarter field length from the ends of the back perimeter wall.
-        blueTowerGoalTarget.setLocation(OpenGLMatrix
-                .translation(halfField, quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        redTowerGoalTarget.setLocation(OpenGLMatrix
-                .translation(halfField, -quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+        // Iterate through the List of active Vumark enumeration values for the
+        // selected OpMode.
+        targetsUltimateGoal = pAutoVuforiaLocalizer.loadTrackablesFromAsset("UltimateGoal");
+        for (SupportedVumark vumark : pVumarksOfInterest) {
+            // Allocate a Deque for each Vumark of interest.
+            trackedVumarks.put(vumark, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)); // empty queue
+            switch (vumark) {
+                case BLUE_TOWER_GOAL: {
+                    VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
+                    blueTowerGoalTarget.setName(BLUE_TOWER_GOAL);
 
-        redAllianceTarget.setLocation(OpenGLMatrix
-                .translation(0, -halfField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
+                    // The tower goal targets are located a quarter field length from the ends of the back perimeter wall.
+                    blueTowerGoalTarget.setLocation(OpenGLMatrix
+                            .translation(halfField, quadField, mmTargetHeight)
+                            .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        blueAllianceTarget.setLocation(OpenGLMatrix
-                .translation(0, halfField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+                    allTrackables.add(blueTowerGoalTarget);
+                    break;
+                }
+                case RED_TOWER_GOAL: {
+                    VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
+                    redTowerGoalTarget.setName(RED_TOWER_GOAL);
 
-        frontWallTarget.setLocation(OpenGLMatrix
-                .translation(-halfField, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
+                    redTowerGoalTarget.setLocation(OpenGLMatrix
+                            .translation(halfField, -quadField, mmTargetHeight)
+                            .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        /*
+                    allTrackables.add(redTowerGoalTarget);
+                    break;
+                }
+                case RED_ALLIANCE: {
+                    VuforiaTrackable redAllianceTarget = targetsUltimateGoal.get(2);
+                    redAllianceTarget.setName(RED_ALLIANCE);
+
+                    redAllianceTarget.setLocation(OpenGLMatrix
+                            .translation(0, -halfField, mmTargetHeight)
+                            .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
+
+                    allTrackables.add(redAllianceTarget);
+                    break;
+                }
+                case BLUE_ALLIANCE: {
+                    VuforiaTrackable blueAllianceTarget = targetsUltimateGoal.get(3);
+                    blueAllianceTarget.setName(BLUE_ALLIANCE);
+
+                    blueAllianceTarget.setLocation(OpenGLMatrix
+                            .translation(0, halfField, mmTargetHeight)
+                            .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+
+                    allTrackables.add(blueAllianceTarget);
+                    break;
+                }
+                case FRONT_WALL: {
+                    VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
+                    frontWallTarget.setName(FRONT_WALL);
+
+                    frontWallTarget.setLocation(OpenGLMatrix
+                            .translation(-halfField, 0, mmTargetHeight)
+                            .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
+
+                    allTrackables.add(frontWallTarget);
+                    break;
+                }
+                default: {
+                    throw new AutonomousRobotException(TAG, "Unrecognized Vumark " + vumark);
+                }
+            }
+        }
+
+       /*
           Create a transformation matrix describing where the phone is on the robot.
 
           The coordinate frame for the robot looks the same as the field.
@@ -259,6 +275,8 @@ public class VumarkReader {
     public Optional<Pose> getMostRecentVumarkPose(SupportedVumark pVumark, int pTimeout) throws InterruptedException {
 
         RobotLogCommon.d(TAG, "Looking for Vumark " + pVumark + " with timeout value " + pTimeout + " ms");
+        if (!trackedVumarks.containsKey(pVumark))
+            throw new AutonomousRobotException(TAG, "Requested Vumark " + pVumark + " not not been selected as a Vumark of interest for the current OpMode");
 
         vumarkLock.lock();
         if (!vumarksActivated)
@@ -296,6 +314,8 @@ public class VumarkReader {
     public Optional<Pose> getMedianVumarkPose(SupportedVumark pVumark, int pTimeout, int pNumSamples) throws InterruptedException {
 
         RobotLogCommon.d(TAG, "Calculating median for Vumark " + pVumark + " over " + pNumSamples + " samples with a timeout value of " + pTimeout + " ms");
+        if (!trackedVumarks.containsKey(pVumark))
+            throw new AutonomousRobotException(TAG, "Requested Vumark " + pVumark + " not not been selected as a Vumark of interest for the current OpMode");
 
         vumarkLock.lock();
         if (!vumarksActivated)

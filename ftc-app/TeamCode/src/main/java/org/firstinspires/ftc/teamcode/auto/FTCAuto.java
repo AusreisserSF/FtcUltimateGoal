@@ -36,6 +36,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -155,7 +156,14 @@ public class FTCAuto {
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
 
             // Prepare to read Vumarks but don't start yet.
-            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer);
+            //**TODO get the Vumarks of interest for the selected OpMode from the RobotAction.xml file.
+            // Hardcode for now ---
+            if (autoOpMode != RobotConstantsUltimateGoal.OpMode.RED_OUTSIDE)
+                throw new AutonomousRobotException(TAG, "expected OpMode RED_OUTSIDE"); //** TEMP
+
+            List<VumarkReader.SupportedVumark> vumarksOfInterest =
+                    Arrays.asList(VumarkReader.SupportedVumark.RED_TOWER_GOAL, VumarkReader.SupportedVumark.RED_TOWER_GOAL);
+            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer, vumarksOfInterest);
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -523,10 +531,16 @@ public class FTCAuto {
                     throw new AutonomousRobotException(TAG, "Vumark reader not initialized");
 
                 // Get a head start on reading Vumarks instead of including a <SLEEP>1000</SLEEP> in the XML file.
-                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
-                ;
+                //**TODO hardcoded to RED_TOWER_GOAL -> need <vumark> element in RobotAction.xml
+                Optional<Pose> vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.RED_TOWER_GOAL, 1000);
+                if (!vumark.isPresent()) {
+                    RobotLogCommon.d(TAG, "First attempt: most recent Vumark: not visible");
+                    linearOpMode.telemetry.addData("First attempt: most recent Vumark ", "not visible");
+                    linearOpMode.telemetry.update();
+                }
+
                 for (int i = 0; i < 20; i++) {
-                    vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1000);
+                    vumark = vumarkReader.getMostRecentVumarkPose(VumarkReader.SupportedVumark.RED_TOWER_GOAL, 1000);
                     if (!vumark.isPresent()) {
                         RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
                         linearOpMode.telemetry.addData("Most recent Vumark ", "not visible");
@@ -563,6 +577,27 @@ public class FTCAuto {
                     linearOpMode.telemetry.update();
                 }
 
+                break;
+            }
+
+            case "ALIGN_BY_VUMARK": {
+                String vumarkString = commandXPath.getString("vumark");
+                VumarkReader.SupportedVumark vumark = VumarkReader.SupportedVumark.valueOf(vumarkString);
+                int targetX = commandXPath.getInt("target_x");
+                int targetY = commandXPath.getInt("target_y");
+
+                Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
+                if (!vumarkPose.isPresent()) {
+                    RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
+                } else {
+                    Pose robotPoseAtVumark = vumarkPose.get();
+                    RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                    String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
+                            robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
+                    RobotLogCommon.d(TAG, poseString);
+
+                    //**TODO insert robot motion here
+                }
                 break;
             }
 

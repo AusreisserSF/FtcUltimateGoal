@@ -62,6 +62,8 @@ public class LCHSRobot {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
 
+        //**TODO See if configXML contains an entry for <webcam>yes</webcam>
+        // if not, leave webcam1name null and test in FTCAuto
        webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
 
         driveTrain = new DriveTrain(hardwareMap);
