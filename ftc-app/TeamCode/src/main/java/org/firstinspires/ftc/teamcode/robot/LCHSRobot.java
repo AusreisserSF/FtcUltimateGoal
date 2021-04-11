@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.RobotConstants;
@@ -16,12 +17,14 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 
 public class LCHSRobot {
 
     private static LCHSRobot instance;
 
-    public static LCHSRobot newInstance(LinearOpMode opMode) throws AutonomousRobotException {
+    public static LCHSRobot newInstance(LinearOpMode opMode) {
         instance = new LCHSRobot(opMode);
         return instance;
     }
@@ -40,35 +43,45 @@ public class LCHSRobot {
     public DriveTrain driveTrain;
     public WobbleArm wobbleArm;
     public RingShooter ringShooter;
+    public RingShooter2 ringShooter2;
 
     private static final String TAG = "LCHSRobot";
 
-
-    public LCHSRobot(LinearOpMode opMode) throws AutonomousRobotException {
+    public LCHSRobot(LinearOpMode opMode) {
 
         String workingDirectory = WorkingDirectory.getWorkingDirectory();
         String xmlDirectory = workingDirectory + RobotConstants.xmlDir;
 
         try {
             configXML = new RobotConfigXML(xmlDirectory);
+
+            this.opMode = opMode;
+            this.hardwareMap = opMode.hardwareMap;
+
+            // See if configXML contains an entry for a webcam
+            XPathAccess configXPath;
+            configXPath = configXML.getPath("WEBCAM");
+            String webcamInConfiguration = configXPath.getString("present", "no");
+            if (webcamInConfiguration.equals("yes"))
+                webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
+            // if not, leave webcam1name null and test in FTCAuto
+
+            driveTrain = new DriveTrain(hardwareMap);
+//        wobbleArm = new WobbleArm(hardwareMap, configXML);
+//        ringShooter = new RingShooter(hardwareMap, configXML);
+//** uncomment to test ringShooter2 = new RingShooter2(hardwareMap, configXML);
+
         } catch (ParserConfigurationException pex) {
             throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());
         } catch (SAXException sx) {
             throw new AutonomousRobotException(TAG, "SAX Exception " + sx.getMessage());
-        } catch (IOException iex) {
+        } catch (XPathExpressionException xpex) {
+            throw new AutonomousRobotException(TAG, "Xpath Expression Exception " + xpex.getMessage());
+        }
+        catch (IOException iex) {
             throw new AutonomousRobotException(TAG, "IOException " + iex.getMessage());
         }
 
-        this.opMode = opMode;
-        this.hardwareMap = opMode.hardwareMap;
-
-        //**TODO See if configXML contains an entry for <webcam>yes</webcam>
-        // if not, leave webcam1name null and test in FTCAuto
-       webcam1Name = this.hardwareMap.get(WebcamName.class, "Webcam 1");
-
-        driveTrain = new DriveTrain(hardwareMap);
-//        wobbleArm = new WobbleArm(hardwareMap, configXML);
-//        ringShooter = new RingShooter(hardwareMap, configXML);
     }
 
     public void initializeIMU() {

@@ -9,11 +9,11 @@ import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
 
-@Autonomous(name = "BlueOutside", group = "TeamCode")
+@Autonomous(name = "RedOutside", group = "TeamCode")
 //@Disabled
-public class BlueOutside extends LinearOpMode {
+public class RedOutside extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         LCHSAutoDispatch dispatch = new LCHSAutoDispatch();
-        dispatch.runOpMode(RobotConstantsUltimateGoal.OpMode.BLUE_OUTSIDE, RobotConstants.Alliance.BLUE, this);
+        dispatch.runOpMode(RobotConstantsUltimateGoal.OpMode.RED_OUTSIDE, RobotConstants.Alliance.RED, this);
     }
 }

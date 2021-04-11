@@ -128,8 +128,7 @@ public class FTCAuto {
         RobotLogCommon.c(TAG, "Minimum logging level " + RobotLogCommon.getMinimumLoggingLevel());
 
         // Start the asynchronous initialization of Vuforia.
-        boolean initVuforia = actionXML.initializeVuforia();
-        if (initVuforia) {
+        if (robot.webcam1Name != null) {
             RobotLogCommon.d(TAG, "Vuforia: start asynchronous initialization");
             vuforiaWebcam = new VuforiaWebcam(robot.webcam1Name);
         }
@@ -151,7 +150,7 @@ public class FTCAuto {
         targetZoneCommands = targetZoneXML.getTargetZoneCommands(this.autoOpMode);
 
         // Wait for the asynchronous initialization of Vuforia to complete.
-        if (initVuforia) {
+        if (robot.webcam1Name != null) {
             RobotLogCommon.d(TAG, "wait for initialization");
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
 

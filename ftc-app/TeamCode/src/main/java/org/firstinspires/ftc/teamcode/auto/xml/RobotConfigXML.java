@@ -105,6 +105,9 @@ public class RobotConfigXML {
     }
    
    public XPathAccess getPath(String pElementName) {
+        if (pElementName == null)
+            throw new AutonomousRobotException(TAG, "Null element name not allowed");
+
         RobotXMLElement mappedRobotXMLElement = robotElementCollection.get(pElementName);
         if (mappedRobotXMLElement == null)
           throw new AutonomousRobotException(TAG, "No such element in RobotConfig.xml: " + pElementName);
