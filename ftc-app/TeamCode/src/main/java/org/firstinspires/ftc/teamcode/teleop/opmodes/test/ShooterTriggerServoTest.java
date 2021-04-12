@@ -16,7 +16,7 @@ public class ShooterTriggerServoTest extends TeleOpBase {
 
     @Override
     protected void initialize() {
-        servoPosition = LCHSMath.round(robot.ringShooter2.shooterTriggerServo.getPosition(), 1);
+        servoPosition = LCHSMath.round(robot.shooter.triggerServo.getPosition(), 1);
         updateTelemetry();
     }
 
@@ -25,11 +25,11 @@ public class ShooterTriggerServoTest extends TeleOpBase {
         updateButtons();
         updateTelemetry();
         if (servoIncrementButton.is(Button.State.TAP)) {
-            servoPosition += 0.1;
-            robot.ringShooter2.shooterTriggerServo.setPosition(servoPosition);
+            servoPosition += 0.025;
+            robot.shooter.triggerServo.setPosition(servoPosition);
         } else if (servoDecrementButton.is(Button.State.TAP)) {
-            servoPosition -= 0.1;
-            robot.ringShooter2.shooterTriggerServo.setPosition(servoPosition);
+            servoPosition -= 0.025;
+            robot.shooter.triggerServo.setPosition(servoPosition);
         }
     }
 

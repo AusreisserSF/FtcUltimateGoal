@@ -25,9 +25,8 @@ public class ShootPowerTest extends TeleOpBase {
         velocityIncrementButton.update(gamepad1.y);
         velocityDecrementButton.update(gamepad1.a);
 
-        robot.ringShooter.intakeMotor.setPower(gamepad1.left_stick_y + gamepad1.right_stick_y * 0.2);
-        robot.ringShooter.liftMotor.setPower(gamepad1.left_stick_y);
-        robot.ringShooter.shootMotor.setVelocity(gamepad1.right_stick_y * shootVelocity);
+        robot.shooter.elevatorMotor.setPower(gamepad1.left_stick_y + gamepad1.right_stick_y * 0.2);
+        robot.shooter.shootMotor.setVelocity(gamepad1.right_stick_y * shootVelocity);
 
         if (velocityIncrementButton.is(Button.State.TAP)) {
             shootVelocity += IncrementVelocity;
@@ -36,7 +35,7 @@ public class ShootPowerTest extends TeleOpBase {
         }
 
         telemetry.addData("shoot velocity", shootVelocity);
-        telemetry.addData("actual shoot velocity", robot.ringShooter.shootMotor.getVelocity());
+        telemetry.addData("actual shoot velocity", robot.shooter.shootMotor.getVelocity());
 
         telemetry.update();
 

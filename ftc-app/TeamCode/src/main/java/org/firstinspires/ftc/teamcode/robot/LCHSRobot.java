@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
 public class LCHSRobot {
@@ -42,8 +41,7 @@ public class LCHSRobot {
 
     public DriveTrain driveTrain;
     public WobbleArm wobbleArm;
-    public RingShooter ringShooter;
-    public RingShooter2 ringShooter2;
+    public RingShooter shooter;
 
     private static final String TAG = "LCHSRobot";
 
@@ -67,9 +65,8 @@ public class LCHSRobot {
             // if not, leave webcam1name null and test in FTCAuto
 
             driveTrain = new DriveTrain(hardwareMap);
-//        wobbleArm = new WobbleArm(hardwareMap, configXML);
-//        ringShooter = new RingShooter(hardwareMap, configXML);
-//** uncomment to test ringShooter2 = new RingShooter2(hardwareMap, configXML);
+            wobbleArm = new WobbleArm(hardwareMap, configXML);
+            shooter = new RingShooter(hardwareMap, configXML);
 
         } catch (ParserConfigurationException pex) {
             throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());

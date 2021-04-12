@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
 import org.firstinspires.ftc.teamcode.robot.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
-import org.firstinspires.ftc.teamcode.robot.RingShooter;
+import org.firstinspires.ftc.teamcode.robot.OldRingShooter;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
 import org.xml.sax.SAXException;
@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -239,7 +238,7 @@ public class FTCAuto {
 
                 // optional parameters
                 double intakePower = commandXPath.getDouble("intakePower", 0);
-                double lifterPower = commandXPath.getDouble("lifterPower", 0);
+//                double lifterPower = commandXPath.getDouble("lifterPower", 0);
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
 
                 double dipVelocity = commandXPath.getDouble("dip", 500);
@@ -248,9 +247,8 @@ public class FTCAuto {
                 long timeToOuttake = commandXPath.getInt("outtakeTime", 500);
 
 
-                robot.ringShooter.intakeMotor.setPower(intakePower);
-                robot.ringShooter.liftMotor.setPower(lifterPower);
-
+                robot.shooter.intakeMotor.setPower(intakePower);
+//                robot.shooter.liftMotor.setPower(lifterPower);
 
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
@@ -269,15 +267,15 @@ public class FTCAuto {
                         rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), minPower);
                     }
 
-                    if (timeStartedOuttaking == 0 && intakePower != 0 && robot.ringShooter.liftMotor.getVelocity() < dipVelocity) {
-                        robot.ringShooter.intakeMotor.setPower(-outtakePower);
-                        robot.ringShooter.liftMotor.setPower(-outtakePower);
-                        timeStartedOuttaking = System.currentTimeMillis();
-                    }
+//                    if (timeStartedOuttaking == 0 && intakePower != 0 && robot.shooter.liftMotor.getVelocity() < dipVelocity) {
+//                        robot.shooter.intakeMotor.setPower(-outtakePower);
+//                        robot.shooter.liftMotor.setPower(-outtakePower);
+//                        timeStartedOuttaking = System.currentTimeMillis();
+//                    }
 
                     if (timeStartedOuttaking != 0 && System.currentTimeMillis() + timeToOuttake > timeStartedOuttaking) {
-                        robot.ringShooter.intakeMotor.setPower(intakePower);
-                        robot.ringShooter.liftMotor.setPower(intakePower);
+                        robot.shooter.intakeMotor.setPower(intakePower);
+//                        robot.shooter.liftMotor.setPower(intakePower);
                         timeStartedOuttaking = 0;
                     }
                     Angle actualHeading = robot.imu.getHeading();
@@ -287,8 +285,8 @@ public class FTCAuto {
                 }
 
                 robot.driveTrain.stop();
-                robot.ringShooter.intakeMotor.setPower(0);
-                robot.ringShooter.liftMotor.setPower(0);
+                robot.shooter.intakeMotor.setPower(0);
+//                robot.shooter.liftMotor.setPower(0);
 
                 break;
             }
@@ -347,24 +345,8 @@ public class FTCAuto {
             }
 
             case "WOBBLE_SERVO": {
-
-                String stringState = commandXPath.getString("state");
-                WobbleArm.ServoState state = WobbleArm.ServoState.REST;
-
-                switch (stringState) {
-                    case "close": {
-                        state = WobbleArm.ServoState.HOLD;
-                        break;
-                    }
-                    case "neutral": {
-                        state = WobbleArm.ServoState.REST;
-                        break;
-                    }
-                    case "release":
-                        state = WobbleArm.ServoState.RELEASE;
-                        break;
-                }
-                robot.wobbleArm.setServoState(state);
+                String state = commandXPath.getString("state");
+                robot.wobbleArm.servo.setState(state);
                 break;
             }
 
@@ -399,33 +381,33 @@ public class FTCAuto {
                 int dip = commandXPath.getInt("shootVelocityDip");
 
                 //optional parameters
-                double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
+//                double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
                 int maxShotCount = commandXPath.getInt("maxShotCount", 3);
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
 
                 if (powerShot) {
-                    robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                    robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                    robot.shooter.intakeMotor.setVelocity(intakeVelocity);
+//                    robot.shooter.liftMotor.setVelocity(lifterVelocity);
                 }
 
-                robot.ringShooter.shootMotor.setVelocity(shootVelocity);
-                double currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                robot.shooter.shootMotor.setVelocity(shootVelocity);
+                double currentVelocity = robot.shooter.shootMotor.getVelocity();
                 while (currentVelocity < shootVelocity) {
-                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                    currentVelocity = robot.shooter.shootMotor.getVelocity();
                     sleep(20);
                 }
 
                 sleep(500);
 
                 if (!powerShot) {
-                    robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                    robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                    robot.shooter.intakeMotor.setVelocity(intakeVelocity);
+//                    robot.shooter.liftMotor.setVelocity(lifterVelocity);
                 }
 
                 int shotCount = 0;
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
-                    currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                    currentVelocity = robot.shooter.shootMotor.getVelocity();
                     if (currentVelocity < dip) {
                         shotCount++;
                         RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
@@ -433,25 +415,25 @@ public class FTCAuto {
                         if (shotCount == maxShotCount)
                             break;
 
-                        robot.ringShooter.intakeMotor.setVelocity(0);
-                        robot.ringShooter.liftMotor.setVelocity(0);
+                        robot.shooter.intakeMotor.setVelocity(0);
+//                        robot.shooter.liftMotor.setVelocity(0);
                         sleep(100);
 
                         // Get back up to speed
-                        currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                        currentVelocity = robot.shooter.shootMotor.getVelocity();
                         while (currentVelocity < shootVelocity) {
-                            currentVelocity = robot.ringShooter.shootMotor.getVelocity();
+                            currentVelocity = robot.shooter.shootMotor.getVelocity();
                             sleep(20);
                         }
 
-                        robot.ringShooter.intakeMotor.setVelocity(intakeVelocity);
-                        robot.ringShooter.liftMotor.setVelocity(lifterVelocity);
+                        robot.shooter.intakeMotor.setVelocity(intakeVelocity);
+//                        robot.shooter.liftMotor.setVelocity(lifterVelocity);
                     }
                 }
 
-                robot.ringShooter.shootMotor.setVelocity(0);
-                robot.ringShooter.intakeMotor.setVelocity(0);
-                robot.ringShooter.liftMotor.setVelocity(0);
+                robot.shooter.shootMotor.setVelocity(0);
+                robot.shooter.intakeMotor.setVelocity(0);
+//                robot.shooter.liftMotor.setVelocity(0);
                 break;
             }
 
@@ -460,22 +442,22 @@ public class FTCAuto {
                 double intakePower = commandXPath.getDouble("intakePower");
                 double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
                 int intakeTime = commandXPath.getInt("intakeTime");
-                robot.ringShooter.intakeMotor.setPower(intakePower);
-                robot.ringShooter.liftMotor.setPower(intakePower);
+                robot.shooter.intakeMotor.setPower(intakePower);
+//                robot.shooter.liftMotor.setPower(intakePower);
 
                 double timeWhenWeAreDone = System.currentTimeMillis() + intakeTime;
 
                 while (System.currentTimeMillis() < timeWhenWeAreDone) {
-                    if (robot.ringShooter.liftMotor.getVelocity() < dipVelocity) {
-                        robot.ringShooter.intakeMotor.setPower(-outtakePower);
-                        robot.ringShooter.liftMotor.setPower(-outtakePower);
-                        sleep(500);
-                        robot.ringShooter.intakeMotor.setPower(intakePower);
-                        robot.ringShooter.liftMotor.setPower(intakePower);
-                    }
+//                    if (robot.shooter.liftMotor.getVelocity() < dipVelocity) {
+//                        robot.shooter.intakeMotor.setPower(-outtakePower);
+//                        robot.shooter.liftMotor.setPower(-outtakePower);
+//                        sleep(500);
+//                        robot.shooter.intakeMotor.setPower(intakePower);
+//                        robot.shooter.liftMotor.setPower(intakePower);
+//                    }
                 }
-                robot.ringShooter.intakeMotor.setPower(0);
-                robot.ringShooter.intakeMotor.setPower(0);
+                robot.shooter.intakeMotor.setPower(0);
+                robot.shooter.intakeMotor.setPower(0);
 
                 break;
 
@@ -630,22 +612,22 @@ public class FTCAuto {
 
             case "GATE": {
                 String stringState = commandXPath.getString("state");
-                RingShooter.ServoState state = RingShooter.ServoState.REST;
+                OldRingShooter.ServoState state = OldRingShooter.ServoState.REST;
 
                 switch (stringState) {
                     case "down": {
-                        state = RingShooter.ServoState.DOWN;
+                        state = OldRingShooter.ServoState.DOWN;
                         break;
                     }
                     case "rest": {
-                        state = RingShooter.ServoState.REST;
+                        state = OldRingShooter.ServoState.REST;
                         break;
                     }
                     case "up":
-                        state = RingShooter.ServoState.UP;
+                        state = OldRingShooter.ServoState.UP;
                         break;
                 }
-                robot.ringShooter.setServoState(state);
+//                robot.shooter.setServoState(state);
                 break;
             }
 

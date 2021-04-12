@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.robot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
+import org.firstinspires.ftc.teamcode.hardware.motor.LCHSMotor;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.Pose;
 
@@ -11,19 +11,19 @@ public class DriveTrain {
 
     public static final int CLICKS_PER_INCH = 45;
 
-    public CachingMotorEx lf;
-    public CachingMotorEx rf;
-    public CachingMotorEx lb;
-    public CachingMotorEx rb;
+    public LCHSMotor lf;
+    public LCHSMotor rf;
+    public LCHSMotor lb;
+    public LCHSMotor rb;
 
     private DcMotor.RunMode mode;
     private final double targetVelocity = 2900;
 
     DriveTrain(HardwareMap hardwareMap) {
-        lf = new CachingMotorEx(hardwareMap, "lf");
-        rf = new CachingMotorEx(hardwareMap, "rf");
-        lb = new CachingMotorEx(hardwareMap, "lb");
-        rb = new CachingMotorEx(hardwareMap, "rb");
+        lf = new LCHSMotor(hardwareMap, "lf");
+        rf = new LCHSMotor(hardwareMap, "rf");
+        lb = new LCHSMotor(hardwareMap, "lb");
+        rb = new LCHSMotor(hardwareMap, "rb");
 
         lf.setDirection(DcMotor.Direction.REVERSE);
         rf.setDirection(DcMotor.Direction.FORWARD);
