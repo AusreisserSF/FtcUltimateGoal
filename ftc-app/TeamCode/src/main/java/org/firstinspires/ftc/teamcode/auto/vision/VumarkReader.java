@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -134,13 +133,12 @@ public class VumarkReader {
            coordinate system (the center of the field), facing up.
          */
 
-
         // Iterate through the List of active Vumark enumeration values for the
         // selected OpMode.
         targetsUltimateGoal = pAutoVuforiaLocalizer.loadTrackablesFromAsset("UltimateGoal");
         for (SupportedVumark vumark : pVumarksOfInterest) {
             // Allocate a Deque for each Vumark of interest.
-            trackedVumarks.put(vumark, new ArrayDeque<Pose>(VUMARK_DEQUE_DEPTH)); // empty queue
+            trackedVumarks.put(vumark, new ArrayDeque<>(VUMARK_DEQUE_DEPTH)); // empty queue
             switch (vumark) {
                 case BLUE_TOWER_GOAL: {
                     VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
@@ -366,36 +364,83 @@ public class VumarkReader {
 
             // But first trim the final collection to the requested number of Vumarks.
             int vumarksToSkip = collectedVumarks.size() - entriesToCollect;
-            List<Pose> finalVumarkCollection;
-            if (vumarksToSkip <= 0)
-                finalVumarkCollection = collectedVumarks;
-            else
-                finalVumarkCollection = collectedVumarks.stream().skip(vumarksToSkip).collect(Collectors.toCollection(ArrayList::new));
+            List<Pose> finalVumarkCollection = (vumarksToSkip <= 0) ? collectedVumarks :
+                collectedVumarks.stream().skip(vumarksToSkip).collect(Collectors.toCollection(ArrayList::new));
 
             // Found two stackoverflow posts that helped:
             // https://stackoverflow.com/questions/43667989/finding-the-median-value-from-a-list-of-objects-using-java-8
             // and
             // https://stackoverflow.com/questions/10791568/calculating-average-of-an-array-list
-            RobotLogCommon.d(TAG, "Calculating the median for data from " + collectedVumarks.size() + " Vumarks");
-            double medianX = collectedVumarks
+            RobotLogCommon.d(TAG, "Calculating the median for data from " + finalVumarkCollection.size() + " Vumarks");
+            double medianX = finalVumarkCollection
                     .stream().map(p -> p.x)
                     .mapToDouble(x -> x).sorted()
-                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
+                    .skip((finalVumarkCollection.size() - 1) / 2).limit(2 - finalVumarkCollection.size() % 2).average().getAsDouble();
 
-            double medianY = collectedVumarks
+            double medianY = finalVumarkCollection
                     .stream().map(p -> p.y)
                     .mapToDouble(y -> y).sorted()
-                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
+                    .skip((finalVumarkCollection.size() - 1) / 2).limit(2 - finalVumarkCollection.size() % 2).average().getAsDouble();
 
-            double medianR = collectedVumarks
+            double medianR = finalVumarkCollection
                     .stream().map(p -> p.r)
                     .mapToDouble(r -> r).sorted()
-                    .skip((collectedVumarks.size() - 1) / 2).limit(2 - collectedVumarks.size() % 2).average().getAsDouble();
+                    .skip((finalVumarkCollection.size() - 1) / 2).limit(2 - finalVumarkCollection.size() % 2).average().getAsDouble();
 
             return Optional.of(new Pose(medianX, medianY, medianR));
         } finally {
             if (vumarkLock.isHeldByCurrentThread())
                 vumarkLock.unlock();
+        }
+    }
+
+    // Assumes that the robot's current position and target position are
+    // given in FTC field coordinates, which is a Cartesian system with
+    // 0,0 at the center of the field, the x-axis parallel to the red
+    // alliance wall and increasing to the right, and the y-axis
+    // perpendicular to the red wall and increasing away from the red
+    // wall. This method is suitable for use with the x and y values
+    // returned from Vumarks.
+    // Returns an angle adjusted so that it is relative to a heading of
+    // zero at the top of a circle. The angle is otherwise not normalized
+    // to the standard FTC magnitude and direction.
+    // Note: the rotation value in the Pose is not used here.
+    public RobotVector getDistanceAndAngleToTarget(Pose pRobotCurrentPosition, Pose pRobotTargetPosition) {
+
+        RobotLogCommon.d(TAG, "Get distance and angle from x " + pRobotCurrentPosition.x + ", y " + pRobotCurrentPosition.y + " to x " +
+                pRobotTargetPosition.x + ", y " + pRobotTargetPosition.y);
+
+        // Get the Euclidean distance from the angle to the target.
+        double deltaX = pRobotTargetPosition.x - pRobotCurrentPosition.x;
+        double deltaY = pRobotTargetPosition.y - pRobotCurrentPosition.y;
+        double distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+
+        // Get the angle between the current position and the target position.
+        // reference
+        // https://stackoverflow.com/questions/2676719/calculating-the-angle-between-the-line-defined-by-two-points
+        //delta_x = touch_x - center_x
+        //delta_y = touch_y - center_y
+        //theta_radians = atan2(delta_y, delta_x)
+
+        // So in our case
+        double thetaRadians = Math.atan2(deltaY, deltaX);
+        double thetaDegrees = Math.toDegrees(thetaRadians);
+
+        // Since in the reference "theta is measured counter-clockwise from the +x axis"
+        // we need to subtract 90 degrees.
+        thetaDegrees -= 90.0;
+
+        RobotLogCommon.d(TAG,"Distance to target " + distance + ", angle " + thetaDegrees + " degrees");
+        return new RobotVector(distance, thetaDegrees);
+    }
+
+    public static class RobotVector {
+        public final double distanceToTarget;
+        public final double angleToTarget;
+
+        public RobotVector(double pDistanceToTarget, double pAngleToTarget) {
+            distanceToTarget = pDistanceToTarget;
+            angleToTarget = pAngleToTarget;
         }
     }
 

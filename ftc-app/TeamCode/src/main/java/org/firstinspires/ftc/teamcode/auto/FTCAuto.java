@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -36,7 +37,6 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -62,27 +62,29 @@ public class FTCAuto {
     private final RobotConstantsUltimateGoal.OpMode autoOpMode;
     private final String workingDirectory;
 
+    private final RobotActionXML actionXML;
+    private final RobotActionXML.RobotActionData actionData; // for the selected OpMode
+
+    // Webcam and Vumarks.
     private VuforiaWebcam vuforiaWebcam;
     private VuforiaLocalizer vuforiaLocalizer;
     private VumarkReader vumarkReader;
-
-    private final RobotActionXML actionXML;
-    private final XPathFactory xpathFactory = XPathFactory.newInstance();
-    private final XPath xpath = xpathFactory.newXPath();
 
     // Ring recognition.
     private final RingParametersXML ringParametersXML;
     private final RingParameters ringParameters;
     private final RingRecognition ringRecognition;
+
+    private final TargetZoneXML targetZoneXML;
+    private final HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotXMLElement>> targetZoneCommands;
+    private RobotConstantsUltimateGoal.TargetZone targetZone;
+    private List<RobotXMLElement> targetZoneInsert = new ArrayList<>();
+    private boolean executeTargetZoneActions = false;
+
+    //**TODO Test once and archive: using Vumaks instead.
     private final TowerParametersXML towerParametersXML;
     private final TowerParameters towerParameters;
     private final TowerGoalAlignment towerGoalAlignment;
-    private final TargetZoneXML targetZoneXML;
-    private final HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotActionXML.CommandXML>> targetZoneCommands;
-
-    private RobotConstantsUltimateGoal.TargetZone targetZone;
-    private List<RobotActionXML.CommandXML> targetZoneInsert = new ArrayList<>();
-    private boolean executeTargetZoneCommands = false;
 
     // Load OpenCV.
     private static boolean openCVInitialized = false;
@@ -121,10 +123,14 @@ public class FTCAuto {
 
         // Read the robot action file for all opmodes.
         actionXML = new RobotActionXML(xmlDirectory);
-        Level minLogLevel = actionXML.getMinimumLoggingLevel();
-        if (minLogLevel != null) // null means use the default
-            RobotLogCommon.setMinimimLoggingLevel(minLogLevel);
-        RobotLogCommon.c(TAG, "Minimum logging level " + RobotLogCommon.getMinimumLoggingLevel());
+
+        // Extract data from the parsed XML file for the selected OpMode only
+        actionData = actionXML.getOpModeData(autoOpMode.toString());
+
+        Level lowestLoggingLevel = actionData.lowestLoggingLevel;
+        if (lowestLoggingLevel != null) // null means use the default
+            RobotLogCommon.setMinimimLoggingLevel(lowestLoggingLevel);
+        RobotLogCommon.c(TAG, "Lowest logging level " + RobotLogCommon.getMinimumLoggingLevel());
 
         // Start the asynchronous initialization of Vuforia.
         if (robot.webcam1Name != null) {
@@ -154,14 +160,8 @@ public class FTCAuto {
             vuforiaLocalizer = vuforiaWebcam.waitForVuforiaInitialization();
 
             // Prepare to read Vumarks but don't start yet.
-            //**TODO get the Vumarks of interest for the selected OpMode from the RobotAction.xml file.
-            // Hardcode for now ---
-            if (autoOpMode != RobotConstantsUltimateGoal.OpMode.RED_OUTSIDE)
-                throw new AutonomousRobotException(TAG, "expected OpMode RED_OUTSIDE"); //** TEMP
-
-            List<VumarkReader.SupportedVumark> vumarksOfInterest =
-                    Arrays.asList(VumarkReader.SupportedVumark.RED_TOWER_GOAL, VumarkReader.SupportedVumark.RED_TOWER_GOAL);
-            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer, vumarksOfInterest);
+            // Get the Vumarks of interest for the selected OpMode from the RobotAction.xml file.
+            vumarkReader = new VumarkReader(linearOpMode, vuforiaLocalizer, actionData.vumarksOfInterest);
         }
 
         RobotLogCommon.c(TAG, "FTCAuto construction complete");
@@ -178,24 +178,24 @@ public class FTCAuto {
             throw new AutonomousRobotException(TAG, "OpMode unexpectedly inactive in runRobot()");
 
         // Follow the choreography specified in the robot action file.
-        List<RobotActionXML.CommandXML> steps = actionXML.getOpModeCommands(autoOpMode.toString());
+        List<RobotXMLElement> actions = actionData.actions;
         try {
-            for (RobotActionXML.CommandXML step : steps) {
+            for (RobotXMLElement action : actions) {
 
-                if (!executeTargetZoneCommands) // execute Target Zone specific steps now?
-                    doCommand(step); // no, but doCommand may change that
+                if (!executeTargetZoneActions) // execute Target Zone specific steps now?
+                    doCommand(action); // no, but doCommand may change that
 
                 // Takes care of the case where the EXECUTE_TARGET_ZONE_STEPS
-                // command is the last command for the opmode in RobotConfig.xml.
-                if (executeTargetZoneCommands) { // any Target Zone specific steps?
+                // action is the last command for the opmode in RobotConfig.xml.
+                if (executeTargetZoneActions) { // any Target Zone specific steps?
                     // Yes, do all of those commands now.
-                    for (RobotActionXML.CommandXML insertedStep : targetZoneInsert) {
-                        if (insertedStep.getCommandId().equals("EXECUTE_TARGET_ZONE_STEPS"))
+                    for (RobotXMLElement insertedStep : targetZoneInsert) {
+                        if (insertedStep.getRobotXMLElementName().equals("EXECUTE_TARGET_ZONE_STEPS"))
                             throw new AutonomousRobotException(TAG, "Nesting of EXECUTE_TARGET_ZONE_STEPS is not allowed");
                         doCommand(insertedStep);
                     }
                     targetZoneInsert.clear();
-                    executeTargetZoneCommands = false;
+                    executeTargetZoneActions = false;
                 }
             }
         } finally {
@@ -216,13 +216,13 @@ public class FTCAuto {
     //===============================================================================================
     //===============================================================================================
 
-    // Using the XML elements ane attributes from the configuration file, RobotConfig.xml,
-    // execute the command.
-    private void doCommand(RobotActionXML.CommandXML pCommand) throws InterruptedException, XPathException, IOException {
+    // Using the XML elements and attributes from the configuration file RobotAction.xml,
+    // execute the action.
+    private void doCommand(RobotXMLElement pAction) throws InterruptedException, XPathException, IOException {
 
         // Set up XPath access to the current action command.
-        XPathAccess commandXPath = new XPathAccess(xpath, pCommand.getCommandElement(), pCommand.getCommandId());
-        String commandName = pCommand.getCommandId().toUpperCase();
+        XPathAccess commandXPath = new XPathAccess(pAction);
+        String commandName = pAction.getRobotXMLElementName().toUpperCase();
         RobotLogCommon.d(TAG, "Executing FTCAuto command " + commandName);
 
         switch (commandName) {
@@ -568,6 +568,8 @@ public class FTCAuto {
                 int targetY = commandXPath.getInt("target_y");
 
                 Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
+                //** if reading the Vumark once is not stabl, try the next line --
+                // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
                 if (!vumarkPose.isPresent()) {
                     RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
                 } else {
@@ -578,6 +580,7 @@ public class FTCAuto {
                     RobotLogCommon.d(TAG, poseString);
 
                     //**TODO insert robot motion here
+                    VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
                 }
                 break;
             }
@@ -592,7 +595,7 @@ public class FTCAuto {
             }
 
             case "EXECUTE_TARGET_ZONE_STEPS": {
-                executeTargetZoneCommands = true;
+                executeTargetZoneActions = true;
                 break;
             }
 

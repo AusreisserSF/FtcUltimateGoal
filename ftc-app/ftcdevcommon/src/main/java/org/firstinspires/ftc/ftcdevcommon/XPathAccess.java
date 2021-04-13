@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.ftcdevcommon;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-
+import javax.xml.xpath.*;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// Generic access to XML elements via XPath
+// Generic access to XML elements via XPath.
 public class XPathAccess {
 
 	// --------- CLASS VARIABLES ----------
@@ -19,39 +15,21 @@ public class XPathAccess {
 
 	private final XPath xpath;
 	private final Element xmlElement;
-	private final String processingContext;
 
 	// --------- CONSTRUCTORS ----------
-	public XPathAccess(XPath pXpath, Element pXMLElement, String pProcessingContext) {
-		xpath = pXpath;
-		xmlElement = pXMLElement;
-		processingContext = pProcessingContext;
+	//## Compromise: pass an XML element in to the constructor.
+	// It would be possible to pass the element in to every method
+	// but the syntax is simpler this way.
+	public XPathAccess(RobotXMLElement pRobotXMLElement) {
+		XPathFactory xpathFactory = XPathFactory.newInstance();
+		xpath = xpathFactory.newXPath();
+		xmlElement = pRobotXMLElement.getRobotXMLElement();
 	}
 
 	// --------- FUNCTIONS ----------
 
-    // Return a value that was included in the constructor to serve as a label
-    // for the current step in XML processing.	
-	public String getProcessingContext() {
-		return processingContext;
-	}
-
-	// Tests a child element of a command element for the XML attribute "invert_for_red".
-	// This is a convenience for BLUE and RED choreographies that are mirror images of
-	// each other.
-	//
-	//  <command id="STRAIGHT" gyro="on">
-	//     <distance invert_for_red="on">7.0</distance>
-	//      <power>0.5</power>
-	//  </command>
-	public boolean invertForRed(String pChild) throws XPathExpressionException {
-		String redInvert = getStringInRange(pChild + "/@invert_for_red", "off", validRange("on", "off"));
-		return redInvert.equals("on");
-	}
-
-	// Gets a text string from an element or attribute and checks it against a list
-	// of valid values.
-	// Always returns lower case.
+ 	// Gets a text string from an element or attribute and checks it against a list
+	// of valid values. Always returns lower case.
 	public String getStringInRange(String pPath, List<String>pRangeList) throws XPathExpressionException {
 		String text = getString(pPath);
 		if (!pRangeList.contains(text))
@@ -76,7 +54,7 @@ public class XPathAccess {
 			text = getElementText(pPath);
 
 		if (text.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + xmlElement.getTagName());
 
 		// Make sure that the text is lower case if case is significant.
 		if (!pIgnoreCase && !text.equals(text.toLowerCase()))
@@ -143,7 +121,7 @@ public class XPathAccess {
 	public int getInt(String pPath) throws XPathExpressionException {
 		String text = getElementText(pPath);
 		if (text.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + xmlElement.getTagName());
 
 		return getIntFromText(text, pPath);
 	}
@@ -159,7 +137,7 @@ public class XPathAccess {
 	public double getDouble(String pPath) throws XPathExpressionException {
 		String text = getElementText(pPath);
 		if (text.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + xmlElement.getTagName());
 
 		return getDoubleFromText(text, pPath);
 	}
@@ -175,7 +153,7 @@ public class XPathAccess {
 	public boolean getBoolean(String pPath) throws XPathExpressionException {
 		String text = getElementText(pPath);
 		if (text.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pPath + " does not exist in " + xmlElement.getTagName());
 
 		return getBooleanFromText(text, pPath);
 	}
@@ -203,7 +181,7 @@ public class XPathAccess {
 	
 	public int getIntFromText(String pIntText, String pNodeName) {
 		if (pIntText.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pIntText + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pIntText + " does not exist in " + xmlElement.getTagName());
 
 		int itemInt;
 		try {
@@ -217,7 +195,7 @@ public class XPathAccess {
 
 	public double getDoubleFromText(String pDoubleText, String pNodeName) {
 		if (pDoubleText.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pNodeName + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pNodeName + " does not exist in " + xmlElement.getTagName());
 
 		double itemDouble;
 		try {
@@ -231,7 +209,7 @@ public class XPathAccess {
 	
 	public boolean getBooleanFromText(String pBoolText, String pNodeName) {
 		if (pBoolText.isEmpty())
-			throw new AutonomousRobotException(TAG, "Requested item " + pNodeName + " does not exist in " + processingContext);
+			throw new AutonomousRobotException(TAG, "Requested item " + pNodeName + " does not exist in " + xmlElement.getTagName());
 
 		if (pBoolText.equals("true"))
 			return true;

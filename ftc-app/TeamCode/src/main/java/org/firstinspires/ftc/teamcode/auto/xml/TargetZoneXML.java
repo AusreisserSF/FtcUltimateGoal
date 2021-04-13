@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.xml;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -90,9 +91,9 @@ public class TargetZoneXML {
 
     // Get the target zone commands associated with an OpMode.
     // The key of the return map is the target zone.
-    public HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotActionXML.CommandXML>> getTargetZoneCommands(RobotConstantsUltimateGoal.OpMode pOpMode) throws XPathExpressionException {
-        HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotActionXML.CommandXML>> targetZoneCommands = new HashMap<>();
-        List<RobotActionXML.CommandXML> commands;
+    public HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotXMLElement>> getTargetZoneCommands(RobotConstantsUltimateGoal.OpMode pOpMode) throws XPathExpressionException {
+        HashMap<RobotConstantsUltimateGoal.TargetZone, List<RobotXMLElement>> targetZoneActions = new HashMap<>();
+        List<RobotXMLElement> actions;
 
         // Find an OpMode element with an "id" attribute equal to the pOpMode parameter.
         // <OpMode id="BLUE_INSIDE">
@@ -121,8 +122,8 @@ public class TargetZoneXML {
         if (targetZoneANodes == null)
             throw new AutonomousRobotException(TAG, "Missing TARGET_ZONE_A element");
 
-        commands = collectCommands(targetZoneANodes);
-        targetZoneCommands.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_A, commands);
+        actions = collectActions(targetZoneANodes);
+        targetZoneActions.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_A, actions);
 
         // Target Zone B
         exprString = targetZonePath + "/" + RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_B + "/*";
@@ -130,8 +131,8 @@ public class TargetZoneXML {
         if (targetZoneBNodes == null)
             throw new AutonomousRobotException(TAG, "Missing TARGET_ZONE_B element");
 
-        commands = collectCommands(targetZoneBNodes);
-        targetZoneCommands.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_B, commands);
+        actions = collectActions(targetZoneBNodes);
+        targetZoneActions.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_B, actions);
 
         // Target Zone C
         exprString = targetZonePath + "/" + RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_C + "/*";
@@ -139,31 +140,31 @@ public class TargetZoneXML {
         if (targetZoneCNodes == null)
             throw new AutonomousRobotException(TAG, "Missing TARGET_ZONE_C element");
 
-        commands = collectCommands(targetZoneCNodes);
-        targetZoneCommands.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_C, commands);
+        actions = collectActions(targetZoneCNodes);
+        targetZoneActions.put(RobotConstantsUltimateGoal.TargetZone.TARGET_ZONE_C, actions);
 
-        return targetZoneCommands;
+        return targetZoneActions;
     }
 
     // Iterate through the children of the selected target zone node
     // and collect the elements.
-    private List<RobotActionXML.CommandXML> collectCommands(NodeList pNodeList) {
+    private List<RobotXMLElement> collectActions(NodeList pNodeList) {
 
-        List<RobotActionXML.CommandXML> commands = new ArrayList<>();
-        Node oneCommandNode;
-        RobotActionXML.CommandXML commandXML;
+        List<RobotXMLElement> actions = new ArrayList<>();
+        Node oneActionNode;
+        RobotXMLElement actionXMLElement;
 
         for (int i = 0; i < pNodeList.getLength(); i++) {
-            oneCommandNode = pNodeList.item(i);
+            oneActionNode = pNodeList.item(i);
 
-            if (oneCommandNode.getNodeType() != Node.ELEMENT_NODE)
+            if (oneActionNode.getNodeType() != Node.ELEMENT_NODE)
                 continue;
 
-            commandXML = new RobotActionXML.CommandXML((Element) oneCommandNode);
-            commands.add(commandXML);
+            actionXMLElement = new RobotXMLElement((Element) oneActionNode);
+            actions.add(actionXMLElement);
         }
 
-        return commands;
+        return actions;
     }
 
 }

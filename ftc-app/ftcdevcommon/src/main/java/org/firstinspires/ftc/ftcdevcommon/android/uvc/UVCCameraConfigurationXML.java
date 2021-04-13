@@ -2,6 +2,7 @@ package org.firstinspires.ftc.ftcdevcommon.android.uvc;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,15 +17,12 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
 
 // XML configuration file for UVC webcam devices.
 public class UVCCameraConfigurationXML {
 
     public static final String TAG = "UVCCameraConfigurationXML";
 
-    private final XPath xpath;
     private final NodeList cameraNodes;
     private final int cameraNodeCount;
 
@@ -44,11 +42,7 @@ public class UVCCameraConfigurationXML {
             cameraNodeCount = cameraNodes.getLength();
             RobotLogCommon.d(TAG, "In UVCCameraConfigurationXML; opened and parsed the XML configuration file");
             RobotLogCommon.d(TAG, "Found " + cameraNodeCount + " cameras");
-
-            XPathFactory xpathFactory = XPathFactory.newInstance();
-            xpath = xpathFactory.newXPath();
-
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
+       } catch (ParserConfigurationException | SAXException | IOException ex) {
             throw new AutonomousRobotException(TAG, "Exception in XML processing " + ex.getMessage());
         }
     }
@@ -70,7 +64,7 @@ public class UVCCameraConfigurationXML {
                 continue;
 
             // Collect all the information about a single camera.
-            uvcCameraXML = new UVCCameraXML(xpath, (Element) oneCameraNode, ((Element) oneCameraNode).getTagName());
+            uvcCameraXML = new UVCCameraXML(new RobotXMLElement((Element) oneCameraNode));
             cameras.add(uvcCameraXML.getOneCameraElement());
         }
 

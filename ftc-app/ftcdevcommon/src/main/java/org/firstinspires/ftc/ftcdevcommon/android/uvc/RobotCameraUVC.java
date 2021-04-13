@@ -11,8 +11,8 @@ public final class RobotCameraUVC {
 
 	// Note: the USB device name can change based on the configuration of the USB hub
 	// so we can't set it in advance.
-	//**PY 8/21/2019 I don't like setting a crucial field after construction.
-	// Beter to make this a final class. Check usages of the device name. You
+	//**TODO PY 8/21/2019 I don't like setting a crucial field after construction.
+	// Better to make this a final class. Check usages of the device name. You
 	// may have to create a map where key = USB device name and value = this class.
 	public RobotCameraUVC(String pProductName, int pVendorId, int pProductId, String pSerialNumber,
                           int pWidth, int pHeight) {

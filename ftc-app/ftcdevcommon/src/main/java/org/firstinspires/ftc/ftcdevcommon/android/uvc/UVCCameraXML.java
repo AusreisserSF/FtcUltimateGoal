@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.ftcdevcommon.android.uvc;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.w3c.dom.Element;
 
@@ -13,8 +14,8 @@ public class UVCCameraXML {
     private final static String TAG = "UVCCameraXML";
     private final XPathAccess xPathAccess;
 
-    public UVCCameraXML(XPath pXpath, Element pCommandElement, String pCommandId) {
-        xPathAccess = new XPathAccess(pXpath, pCommandElement, pCommandId);
+    public UVCCameraXML(RobotXMLElement pCommandElement) {
+        xPathAccess = new XPathAccess(pCommandElement);
     }
 
     // Collect information about a single camera from the children of each camera's element node.

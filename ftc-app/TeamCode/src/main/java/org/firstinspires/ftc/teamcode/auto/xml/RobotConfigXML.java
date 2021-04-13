@@ -112,7 +112,7 @@ public class RobotConfigXML {
         if (mappedRobotXMLElement == null)
           throw new AutonomousRobotException(TAG, "No such element in RobotConfig.xml: " + pElementName);
 
-        return new XPathAccess(xpath, mappedRobotXMLElement.getRobotXMLElement(), mappedRobotXMLElement.getRobotXMLElementName());
+        return new XPathAccess(mappedRobotXMLElement);
     }
 
 }

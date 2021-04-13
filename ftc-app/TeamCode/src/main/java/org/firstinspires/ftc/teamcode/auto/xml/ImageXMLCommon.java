@@ -98,7 +98,7 @@ public class ImageXMLCommon {
 	<width></width>
 	<height></height>
 */
-    Rect parseROI(Node pROINode) {
+    public static Rect parseROI(Node pROINode) {
         Rect roiElement = new Rect();
 
         Node roi_x_node = pROINode.getFirstChild();

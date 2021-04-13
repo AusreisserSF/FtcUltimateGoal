@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.auto.xml;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
+import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
+import org.firstinspires.ftc.teamcode.auto.vision.VumarkReader;
+import org.opencv.core.Rect;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,6 +14,10 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +29,9 @@ public class RobotActionXML {
     public static final String TAG = "RobotActionXML";
     private static final String FILE_NAME = "RobotAction.xml";
 
+    private final Document document;
+    private final XPath xpath;
+
     /*
     // IntelliJ only
     private static final String JAXP_SCHEMA_LANGUAGE =
@@ -29,11 +39,6 @@ public class RobotActionXML {
     private static final String W3C_XML_SCHEMA =
             "http://www.w3.org/2001/XMLSchema";
      */
-
-    private final Level minimumLoggingLevel;
-    private final boolean initVuforia;
-    private final NodeList opModeNodes;
-    private final int opModeNodeCount;
 
     public RobotActionXML(String pWorkingDirectory) throws ParserConfigurationException, SAXException, IOException {
 
@@ -47,152 +52,157 @@ public class RobotActionXML {
 
         //## ONLY works with a validating parser.
         dbFactory.setIgnoringElementContentWhitespace(true);
- */
-        // Android only
+// End IntelliJ only
+*/
+
+// Android only
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setIgnoringComments(true);
         // ONLY works with a validating parser (DTD or schema) dbFactory.setIgnoringElementContentWhitespace(true);
         //PY 8/17/2019 Android throws UnsupportedOperationException dbFactory.setXIncludeAware(true);
-        // End Android only
+// End Android only
 
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         String actionFilename = pWorkingDirectory + FILE_NAME;
-        Document document = dBuilder.parse(new File(actionFilename));
+        document = dBuilder.parse(new File(actionFilename));
 
-        Element robotActionRoot = document.getDocumentElement();
-        String debugLoggingLevel = robotActionRoot.getAttribute("debugLevel");
-        // Using Level.parse allows all integer values.
-        if (debugLoggingLevel.trim().isEmpty())
-            minimumLoggingLevel = null;
-        else {
-            switch (debugLoggingLevel) {
-                case "d": {
-                    minimumLoggingLevel = Level.FINE;
-                    break;
+        XPathFactory xpathFactory = XPathFactory.newInstance();
+        xpath = xpathFactory.newXPath();
+    }
+
+    // Find the requested opMode in the RobotAction.xml file.
+    // Package and return all data associated with the OpMode.
+    public RobotActionData getOpModeData(String pOpMode) throws XPathExpressionException {
+
+        Level lowestLoggingLevel = null; // null means use the default lowest logging level
+        Rect imageROI = new Rect(0, 0, 0, 0); // default is an empty ROI; use the values from RingParameters.xml.
+        List<VumarkReader.SupportedVumark> vumarksOfInterest = new ArrayList<>();
+        List<RobotXMLElement> actions = new ArrayList<>();
+
+        // Use XPath to locate the desired OpMode.
+        String opModePath = "/RobotAction/OpMode[@id=" + "'" + pOpMode + "']";
+        Node opModeNode = (Node) xpath.evaluate(opModePath, document, XPathConstants.NODE);
+        if (opModeNode == null)
+            throw new AutonomousRobotException(TAG, "Missing OpMode " + pOpMode);
+
+        RobotLogCommon.d(TAG, "Extracting data from RobotAction.xml for OpMode " + pOpMode);
+
+        // The next element in the XML is required: <parameters>
+        Node parametersNode = getNextElement(opModeNode.getFirstChild());
+        if ((parametersNode == null) || !parametersNode.getNodeName().equals("parameters"))
+            throw new AutonomousRobotException(TAG, "Missing required <parameters> element");
+
+        // The three possible elements under <parameters> are:
+        //   <lowest_logging_level>
+        //   <image_roi>
+        //   <vumarks>
+        // All are optional.
+
+        // A missing or empty optional lowest_logging_level will eventually return null, which
+        // means to use the logger's default.
+        Node nextParameterNode = getNextElement(parametersNode.getFirstChild());
+        if ((nextParameterNode != null) && (nextParameterNode.getNodeName().equals("lowest_logging_level"))) {
+            String lowestLoggingLevelString = nextParameterNode.getTextContent().trim();
+            if (!lowestLoggingLevelString.isEmpty()) {
+                switch (lowestLoggingLevelString) {
+                    case "d": {
+                        lowestLoggingLevel = Level.FINE;
+                        break;
+                    }
+                    case "v": {
+                        lowestLoggingLevel = Level.FINER;
+                        break;
+                    }
+                    case "vv": {
+                        lowestLoggingLevel = Level.FINEST;
+                        break;
+                    }
+                    default: {
+                        throw new AutonomousRobotException(TAG, "Invalid lowest logging level");
+                    }
                 }
-                case "v": {
-                    minimumLoggingLevel = Level.FINER;
-                    break;
-                }
-                case "vv": {
-                    minimumLoggingLevel = Level.FINEST;
-                    break;
-                }
-                default: {
-                    throw new AutonomousRobotException(TAG, "Invalid debug log option");
-                }
+            }
+            nextParameterNode = getNextElement(nextParameterNode.getNextSibling());
+        }
+
+        // The next optional element in the XML is <image_roi>.
+        if ((nextParameterNode != null) && nextParameterNode.getNodeName().equals("image_roi")) {
+            imageROI = ImageXMLCommon.parseROI(nextParameterNode);
+            nextParameterNode = getNextElement(nextParameterNode.getNextSibling());
+        }
+
+        // The next optional element in the XML is <vumarks>.
+        if ((nextParameterNode != null) && nextParameterNode.getNodeName().equals("vumarks")) {
+            NodeList vumarkChildren = nextParameterNode.getChildNodes();
+            Node oneVumarkNode;
+            for (int i = 0; i < vumarkChildren.getLength(); i++) {
+                oneVumarkNode = vumarkChildren.item(i);
+
+                if (oneVumarkNode.getNodeType() != Node.ELEMENT_NODE)
+                    continue;
+
+                VumarkReader.SupportedVumark oneVumark = VumarkReader.SupportedVumark.valueOf(oneVumarkNode.getNodeName());
+                vumarksOfInterest.add(oneVumark);
             }
         }
 
-        // For testing without the camera.
-        String initVuforiaAttr = robotActionRoot.getAttribute("init_vuforia").trim();
-        initVuforia = initVuforiaAttr.equals("yes");
+        // Make sure there are no extraneous elements.
+        if (nextParameterNode != null) {
+            String nodeName = nextParameterNode.getNodeName();
+            if (!(nodeName.equals("lowest_logging_level") ||
+                    nodeName.equals("image_roi") ||
+                    nodeName.equals("vumarks")))
+                throw new AutonomousRobotException(TAG, "Unrecognized element under <parameters> " + nodeName);
+        }
 
-        opModeNodes = document.getElementsByTagName("OpMode");
-        opModeNodeCount = opModeNodes.getLength();
-        RobotLogCommon.i(TAG, "In RobotActionXML; opened and parsed the XML file");
-        RobotLogCommon.i(TAG, "Found " + opModeNodeCount + " OpModes");
-    }
+        // Now proceed to the <actions> element of the selected OpMode.
+        String actionsPath = opModePath + "/actions";
+        Node actionsNode = (Node) xpath.evaluate(actionsPath, document, XPathConstants.NODE);
+        if (actionsNode == null)
+            throw new AutonomousRobotException(TAG, "Missing <actions> element");
 
-    // Return the value of the attribute from the root element or null
-    // if the attribute is missing.
-    public Level getMinimumLoggingLevel() {
-        return minimumLoggingLevel;
-    }
+        // Now iterate through the children of the <actions> element of the selected OpMode.
+        NodeList actionChildren = actionsNode.getChildNodes();
+        Node actionNode;
 
-    // Return the Vurforia initialization setting.
-    public boolean initializeVuforia() {
-        return initVuforia;
-    }
+        RobotXMLElement actionXMLElement;
+        for (int i = 0; i < actionChildren.getLength(); i++) {
+            actionNode = actionChildren.item(i);
 
-    // Iterate through the top-level elements of the RobotAction.xml file, find the requested opMode,
-    // create a CommandXML class for each of the commands in the OpMode, and return them in a List.
-    // If the requested OpMode has an "alliance" attribute, return it also (or a default).
-    public List<CommandXML> getOpModeCommands(String pOpMode) {
-
-        List<CommandXML> commands = new ArrayList<>();
-
-        // Find the XML element that matches the requested OpMode.
-        String opModeIdAttr;
-        Node matchingOpMode = null;
-        Node oneOpModeNode;
-        for (int i = 0; i < opModeNodeCount; i++) {
-            oneOpModeNode = opModeNodes.item(i);
-
-            if (oneOpModeNode.getNodeType() != Node.ELEMENT_NODE)
+            if (actionNode.getNodeType() != Node.ELEMENT_NODE)
                 continue;
 
-            opModeIdAttr = ((Element) oneOpModeNode).getAttribute("id");
-            if (opModeIdAttr.equals(pOpMode)) {
-                matchingOpMode = oneOpModeNode;
-                RobotLogCommon.d(TAG, "Found a matching opmode " + opModeIdAttr);
-               break;
+            actionXMLElement = new RobotXMLElement((Element) actionNode);
+            actions.add(actionXMLElement);
+        }
+
+        return new RobotActionData(lowestLoggingLevel, imageROI, vumarksOfInterest, actions);
+    }
+
+    private Node getNextElement(Node pNode) {
+        Node nd = pNode;
+        while (nd != null) {
+            if (nd.getNodeType() == Node.ELEMENT_NODE) {
+                return nd;
             }
+            nd = nd.getNextSibling();
         }
-
-        if (matchingOpMode == null)
-            throw new AutonomousRobotException(TAG, "Did not find match for opmode " + pOpMode);
-
-        // Now iterate through the command children of the selected OpMode.
-        NodeList opModeChildren = matchingOpMode.getChildNodes();
-        Node oneCommandNode;
-
-        CommandXML commandXML;
-        for (int i = 0; i < opModeChildren.getLength(); i++) {
-            oneCommandNode = opModeChildren.item(i);
-
-            if (oneCommandNode.getNodeType() != Node.ELEMENT_NODE)
-                continue;
-
-            commandXML = new CommandXML((Element) oneCommandNode);
-            commands.add(commandXML);
-        }
-
-        return commands;
+        return null;
     }
 
-	/*
-	 public static class Utils {
-       public static Element getNextElement(Element el) {
-         Node nd = el.getNextSibling();
-         while (nd != null) {
-           if (nd.getNodeType() == Node.ELEMENT_NODE) {
-            return (Element)nd;
-         }
-         nd = nd.getNextSibling();
-        }
-       return null;
-       }
-      }
-	 */
+    public static class RobotActionData {
+        public final Level lowestLoggingLevel;
+        public final Rect imageROI;
+        public final List<VumarkReader.SupportedVumark> vumarksOfInterest;
+        public final List<RobotXMLElement> actions;
 
-    // Holds the XML element for a command in an xml file.
-    //   <command id="MOVE_FINGERS">
-    //     <position>down</position>
-    //   </command>
-    // Use the companion class XPathAccess to get attributes,
-    // child nodes, and text relative to this node.
-    public static class CommandXML {
-
-        // --------- CLASS VARIABLES ----------
-        private final Element commandElement;
-        private final String commandId;
-
-        // --------- CONSTRUCTORS ----------
-        public CommandXML(Element pCommandElement) {
-            commandElement = pCommandElement;
-
-            // The command id is the tag name of the element
-            commandId = pCommandElement.getTagName();
-        }
-
-        // --------- FUNCTIONS ----------
-        public Element getCommandElement() {
-            return commandElement;
-        }
-
-        public String getCommandId() {
-            return commandId;
+        public RobotActionData(Level pLevel, Rect pROI,
+                               List<VumarkReader.SupportedVumark> pVumarks,
+                               List<RobotXMLElement> pActions) {
+            lowestLoggingLevel = pLevel;
+            imageROI = pROI;
+            vumarksOfInterest = pVumarks;
+            actions = pActions;
         }
 
     }
