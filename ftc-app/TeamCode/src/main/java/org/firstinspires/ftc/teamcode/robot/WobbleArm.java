@@ -4,28 +4,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.auto.xml.RobotConfigXML;
-import org.firstinspires.ftc.teamcode.hardware.motor.CachingMotorEx;
+import org.firstinspires.ftc.teamcode.hardware.motor.LCHSMotor;
 import org.firstinspires.ftc.teamcode.hardware.servo.LCHSServo;
 
 import static android.os.SystemClock.sleep;
 
 
 public class WobbleArm {
-
-    public enum ServoState {
-        REST(0.4),
-        HOLD(0.9),
-        RELEASE(0.2);
-
-        private final double position;
-        ServoState(double position) {
-            this.position = position;
-        }
-
-        public double getPosition() {
-            return position;
-        }
-    }
 
     public enum FlipState {
         REST(0),
@@ -47,26 +32,14 @@ public class WobbleArm {
 
     public static final double FLIP_POWER_FACTOR = 0.6;
 
-    public CachingMotorEx flipMotor;
+    public LCHSMotor flipMotor;
     public LCHSServo servo;
 
-    private ServoState servoState;
     private FlipState flipState;
 
     WobbleArm(HardwareMap hardwareMap, RobotConfigXML configXML) {
-        flipMotor = new CachingMotorEx(hardwareMap, "wobble motor");
-        servo = new LCHSServo(hardwareMap, "wobble servo");
-
-       //**TODO Not in the xml file!! configXML.getPath("servo");
-    }
-
-    public ServoState getServoState() {
-        return servoState;
-    }
-
-    public void setServoState(ServoState state) {
-        servoState = state;
-        servo.setPosition(state.getPosition());
+        flipMotor = new LCHSMotor(hardwareMap, "wobblemotor");
+        servo = new LCHSServo(hardwareMap, "wobble", configXML);
     }
 
     public FlipState getFlipState() {

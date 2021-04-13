@@ -11,16 +11,16 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-public class CachingMotorEx implements DcMotorEx {
+public class LCHSMotor implements DcMotorEx {
     private final DcMotorEx delegate;
     private double cachedPower;
     private double cachedVelocity;
 
-    public CachingMotorEx(HardwareMap hardwareMap, String name) {
+    public LCHSMotor(HardwareMap hardwareMap, String name) {
         this(hardwareMap.dcMotor.get(name));
     }
 
-    public CachingMotorEx(DcMotor delegate) {
+    public LCHSMotor(DcMotor delegate) {
         this.delegate = (DcMotorEx) delegate;
     }
 

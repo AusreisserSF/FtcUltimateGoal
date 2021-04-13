@@ -1,5 +1,33 @@
 <RobotConfig>
+
   <WEBCAM>
       <present>no</present>
   </WEBCAM>
+
+  <!-- servos -->
+  <TRIGGER>
+    <rest>0.025</rest>
+    <out>0.15</out>
+  </TRIGGER>
+  <WOBBLE>
+    <rest>0.4</rest>
+    <hold>0.9</hold>
+    <release>0.2</release> 
+  </WOBBLE>
+
+  <!-- motors -->
+  <ELEVATOR>
+    <power>0.6</power>
+    <up>-520</up>
+    <down>0</down>
+  </ELEVATOR>
+
+  <!-- teleop -->
+  <FULL_DRIVE>
+    <powershot_high>1850</powershot_high>
+    <powershot_low>1475</powershot_low>
+    <high_goal>2000</high_goal>
+    <intake>2000</intake>
+  </FULL_DRIVE>
+
 </RobotConfig>
