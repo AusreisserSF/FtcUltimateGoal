@@ -11,7 +11,7 @@
   </TRIGGER>
   <WOBBLE>
     <rest>0.4</rest>
-    <hold>0.9</hold>
+    <hold>0.95</hold> <!-- changed from 0.90 harold-->
     <release>0.2</release> 
   </WOBBLE>
 

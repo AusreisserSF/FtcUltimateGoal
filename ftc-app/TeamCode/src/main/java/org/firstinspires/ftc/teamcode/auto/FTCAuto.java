@@ -386,7 +386,11 @@ public class FTCAuto {
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
 
                 if (powerShot) {
-                    robot.shooter.intakeMotor.setVelocity(intakeVelocity);
+
+                    robot.shooter.triggerServo.setState("out");
+                    sleep(300);
+                    robot.shooter.triggerServo.setState("rest");
+                    //robot.shooter.intakeMotor.setVelocity(intakeVelocity);
 //                    robot.shooter.liftMotor.setVelocity(lifterVelocity);
                 }
 
@@ -400,8 +404,9 @@ public class FTCAuto {
                 sleep(500);
 
                 if (!powerShot) {
-                    robot.shooter.intakeMotor.setVelocity(intakeVelocity);
-//                    robot.shooter.liftMotor.setVelocity(lifterVelocity);
+                    robot.shooter.triggerServo.setState("out");
+                    sleep(300);
+                    robot.shooter.triggerServo.setState("rest");
                 }
 
                 int shotCount = 0;
@@ -415,9 +420,9 @@ public class FTCAuto {
                         if (shotCount == maxShotCount)
                             break;
 
-                        robot.shooter.intakeMotor.setVelocity(0);
-//                        robot.shooter.liftMotor.setVelocity(0);
-                        sleep(100);
+                        robot.shooter.triggerServo.setState("out");
+                        sleep(300);
+                        robot.shooter.triggerServo.setState("rest");
 
                         // Get back up to speed
                         currentVelocity = robot.shooter.shootMotor.getVelocity();
@@ -425,9 +430,6 @@ public class FTCAuto {
                             currentVelocity = robot.shooter.shootMotor.getVelocity();
                             sleep(20);
                         }
-
-                        robot.shooter.intakeMotor.setVelocity(intakeVelocity);
-//                        robot.shooter.liftMotor.setVelocity(lifterVelocity);
                     }
                 }
 
@@ -461,6 +463,18 @@ public class FTCAuto {
 
                 break;
 
+            }
+
+            case "ELEVATOR_UP": {
+                robot.shooter.moveElevatorUp();
+
+                break;
+            }
+
+            case "ELEVATOR_DOWN": {
+                robot.shooter.moveElevatorDown();
+
+                break;
             }
 
             // Use OpenCV to find the stack of rings and determine the Target Zone.
@@ -626,11 +640,26 @@ public class FTCAuto {
                         state = OldRingShooter.ServoState.REST;
                         break;
                     }
-                    case "up":
+                    case "up": {
                         state = OldRingShooter.ServoState.UP;
                         break;
+                    }
+
+                    case "trigger": {
+                        robot.shooter.triggerServo.setState("out");
+                        sleep(300);
+                        robot.shooter.triggerServo.setState("rest");
+                        break;
+                    }
                 }
 //                robot.shooter.setServoState(state);
+                break;
+            }
+
+            case "TRIGGER": {
+                robot.shooter.triggerServo.setState("out");
+                sleep(300);
+                robot.shooter.triggerServo.setState("rest");
                 break;
             }
 
