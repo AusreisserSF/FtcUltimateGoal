@@ -24,7 +24,6 @@ public class RingShooter2 {
         }
     }
 
-
     public static final double ELEVATOR_POWER_FACTOR = 0.6;
 
     public CachingMotorEx elevatorMotor;

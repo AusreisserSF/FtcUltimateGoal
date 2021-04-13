@@ -58,7 +58,7 @@ public class LCHSRobot {
             this.opMode = opMode;
             this.hardwareMap = opMode.hardwareMap;
 
-            // See if configXML contains an entry for a webcam
+            // See if configXML contains an entry for a webcam ---
             XPathAccess configXPath;
             configXPath = configXML.getPath("WEBCAM");
             String webcamInConfiguration = configXPath.getString("present", "no");
@@ -67,9 +67,9 @@ public class LCHSRobot {
             // if not, leave webcam1name null and test in FTCAuto
 
             driveTrain = new DriveTrain(hardwareMap);
-//        wobbleArm = new WobbleArm(hardwareMap, configXML);
-//        ringShooter = new RingShooter(hardwareMap, configXML);
-//** uncomment to test ringShooter2 = new RingShooter2(hardwareMap, configXML);
+        wobbleArm = new WobbleArm(hardwareMap, configXML);
+//**TODO remove        ringShooter = new RingShooter(hardwareMap, configXML);
+        ringShooter2 = new RingShooter2(hardwareMap, configXML);
 
         } catch (ParserConfigurationException pex) {
             throw new AutonomousRobotException(TAG, "DOM parser Exception " + pex.getMessage());
