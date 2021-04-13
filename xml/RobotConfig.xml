@@ -1,7 +1,7 @@
 <RobotConfig>
 
   <WEBCAM>
-      <present>no</present>
+      <present>yes</present>
   </WEBCAM>
 
   <!-- servos -->
