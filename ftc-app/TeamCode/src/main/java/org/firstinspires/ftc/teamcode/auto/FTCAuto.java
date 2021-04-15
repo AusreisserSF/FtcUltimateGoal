@@ -415,24 +415,36 @@ public class FTCAuto {
                 } */
 
                 int shotCount = 0;
+                linearOpMode.telemetry.addData("Shots ", shotCount);
+                linearOpMode.telemetry.update();
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
                     currentVelocity = robot.shooter.shootMotor.getVelocity();
 
                     robot.shooter.triggerServo.setState("out");
 
-                    sleep(50);
+//                    sleep(50);
 
-                    if (currentVelocity < dip){
-                        shotCount++;
+                    for (int i = 0; i < 50; i++) {
+                        if (robot.shooter.shootMotor.getVelocity() < dip) {
+                            shotCount++;
+                            linearOpMode.telemetry.addData("Shots ", shotCount);
+                            linearOpMode.telemetry.update();
+
+                            break;
+                        }
+                        sleep(1);
+
+
                     }
-
                     robot.shooter.triggerServo.setState("rest");
 
-                    if (shotCount >= maxShotCount)
+                    if (shotCount >= maxShotCount) {
+                        linearOpMode.telemetry.addData("Done ", shotCount);
+                        linearOpMode.telemetry.update();
                         break;
-
-                    while (currentVelocity < shootVelocity) {
+                    }
+                    while (robot.shooter.shootMotor.getVelocity() < shootVelocity) {
                         currentVelocity = robot.shooter.shootMotor.getVelocity();
                         sleep(20);
                     }
