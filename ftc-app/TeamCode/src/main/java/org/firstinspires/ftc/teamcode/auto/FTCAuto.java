@@ -238,17 +238,9 @@ public class FTCAuto {
 
                 // optional parameters
                 double intakePower = commandXPath.getDouble("intakePower", 0);
-//                double lifterPower = commandXPath.getDouble("lifterPower", 0);
                 double rampPercent = commandXPath.getDouble("rampPercent", 1);
 
-                double dipVelocity = commandXPath.getDouble("dip", 500);
-                double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
-                long timeStartedOuttaking = 0;
-                long timeToOuttake = commandXPath.getInt("outtakeTime", 500);
-
-
                 robot.shooter.intakeMotor.setPower(intakePower);
-//                robot.shooter.liftMotor.setPower(lifterPower);
 
                 Pose drivePose = new Pose();
                 drivePose.x = Math.sin(direction.getRadians());
@@ -267,17 +259,6 @@ public class FTCAuto {
                         rampPower = LCHSMath.clipPower(1 - (currentClicks - rampStartDistance) / (targetClicks - rampStartDistance), minPower);
                     }
 
-//                    if (timeStartedOuttaking == 0 && intakePower != 0 && robot.shooter.liftMotor.getVelocity() < dipVelocity) {
-//                        robot.shooter.intakeMotor.setPower(-outtakePower);
-//                        robot.shooter.liftMotor.setPower(-outtakePower);
-//                        timeStartedOuttaking = System.currentTimeMillis();
-//                    }
-
-                    if (timeStartedOuttaking != 0 && System.currentTimeMillis() + timeToOuttake > timeStartedOuttaking) {
-                        robot.shooter.intakeMotor.setPower(intakePower);
-//                        robot.shooter.liftMotor.setPower(intakePower);
-                        timeStartedOuttaking = 0;
-                    }
                     Angle actualHeading = robot.imu.getHeading();
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                     drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
@@ -286,7 +267,6 @@ public class FTCAuto {
 
                 robot.driveTrain.stop();
                 robot.shooter.intakeMotor.setPower(0);
-//                robot.shooter.liftMotor.setPower(0);
 
                 break;
             }
@@ -581,6 +561,11 @@ public class FTCAuto {
                 int targetX = commandXPath.getInt("target_x");
                 int targetY = commandXPath.getInt("target_y");
 
+                double marginClicks = commandXPath.getDouble("margin", 1) * DriveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
+                double power = commandXPath.getDouble("power");
+                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
+                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
+
                 Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
                 //** if reading the Vumark once is not stabl, try the next line --
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
@@ -594,7 +579,28 @@ public class FTCAuto {
                     RobotLogCommon.d(TAG, poseString);
 
                     //**TODO insert robot motion here
+                    //** Added robot motion - Trinity
                     VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
+
+                    Pose drivePose = new Pose();
+                    drivePose.x = Math.sin(rv.angleToTarget.getRadians());
+                    drivePose.y = Math.cos(rv.angleToTarget.getRadians());
+
+                    robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                    int currentClicks = 0;
+                    int targetClicks = (int) Math.round(rv.distanceToTarget * DriveTrain.CLICKS_PER_INCH);
+
+                    while (Math.abs(currentClicks - targetClicks) > marginClicks) {
+                        Angle actualHeading = robot.imu.getHeading();
+                        currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
+                        drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
+                        robot.driveTrain.drive(drivePose, power);
+                        sleep(20);
+                    }
+                    robot.driveTrain.stop();
+
                 }
                 break;
             }

@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.math.Pose;
 
 import java.io.IOException;
@@ -436,11 +437,11 @@ public class VumarkReader {
 
     public static class RobotVector {
         public final double distanceToTarget;
-        public final double angleToTarget;
+        public final Angle angleToTarget;
 
-        public RobotVector(double pDistanceToTarget, double pAngleToTarget) {
+        public RobotVector(double pDistanceToTarget, double degreesToTarget) {
             distanceToTarget = pDistanceToTarget;
-            angleToTarget = pAngleToTarget;
+            angleToTarget = new Angle(degreesToTarget, DEGREES);
         }
     }
 
