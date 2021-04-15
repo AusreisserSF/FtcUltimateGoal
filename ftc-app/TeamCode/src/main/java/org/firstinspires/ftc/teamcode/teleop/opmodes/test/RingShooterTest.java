@@ -44,7 +44,7 @@ public class RingShooterTest extends TeleOpBase {
 
         if (shootButton.is(Button.State.TAP)) {
             robot.shooter.triggerServo.setState("out");
-            sleep(300);
+            sleep(50);
             robot.shooter.triggerServo.setState("rest");
         }
 

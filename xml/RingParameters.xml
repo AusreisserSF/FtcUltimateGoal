@@ -6,10 +6,10 @@
             <height>448</height>
         </resolution>
         <image_roi>
-            <x>585</x>
-            <y>260</y>
-            <width>200</width>
-            <height>130</height>
+            <x>100</x>
+            <y>300</y>
+            <width>190</width>
+            <height>120</height>
         </image_roi>
     </image_parameters>
     <hsv_parameters>
@@ -23,6 +23,6 @@
     </hsv_parameters>
     <size_parameters>
         <minimum_pixel_count_1_ring>400</minimum_pixel_count_1_ring>
-        <minimum_pixel_count_4_rings>2000</minimum_pixel_count_4_rings>
+        <minimum_pixel_count_4_rings>3000</minimum_pixel_count_4_rings>
     </size_parameters>
 </ring_parameters>
