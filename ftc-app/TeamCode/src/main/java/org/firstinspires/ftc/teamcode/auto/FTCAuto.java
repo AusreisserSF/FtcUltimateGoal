@@ -354,6 +354,7 @@ public class FTCAuto {
                 break;
             }
 
+
             case "SHOOT": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
                 double intakeVelocity = commandXPath.getDouble("intakeVelocity");
@@ -365,15 +366,6 @@ public class FTCAuto {
                 int maxShotCount = commandXPath.getInt("maxShotCount", 3);
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
 
-                if (powerShot) {
-
-                    robot.shooter.triggerServo.setState("out");
-                    sleep(300);
-                    robot.shooter.triggerServo.setState("rest");
-                    //robot.shooter.intakeMotor.setVelocity(intakeVelocity);
-//                    robot.shooter.liftMotor.setVelocity(lifterVelocity);
-                }
-
                 robot.shooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.shooter.shootMotor.getVelocity();
                 while (currentVelocity < shootVelocity) {
@@ -381,18 +373,53 @@ public class FTCAuto {
                     sleep(20);
                 }
 
-                sleep(500);
+                /*
+                for (int shotCount = 1; shotCount <= 3; shotCount++){
 
-                if (!powerShot) {
+                    currentVelocity = robot.shooter.shootMotor.getVelocity();
+
                     robot.shooter.triggerServo.setState("out");
-                    sleep(300);
+                    sleep(750);
                     robot.shooter.triggerServo.setState("rest");
-                }
+                    sleep(950);
+
+
+
+                    // Get back up to speed
+                    currentVelocity = robot.shooter.shootMotor.getVelocity();
+                    while (currentVelocity < shootVelocity) {
+                        currentVelocity = robot.shooter.shootMotor.getVelocity();
+                        sleep(20);
+                    }
+
+                } */
 
                 int shotCount = 0;
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
                     currentVelocity = robot.shooter.shootMotor.getVelocity();
+
+                    robot.shooter.triggerServo.setState("out");
+
+                    sleep(50);
+
+                    if (currentVelocity < dip){
+                        shotCount++;
+                    }
+
+                    robot.shooter.triggerServo.setState("rest");
+
+                    if (shotCount >= maxShotCount)
+                        break;
+
+                    while (currentVelocity < shootVelocity) {
+                        currentVelocity = robot.shooter.shootMotor.getVelocity();
+                        sleep(20);
+                    }
+
+                    sleep(950);
+
+                    /*
                     if (currentVelocity < dip) {
                         shotCount++;
                         RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
@@ -400,9 +427,7 @@ public class FTCAuto {
                         if (shotCount == maxShotCount)
                             break;
 
-                        robot.shooter.triggerServo.setState("out");
-                        sleep(300);
-                        robot.shooter.triggerServo.setState("rest");
+                        //Old location (warren)
 
                         // Get back up to speed
                         currentVelocity = robot.shooter.shootMotor.getVelocity();
@@ -410,8 +435,9 @@ public class FTCAuto {
                             currentVelocity = robot.shooter.shootMotor.getVelocity();
                             sleep(20);
                         }
-                    }
+                    }*/
                 }
+
 
                 robot.shooter.shootMotor.setVelocity(0);
                 robot.shooter.intakeMotor.setVelocity(0);
@@ -664,8 +690,9 @@ public class FTCAuto {
 
             case "TRIGGER": {
                 robot.shooter.triggerServo.setState("out");
-                sleep(300);
+                sleep(1000);
                 robot.shooter.triggerServo.setState("rest");
+
                 break;
             }
 

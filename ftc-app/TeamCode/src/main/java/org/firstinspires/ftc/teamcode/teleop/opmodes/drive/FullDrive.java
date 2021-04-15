@@ -20,6 +20,7 @@ public class FullDrive extends BaseDrive {
     private final Button wobbleFlipButton = new Button();
     private final Button highGoalButton = new Button();
     private final Button elevatorButton = new Button();
+    private final Button flickerServo = new Button();
 
     private double highGoalShootVelocity;
     private double powershotHighShootVelocity;
@@ -61,6 +62,7 @@ public class FullDrive extends BaseDrive {
         updateWobbleFlip();
         updateIntake();
         updateElevator();
+        updateFlicker();
     }
 
     private void updateButtons() {
@@ -69,8 +71,9 @@ public class FullDrive extends BaseDrive {
 
         wobbleFlipButton.update(gamepad2.b);
         ringPowerShotButton.update(gamepad2.a);
-        highGoalButton.update(gamepad2.x);
+        //highGoalButton.update(gamepad2.x);
         elevatorButton.update(gamepad2.y);
+        flickerServo.update(gamepad2.x);
     }
 
     private void updateDrivePower() {
@@ -120,6 +123,7 @@ public class FullDrive extends BaseDrive {
             }
         }
 
+        /*
         if (isShootingHighGoal) {
             double currentVelocity = robot.shooter.shootMotor.getVelocity();
 
@@ -128,6 +132,17 @@ public class FullDrive extends BaseDrive {
             } else {
                 robot.shooter.intakeMotor.setVelocity(intakeVelocity);
             }
+        }
+        */
+
+    }
+
+    private void updateFlicker(){
+
+        if (flickerServo.is(Button.State.TAP)){
+            robot.shooter.triggerServo.setState("out");
+            sleep(50);
+            robot.shooter.triggerServo.setState("rest");
         }
 
     }
@@ -144,7 +159,9 @@ public class FullDrive extends BaseDrive {
     }
 
     private void updateElevator() {
-        robot.shooter.toggleElevator();
+        if (elevatorButton.is(Button.State.TAP)) {
+            robot.shooter.toggleElevator();
+        }
     }
 
     private void updateTelemetry() {

@@ -23,6 +23,25 @@ public class RingShooter {
     public LCHSMotor intakeMotor;
     public LCHSServo triggerServo;
 
+   // public LCHSServo flickerServo; // new idea
+
+
+    public enum TriggerServoState {
+        REST(0.02),
+        OUT(0.25);
+
+        private final double position;
+        TriggerServoState(double position) {
+            this.position = position;
+        }
+
+        public double getPosition() {
+            return position;
+        }
+    }
+
+    private TriggerServoState triggerState;
+
     RingShooter(HardwareMap hardwareMap, RobotConfigXML config) {
         intakeMotor = new LCHSMotor(hardwareMap, "intake");
         shootMotor = new LCHSMotor(hardwareMap, "shoot");
@@ -62,6 +81,15 @@ public class RingShooter {
         elevatorMotor.setTargetPosition(position);
         elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorMotor.setPower(elevatorPower);
+    }
+
+    public RingShooter.TriggerServoState getTriggerServoState() {
+        return triggerState;
+    }
+
+    public void setServoState(RingShooter.TriggerServoState state) {
+        triggerState = state;
+        triggerServo.setPosition(state.getPosition());
     }
 
 }
