@@ -44,4 +44,9 @@ public class AutoCommandXML {
         double degrees = pCommandXPath.getDouble(pElement);
         return new Angle(degrees, AngleUnit.DEGREES);
     }
+
+    public static Angle getAngle(XPathAccess pCommandXPath, String pElement, Angle defaultAngle) throws XPathExpressionException {
+        double degrees = pCommandXPath.getDouble(pElement, defaultAngle.getDegrees());
+        return new Angle(degrees, AngleUnit.DEGREES);
+    }
 }
