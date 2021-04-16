@@ -62,17 +62,17 @@
     </parameters>
     <actions>
 
-    <ALIGN_BY_VUMARK>
+    <!-- ALIGN_BY_VUMARK>
     <vumark>RED_TOWER_GOAL</vumark>
     <target_x>-10</target_x>
     <target_y>-10</target_y>
     <power>.5</power>
-    </ALIGN_BY_VUMARK>
+    </ALIGN_BY_VUMARK -->
 
-      <!-- RECOGNIZE_RINGS>
+      <RECOGNIZE_RINGS>
         <ocv_image_provider>vuforia</ocv_image_provider>
       </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/ -->
+      <CLOSE_WEBCAM/>
 
       <!-- ELEVATOR_UP></ELEVATOR_UP>
 
