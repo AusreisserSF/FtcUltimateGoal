@@ -602,7 +602,6 @@ public class FTCAuto {
                 int targetX = commandXPath.getInt("target_x");
                 int targetY = commandXPath.getInt("target_y");
 
-                double marginClicks = commandXPath.getDouble("margin", 1) * DriveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
                 double power = commandXPath.getDouble("power");
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
@@ -627,7 +626,10 @@ public class FTCAuto {
                     Pose drivePose = new Pose();
                     drivePose.x = Math.sin(rv.angleToTarget.getRadians());
                     drivePose.y = Math.cos(rv.angleToTarget.getRadians());
-                    RobotLogCommon.d(TAG, "Drive pose degrees x " + Math.toDegrees(drivePose.x) + ", y " + Math.toDegrees(drivePose.y));
+
+                    // The result of a sin(angle) = distance (length of movement vector) NOT degrees. - Trinity
+//                    RobotLogCommon.d(TAG, "Drive pose degrees x " + Math.toDegrees(drivePose.x) + ", y " + Math.toDegrees(drivePose.y));
+                    RobotLogCommon.d(TAG, "drive pose: " + drivePose.toString());
 
                     robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -635,12 +637,11 @@ public class FTCAuto {
                     int currentClicks = 0;
                     int targetClicks = (int) Math.round(rv.distanceToTarget * DriveTrain.CLICKS_PER_INCH);
 
-                    while (Math.abs(currentClicks - targetClicks) > marginClicks) {
+                    while (Math.abs(currentClicks - targetClicks) > 0) {
                         Angle actualHeading = robot.imu.getHeading();
                         currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                         drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                         robot.driveTrain.drive(drivePose, power);
-                        sleep(20);
                     }
                     robot.driveTrain.stop();
 
