@@ -50,6 +50,7 @@ import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathFactory;
 
 import static android.os.SystemClock.sleep;
+import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 
 public class FTCAuto {
 
@@ -596,7 +597,7 @@ public class FTCAuto {
             }
 
             case "ALIGN_BY_VUMARK": {
-                String vumarkString = commandXPath.getString("vumark");
+                String vumarkString = commandXPath.getString("vumark", true);
                 VumarkReader.SupportedVumark vumark = VumarkReader.SupportedVumark.valueOf(vumarkString);
                 int targetX = commandXPath.getInt("target_x");
                 int targetY = commandXPath.getInt("target_y");
@@ -606,25 +607,27 @@ public class FTCAuto {
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
-                Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
-                //** if reading the Vumark once is not stabl, try the next line --
+                //**TODO TEMP
+                //Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
+                Optional<Pose> vumarkPose = Optional.of(new Pose(10, 5, 0));
+                //** if reading the Vumark once is not stable, try the next line --
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
                 if (!vumarkPose.isPresent()) {
                     RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
                 } else {
                     Pose robotPoseAtVumark = vumarkPose.get();
-                    RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                    RobotLogCommon.d(TAG, "Robot pose at Vumark " + vumarkString);
                     String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                             robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                     RobotLogCommon.d(TAG, poseString);
 
-                    //**TODO insert robot motion here
                     //** Added robot motion - Trinity
                     VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
 
                     Pose drivePose = new Pose();
                     drivePose.x = Math.sin(rv.angleToTarget.getRadians());
                     drivePose.y = Math.cos(rv.angleToTarget.getRadians());
+                    RobotLogCommon.d(TAG, "Drive pose degrees x " + Math.toDegrees(drivePose.x) + ", y " + Math.toDegrees(drivePose.y));
 
                     robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

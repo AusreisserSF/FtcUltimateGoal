@@ -88,9 +88,9 @@ public class VumarkReader {
     public static final String FRONT_WALL = "FRONT_WALL"; // hands
 
     // Use the values from the Vumark sample: they reflect the position of the camera on the front of the robot.
-    private final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: AutoCamera is 110 mm in front of robot center
+    private final int CAMERA_FORWARD_DISPLACEMENT = 185;   // eg: AutoCamera is 110 mm in front of robot center
     private final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: AutoCamera is 200 mm above ground
-    private final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: AutoCamera is ON the robot's center line
+    private final int CAMERA_LEFT_DISPLACEMENT = -50;     // eg: AutoCamera is ON the robot's center line
 
     // For reading Vuforia Vumarks.
     private final LinearOpMode linearOpMode;
