@@ -394,7 +394,9 @@ public class FTCAuto {
 
                 } */
 
-                int shotCount = 0;
+                sleep(1000);
+
+                int shotCount = 1;
                 linearOpMode.telemetry.addData("Shots ", shotCount);
                 linearOpMode.telemetry.update();
                 long timeout = System.currentTimeMillis() + waitTime;

@@ -141,7 +141,7 @@ public class FullDrive extends BaseDrive {
 
         if (flickerServo.is(Button.State.TAP)){
             robot.shooter.triggerServo.setState("out");
-            sleep(50);
+            sleep(75);
             robot.shooter.triggerServo.setState("rest");
         }
 
