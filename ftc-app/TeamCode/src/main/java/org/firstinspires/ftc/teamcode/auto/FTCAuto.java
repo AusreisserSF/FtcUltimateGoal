@@ -363,7 +363,6 @@ public class FTCAuto {
                 int dip = commandXPath.getInt("shootVelocityDip");
 
                 //optional parameters
-//                double lifterVelocity = commandXPath.getDouble("lifterVelocity", 0);
                 int maxShotCount = commandXPath.getInt("maxShotCount", 3);
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
 
@@ -395,9 +394,9 @@ public class FTCAuto {
 
                 } */
 
-                sleep(1000);
+                sleep(500);
 
-                int shotCount = 1;
+                int shotCount = 0;
                 linearOpMode.telemetry.addData("Shots ", shotCount);
                 linearOpMode.telemetry.update();
                 long timeout = System.currentTimeMillis() + waitTime;
@@ -406,12 +405,17 @@ public class FTCAuto {
 
                     robot.shooter.triggerServo.setState("out");
 
+
 //                    sleep(50);
 
                     for (int i = 0; i < 50; i++) {
+                        linearOpMode.telemetry.addData("Velocity", robot.shooter.shootMotor.getVelocity());
+                        linearOpMode.telemetry.update();
+
                         if (robot.shooter.shootMotor.getVelocity() < dip) {
                             shotCount++;
                             linearOpMode.telemetry.addData("Shots ", shotCount);
+                            linearOpMode.telemetry.addData("Velocity", robot.shooter.shootMotor.getVelocity());
                             linearOpMode.telemetry.update();
 
                             break;
@@ -432,7 +436,7 @@ public class FTCAuto {
                         sleep(20);
                     }
 
-                    sleep(950);
+                    sleep(500);
 
                     /*
                     if (currentVelocity < dip) {

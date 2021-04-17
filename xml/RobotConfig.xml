@@ -6,8 +6,9 @@
 
   <!-- servos -->
   <TRIGGER>
-    <rest>0.0</rest>
+    <rest>0.025</rest>
     <out>0.2</out>
+    <extend>0.3</extend>
   </TRIGGER>
   <WOBBLE>
     <rest>0.4</rest>
@@ -18,7 +19,7 @@
   <!-- motors -->
   <ELEVATOR>
     <power>0.6</power>
-    <up>-450</up>
+    <up>-700</up>
     <down>0</down>
   </ELEVATOR>
 
@@ -27,7 +28,7 @@
     <powershot_high>2300</powershot_high>
     <powershot_low>1800</powershot_low>
     <high_goal>2000</high_goal>
-    <intake>3000</intake>
+    <intake>2000</intake>
   </FULL_DRIVE>
 
 </RobotConfig>

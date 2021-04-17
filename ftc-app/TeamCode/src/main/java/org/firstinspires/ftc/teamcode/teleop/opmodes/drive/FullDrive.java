@@ -143,6 +143,12 @@ public class FullDrive extends BaseDrive {
             robot.shooter.triggerServo.setState("out");
             sleep(75);
             robot.shooter.triggerServo.setState("rest");
+
+            if (gamepad2.dpad_left){
+                robot.shooter.triggerServo.setState("extend");
+                sleep(100);
+                robot.shooter.triggerServo.setState("rest");
+            }
         }
 
     }
