@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
 
 @Autonomous(name = "BlueOutside", group = "TeamCode")
-//@Disabled
+@Disabled
 public class BlueOutside extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         LCHSAutoDispatch dispatch = new LCHSAutoDispatch();

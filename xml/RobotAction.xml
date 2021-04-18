@@ -62,35 +62,27 @@
         </parameters>
         <actions>
 
-                <MOVE>
-          <distance>48</distance>
-          <margin>1.0</margin>
-          <power>1</power>
-          <direction>0.0</direction>
-          <heading>0.0</heading>
-          <rampPercent>1</rampPercent>
-          <pid>
-            <p>0.05</p>
-            <i>0.0</i>
-            <d>0.0</d>
-          </pid>
-        </MOVE>
-
-            <!-- ALIGN_BY_VUMARK>
+        <!-- ALIGN_BY_VUMARK>
         <vumark>RED_TOWER_GOAL</vumark>
         <target_x>-10</target_x>
         <target_y>-10</target_y>
         <power>.5</power>
         </ALIGN_BY_VUMARK -->
 
-            <!-- <RECOGNIZE_RINGS>
-        <ocv_image_provider>vuforia</ocv_image_provider>
-      </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/> -->
+        <RECOGNIZE_RINGS>
+           <ocv_image_provider>vuforia</ocv_image_provider>
+        </RECOGNIZE_RINGS>
+        <CLOSE_WEBCAM/>
 
-
+        </actions>
+    </OpMode>
+    <OpMode id="TELEOP_POWER_SHOT">
+       <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+        </parameters>
+        <actions>  
             <!-- Power Shots testing-->
-            <!-- ELEVATOR_UP></ELEVATOR_UP>
+            <ELEVATOR_UP></ELEVATOR_UP>
             <SHOOT>
                 <shootVelocity>1800</shootVelocity>
                 <beginningWaitTime>100</beginningWaitTime>
@@ -145,10 +137,6 @@
                 <shotWaitTime>70</shotWaitTime>
                 <maxShotCount>1</maxShotCount>
                 <intakeVelocity>0</intakeVelocity>
-            </SHOOT -->
-
-
-
+            </SHOOT>
         </actions>
-    </OpMode>
 </RobotAction>
