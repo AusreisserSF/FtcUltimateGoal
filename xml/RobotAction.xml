@@ -1,97 +1,154 @@
 <RobotAction debugLevel="v" init_vuforia="yes">
-  <OpMode id="RED_INSIDE">
-    <parameters>
-      <lowest_logging_level>v</lowest_logging_level>
-    </parameters>
-    <actions>
-      <RECOGNIZE_RINGS>
+    <OpMode id="RED_INSIDE">
+        <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+        </parameters>
+        <actions>
+            <RECOGNIZE_RINGS>
+                <ocv_image_provider>vuforia</ocv_image_provider>
+            </RECOGNIZE_RINGS>
+            <CLOSE_WEBCAM/>
+            <EXECUTE_TARGET_ZONE_STEPS/>
+        </actions>
+    </OpMode>
+    <OpMode id="RED_OUTSIDE">
+        <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+            <vumarks>
+                <RED_TOWER_GOAL/>
+                <RED_ALLIANCE/>
+            </vumarks>
+        </parameters>
+        <actions>
+            <RECOGNIZE_RINGS>
+                <ocv_image_provider>vuforia</ocv_image_provider>
+            </RECOGNIZE_RINGS>
+            <CLOSE_WEBCAM/>
+            <EXECUTE_TARGET_ZONE_STEPS/>
+        </actions>
+    </OpMode>
+    <OpMode id="BLUE_INSIDE">
+        <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+        </parameters>
+        <actions>
+            <RECOGNIZE_RINGS>
+                <ocv_image_provider>vuforia</ocv_image_provider>
+            </RECOGNIZE_RINGS>
+            <CLOSE_WEBCAM/>
+            <EXECUTE_TARGET_ZONE_STEPS/>
+        </actions>
+    </OpMode>
+    <OpMode id="BLUE_OUTSIDE">
+        <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+        </parameters>
+        <actions>
+            <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
+            <RECOGNIZE_RINGS>
+                <ocv_image_provider>vuforia</ocv_image_provider>
+            </RECOGNIZE_RINGS>
+            <CLOSE_WEBCAM/>
+            <EXECUTE_TARGET_ZONE_STEPS/>
+        </actions>
+    </OpMode>
+    <OpMode id="TEST">
+        <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+            <vumarks>
+                <RED_TOWER_GOAL/>
+                <RED_ALLIANCE/>
+            </vumarks>
+        </parameters>
+        <actions>
+
+                <MOVE>
+          <distance>48</distance>
+          <margin>1.0</margin>
+          <power>1</power>
+          <direction>0.0</direction>
+          <heading>0.0</heading>
+          <rampPercent>1</rampPercent>
+          <pid>
+            <p>0.05</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </MOVE>
+
+            <!-- ALIGN_BY_VUMARK>
+        <vumark>RED_TOWER_GOAL</vumark>
+        <target_x>-10</target_x>
+        <target_y>-10</target_y>
+        <power>.5</power>
+        </ALIGN_BY_VUMARK -->
+
+            <!-- <RECOGNIZE_RINGS>
         <ocv_image_provider>vuforia</ocv_image_provider>
       </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/>
-      <EXECUTE_TARGET_ZONE_STEPS/>
-    </actions>
-  </OpMode>
-  <OpMode id="RED_OUTSIDE">
-    <parameters>
-      <lowest_logging_level>v</lowest_logging_level>
-      <vumarks>
-        <RED_TOWER_GOAL/>
-        <RED_ALLIANCE/>
-      </vumarks>
-    </parameters>
-    <actions>
-      <RECOGNIZE_RINGS>
-        <ocv_image_provider>vuforia</ocv_image_provider>
-      </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/>
-      <EXECUTE_TARGET_ZONE_STEPS/>
-    </actions>
-  </OpMode>
-  <OpMode id="BLUE_INSIDE">
-    <parameters>
-      <lowest_logging_level>v</lowest_logging_level>
-    </parameters>
-    <actions>
-      <RECOGNIZE_RINGS>
-        <ocv_image_provider>vuforia</ocv_image_provider>
-      </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/>
-      <EXECUTE_TARGET_ZONE_STEPS/>
-    </actions>
-  </OpMode>
-  <OpMode id="BLUE_OUTSIDE">
-    <parameters>
-      <lowest_logging_level>v</lowest_logging_level>
-    </parameters>
-    <actions>
-      <CLOSE_WOBBLE_SERVO></CLOSE_WOBBLE_SERVO>
-      <RECOGNIZE_RINGS>
-        <ocv_image_provider>vuforia</ocv_image_provider>
-      </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/>
-      <EXECUTE_TARGET_ZONE_STEPS/>
-    </actions>
-  </OpMode>
-  <OpMode id="TEST">
-    <parameters>
-      <lowest_logging_level>v</lowest_logging_level>
-      <vumarks>
-        <RED_TOWER_GOAL/>
-        <RED_ALLIANCE/>
-      </vumarks>
-    </parameters>
-    <actions>
+      <CLOSE_WEBCAM/> -->
 
-    <!-- ALIGN_BY_VUMARK>
-    <vumark>RED_TOWER_GOAL</vumark>
-    <target_x>-10</target_x>
-    <target_y>-10</target_y>
-    <power>.5</power>
-    </ALIGN_BY_VUMARK -->
 
-      <RECOGNIZE_RINGS>
-        <ocv_image_provider>vuforia</ocv_image_provider>
-      </RECOGNIZE_RINGS>
-      <CLOSE_WEBCAM/>
+            <!-- Power Shots testing-->
+            <!-- ELEVATOR_UP></ELEVATOR_UP>
+            <SHOOT>
+                <shootVelocity>1800</shootVelocity>
+                <beginningWaitTime>100</beginningWaitTime>
+                <waitTime>1000</waitTime>
+                <shootVelocityDip>1700</shootVelocityDip>
+                <shotWaitTime>70</shotWaitTime>
+                <maxShotCount>1</maxShotCount>
+                <intakeVelocity>0</intakeVelocity>
+            </SHOOT>
 
-      <!-- ELEVATOR_UP></ELEVATOR_UP>
+            <MOVE>
+                <distance>8</distance>
+                <margin>1.0</margin>
+                <power>0.5</power>
+                <direction>90.0</direction>
+                <heading>0.0</heading>
+                <rampPercent>1</rampPercent>
+                <pid>
+                    <p>0.0</p>
+                    <i>0.0</i>
+                    <d>0.0</d>
+                </pid>
+            </MOVE>
 
-      <TRIGGER>
-      </TRIGGER>
+            <SHOOT>
+                <shootVelocity>1800</shootVelocity>
+                <beginningWaitTime>100</beginningWaitTime>
+                <waitTime>1000</waitTime>
+                <shootVelocityDip>1700</shootVelocityDip>
+                <shotWaitTime>70</shotWaitTime>
+                <maxShotCount>1</maxShotCount>
+                <intakeVelocity>0</intakeVelocity>
+            </SHOOT>
 
-      <SLEEP>
-        <ms>5000</ms>
-      </SLEEP -->
+            <TURN>
+                <angle>8</angle>
+                <minpower>0.3</minpower>
+                <maxpower>1</maxpower>
+                <margin>1</margin>
+                <pid>
+                    <p>0.01</p>
+                    <i>0.0</i>
+                    <d>0.0</d>
+                </pid>
+            </TURN>
 
-      <!-- <SHOOT>
-          <shootVelocity>2000</shootVelocity>
-          <intakeVelocity>0</intakeVelocity>
-          <lifterVelocity>0</lifterVelocity>
-          <waitTime>5000</waitTime>
-          <shootVelocityDip>0</shootVelocityDip>
-        </SHOOT>
+            <SHOOT>
+                <shootVelocity>1800</shootVelocity>
+                <beginningWaitTime>100</beginningWaitTime>
+                <waitTime>1000</waitTime>
+                <shootVelocityDip>1700</shootVelocityDip>
+                <shotWaitTime>70</shotWaitTime>
+                <maxShotCount>1</maxShotCount>
+                <intakeVelocity>0</intakeVelocity>
+            </SHOOT -->
 
-        <ELEVATOR_DOWN></ELEVATOR_DOWN> -->
-    </actions>
-  </OpMode>
+
+
+        </actions>
+    </OpMode>
 </RobotAction>

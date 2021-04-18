@@ -365,6 +365,8 @@ public class FTCAuto {
                 //optional parameters
                 int maxShotCount = commandXPath.getInt("maxShotCount", 3);
                 boolean powerShot = commandXPath.getBoolean("powerShot", false);
+                int shotWaitTime = commandXPath.getInt("shotWaitTime", 500);
+                int beginningWaitTime = commandXPath.getInt("beginningWaitTime", 500);
 
                 robot.shooter.shootMotor.setVelocity(shootVelocity);
                 double currentVelocity = robot.shooter.shootMotor.getVelocity();
@@ -373,28 +375,7 @@ public class FTCAuto {
                     sleep(20);
                 }
 
-                /*
-                for (int shotCount = 1; shotCount <= 3; shotCount++){
-
-                    currentVelocity = robot.shooter.shootMotor.getVelocity();
-
-                    robot.shooter.triggerServo.setState("out");
-                    sleep(750);
-                    robot.shooter.triggerServo.setState("rest");
-                    sleep(950);
-
-
-
-                    // Get back up to speed
-                    currentVelocity = robot.shooter.shootMotor.getVelocity();
-                    while (currentVelocity < shootVelocity) {
-                        currentVelocity = robot.shooter.shootMotor.getVelocity();
-                        sleep(20);
-                    }
-
-                } */
-
-                sleep(500);
+                sleep(beginningWaitTime);
 
                 int shotCount = 0;
                 linearOpMode.telemetry.addData("Shots ", shotCount);
@@ -404,9 +385,6 @@ public class FTCAuto {
                     currentVelocity = robot.shooter.shootMotor.getVelocity();
 
                     robot.shooter.triggerServo.setState("out");
-
-
-//                    sleep(50);
 
                     for (int i = 0; i < 50; i++) {
                         linearOpMode.telemetry.addData("Velocity", robot.shooter.shootMotor.getVelocity());
@@ -436,31 +414,12 @@ public class FTCAuto {
                         sleep(20);
                     }
 
-                    sleep(500);
-
-                    /*
-                    if (currentVelocity < dip) {
-                        shotCount++;
-                        RobotLogCommon.d(TAG, "Presume shot taken; dip in shooter motor velocity to " + currentVelocity);
-                        RobotLogCommon.d(TAG, "Shot count " + shotCount);
-                        if (shotCount == maxShotCount)
-                            break;
-
-                        //Old location (warren)
-
-                        // Get back up to speed
-                        currentVelocity = robot.shooter.shootMotor.getVelocity();
-                        while (currentVelocity < shootVelocity) {
-                            currentVelocity = robot.shooter.shootMotor.getVelocity();
-                            sleep(20);
-                        }
-                    }*/
+                    sleep(shotWaitTime);
                 }
 
 
                 robot.shooter.shootMotor.setVelocity(0);
                 robot.shooter.intakeMotor.setVelocity(0);
-//                robot.shooter.liftMotor.setVelocity(0);
                 break;
             }
 

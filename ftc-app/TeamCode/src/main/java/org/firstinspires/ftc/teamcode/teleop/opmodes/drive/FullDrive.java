@@ -40,6 +40,10 @@ public class FullDrive extends BaseDrive {
         } catch (XPathExpressionException e) {
             RobotLogCommon.e("FullDrive", "Missing FULL_DRIVE config values");
         }
+
+        //**TODO TEST to make sure we can initialize the IMU
+        // in both Autonomous and TeleOp
+        robot.initializeIMU();
     }
 
     @Override
@@ -104,6 +108,7 @@ public class FullDrive extends BaseDrive {
             robot.shooter.shootMotor.setVelocity(0);
             if (gamepad2.left_bumper) {
                 robot.shooter.shootMotor.setVelocity(powershotLowShootVelocity);
+
             } else if (gamepad2.right_bumper) {
                 robot.shooter.shootMotor.setVelocity(powershotHighShootVelocity); // Allows for Rapid Fire
             }

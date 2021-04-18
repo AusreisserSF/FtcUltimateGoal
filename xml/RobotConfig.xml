@@ -18,8 +18,8 @@
 
   <!-- motors -->
   <ELEVATOR>
-    <power>0.6</power>
-    <up>-700</up>
+    <power>0.85</power>
+    <up>-655</up>
     <down>0</down>
   </ELEVATOR>
 

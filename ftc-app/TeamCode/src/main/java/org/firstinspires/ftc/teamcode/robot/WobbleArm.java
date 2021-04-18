@@ -17,8 +17,8 @@ public class WobbleArm {
         FLOATING(600),
         OUT(730),
         INTAKE(770),
-        IN(0),
-        DROP(700);
+        IN(270),
+        DROP(500);
 
         private final int position;
         FlipState(int position) {
