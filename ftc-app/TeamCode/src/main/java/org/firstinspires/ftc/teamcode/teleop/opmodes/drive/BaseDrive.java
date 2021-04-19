@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.math.Pose;
 import org.firstinspires.ftc.teamcode.teleop.utility.TeleOpBase;
 
+import java.io.IOException;
+
 @TeleOp(group="Drive")
 //@Disabled
 public class BaseDrive extends TeleOpBase {

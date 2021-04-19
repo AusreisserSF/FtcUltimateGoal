@@ -3,11 +3,22 @@ package org.firstinspires.ftc.teamcode.teleop.opmodes.drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
+import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
+import org.firstinspires.ftc.teamcode.auto.RobotActionCommon;
+import org.firstinspires.ftc.teamcode.auto.RobotConstants;
+import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
+import org.firstinspires.ftc.teamcode.auto.xml.RobotActionXML;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.firstinspires.ftc.teamcode.teleop.utility.Button;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathExpressionException;
 
 @TeleOp(group="Drive")
@@ -21,6 +32,7 @@ public class FullDrive extends BaseDrive {
     private final Button highGoalButton = new Button();
     private final Button elevatorButton = new Button();
     private final Button flickerServo = new Button();
+    private final Button powerShotMoveButton = new Button();
 
     private double highGoalShootVelocity;
     private double powershotHighShootVelocity;
@@ -29,8 +41,24 @@ public class FullDrive extends BaseDrive {
 
     private boolean isShootingHighGoal = false;
 
+    // For reading RobotAction.xml in TeleOp
+    private RobotActionXML actionXML;
+    private RobotActionCommon commonActions;
+
     @Override
     protected void initialize() {
+
+        try {
+            //**TODO Where in TeleOp can I close the log?
+            RobotLogCommon.initialize(WorkingDirectory.getWorkingDirectory() + RobotConstants.logDir);
+            String xmlDirectory = WorkingDirectory.getWorkingDirectory() + RobotConstants.xmlDir;
+            actionXML = new RobotActionXML(xmlDirectory);
+            commonActions = new RobotActionCommon(robot, this);
+        }
+        catch (IOException | SAXException | ParserConfigurationException initEx) {
+            throw new AutonomousRobotException("FullDrive", "XML error in initialize");
+        }
+
         XPathAccess config = robot.configXML.getPath("FULL_DRIVE");
         try {
             highGoalShootVelocity = config.getDouble("high_goal", 0);
@@ -38,10 +66,10 @@ public class FullDrive extends BaseDrive {
             powershotLowShootVelocity = config.getDouble("powershot_low", 0);
             intakeVelocity = config.getDouble("intake", 0);
         } catch (XPathExpressionException e) {
-            RobotLogCommon.e("FullDrive", "Missing FULL_DRIVE config values");
+            throw new AutonomousRobotException("FullDrive", "XPath error in initialize");
         }
 
-        //**TODO TEST to make sure we can initialize the IMU
+        // Required for executing RobotAction.xml commands in TeleOp.
         // in both Autonomous and TeleOp
         robot.initializeIMU();
     }
@@ -58,6 +86,7 @@ public class FullDrive extends BaseDrive {
         updateDrivePower();
         updateDrive();
         updateWobbleServo();
+        updatePowerShotMove();
     }
 
     private void updatePlayerTwo() {
@@ -72,10 +101,10 @@ public class FullDrive extends BaseDrive {
     private void updateButtons() {
         wobbleServoButton.update(gamepad1.b);
         wobbleRestPosition.update(gamepad1.x);
+        powerShotMoveButton.update(gamepad1.y);
 
         wobbleFlipButton.update(gamepad2.b);
         ringPowerShotButton.update(gamepad2.a);
-        //highGoalButton.update(gamepad2.x);
         elevatorButton.update(gamepad2.y);
         flickerServo.update(gamepad2.x);
     }
@@ -87,6 +116,25 @@ public class FullDrive extends BaseDrive {
             drivePowerFactor = 0.75;
         } else {
             drivePowerFactor = 1.0;
+        }
+    }
+
+    private void updatePowerShotMove() {
+
+        if (powerShotMoveButton.is(Button.State.TAP)){
+            try {
+                RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_POWER_SHOT.toString());
+                commonActions.actionLoop(actionData.actions);
+            }
+            catch (XPathExpressionException xpEx) {
+                throw new AutonomousRobotException("FullDrive", "XPath error in updatePowerShotMove");
+            } catch (InterruptedException e) {
+                RobotLogCommon.e("FullDrive", "InterruptedException in updatePowerShotMove");
+            } catch (IOException e) {
+                throw new AutonomousRobotException("FullDrive", "IOException in updatePowerShotMove");
+            } catch (XPathException e) {
+                throw new AutonomousRobotException("FullDrive", "XPathException in updatePowerShotMove");
+            }
         }
     }
 
@@ -155,7 +203,6 @@ public class FullDrive extends BaseDrive {
                 robot.shooter.triggerServo.setState("rest");
             }
         }
-
     }
 
     private void updateIntake() {
@@ -181,7 +228,5 @@ public class FullDrive extends BaseDrive {
         telemetry.addData("intake velocity", robot.shooter.intakeMotor.getVelocity());
         telemetry.update();
     }
-
-
 
 }
