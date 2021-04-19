@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop.utility;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.xml.sax.SAXException;
 
@@ -41,6 +42,7 @@ public abstract class TeleOpBase extends LinearOpMode {
 
     protected void onStop() {
         robot.driveTrain.stop();
+        RobotLogCommon.closeLog(); // in case we're executing XML commands in TeleOp
     }
 
 }

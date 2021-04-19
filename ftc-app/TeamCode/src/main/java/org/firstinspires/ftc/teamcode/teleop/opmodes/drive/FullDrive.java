@@ -55,8 +55,8 @@ public class FullDrive extends BaseDrive {
             actionXML = new RobotActionXML(xmlDirectory);
             commonActions = new RobotActionCommon(robot, this);
         }
-        catch (IOException | SAXException | ParserConfigurationException initEx) {
-            throw new AutonomousRobotException("FullDrive", "XML error in initialize");
+        catch (IOException | SAXException | ParserConfigurationException ex) {
+            throw new AutonomousRobotException("FullDrive", ex.getMessage());
         }
 
         XPathAccess config = robot.configXML.getPath("FULL_DRIVE");
@@ -123,8 +123,12 @@ public class FullDrive extends BaseDrive {
 
         if (powerShotMoveButton.is(Button.State.TAP)){
             try {
+                telemetry.addData("XML power shot", "start");
+                telemetry.update();
                 RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_POWER_SHOT.toString());
                 commonActions.actionLoop(actionData.actions);
+                telemetry.addData("XML power shot", "end");
+                telemetry.update();
             }
             catch (XPathExpressionException xpEx) {
                 throw new AutonomousRobotException("FullDrive", "XPath error in updatePowerShotMove");

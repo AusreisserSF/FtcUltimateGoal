@@ -139,4 +139,5 @@
                 <intakeVelocity>0</intakeVelocity>
             </SHOOT>
         </actions>
+        </OpMode>
 </RobotAction>
