@@ -62,25 +62,25 @@
         </parameters>
         <actions>
 
-        <!-- ALIGN_BY_VUMARK>
+            <!-- ALIGN_BY_VUMARK>
         <vumark>RED_TOWER_GOAL</vumark>
         <target_x>-10</target_x>
         <target_y>-10</target_y>
         <power>.5</power>
         </ALIGN_BY_VUMARK -->
 
-        <RECOGNIZE_RINGS>
-           <ocv_image_provider>vuforia</ocv_image_provider>
-        </RECOGNIZE_RINGS>
-        <CLOSE_WEBCAM/>
+            <RECOGNIZE_RINGS>
+                <ocv_image_provider>vuforia</ocv_image_provider>
+            </RECOGNIZE_RINGS>
+            <CLOSE_WEBCAM/>
 
         </actions>
     </OpMode>
     <OpMode id="TELEOP_POWER_SHOT">
-       <parameters>
+        <parameters>
             <lowest_logging_level>v</lowest_logging_level>
         </parameters>
-        <actions>  
+        <actions>
             <!-- Power Shots testing-->
             <ELEVATOR_UP></ELEVATOR_UP>
             <SHOOT>
@@ -139,13 +139,23 @@
                 <intakeVelocity>0</intakeVelocity>
             </SHOOT>
         </actions>
-        </OpMode>
+    </OpMode>
     <OpMode id="TELEOP_WOBBLE_DROP">
-       <parameters>
+        <parameters>
             <lowest_logging_level>v</lowest_logging_level>
         </parameters>
-        <actions>  
-            <!-- wobble drop commands-->
-         </actions>       
+        <actions>
+            <ELEVATOR_UP></ELEVATOR_UP>
+
+            <SHOOT>
+                <shootVelocity>2300</shootVelocity>
+                <intakeVelocity>0</intakeVelocity>
+                <waitTime>5000</waitTime>
+                <shootVelocityDip>2200</shootVelocityDip>
+                <shotWaitTime>50</shotWaitTime>
+            </SHOOT>
+
+            <ELEVATOR_DOWN></ELEVATOR_DOWN>
+        </actions>
     </OpMode>
 </RobotAction>

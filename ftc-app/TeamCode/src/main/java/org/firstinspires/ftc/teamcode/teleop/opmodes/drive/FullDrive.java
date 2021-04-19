@@ -32,7 +32,6 @@ public class FullDrive extends BaseDrive {
     private final Button highGoalButton = new Button();
     private final Button elevatorButton = new Button();
     private final Button flickerServo = new Button();
-    private final Button powerShotMoveButton = new Button();
 
     private double highGoalShootVelocity;
     private double powershotHighShootVelocity;
@@ -87,6 +86,7 @@ public class FullDrive extends BaseDrive {
         updateDrive();
         updateWobbleServo();
         updatePowerShotMove();
+        updateDropWobble();
     }
 
     private void updatePlayerTwo() {
@@ -101,7 +101,6 @@ public class FullDrive extends BaseDrive {
     private void updateButtons() {
         wobbleServoButton.update(gamepad1.b);
         wobbleRestPosition.update(gamepad1.x);
-        powerShotMoveButton.update(gamepad1.y);
 
         wobbleFlipButton.update(gamepad2.b);
         ringPowerShotButton.update(gamepad2.a);
@@ -121,7 +120,7 @@ public class FullDrive extends BaseDrive {
 
     private void updatePowerShotMove() {
 
-        if (powerShotMoveButton.is(Button.State.TAP)){
+        if (gamepad2.left_trigger == 1){
             try {
                 telemetry.addData("XML power shot", "start");
                 telemetry.update();
@@ -165,6 +164,30 @@ public class FullDrive extends BaseDrive {
                 robot.shooter.shootMotor.setVelocity(powershotHighShootVelocity); // Allows for Rapid Fire
             }
         }
+    }
+
+    private void updateDropWobble(){
+
+        if (gamepad2.right_trigger == 1){
+            try {
+                telemetry.addData("XML power shot", "start");
+                telemetry.update();
+                RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_WOBBLE_DROP.toString());
+                commonActions.actionLoop(actionData.actions);
+                telemetry.addData("XML power shot", "end");
+                telemetry.update();
+            }
+            catch (XPathExpressionException xpEx) {
+                throw new AutonomousRobotException("FullDrive", "XPath error in updatePowerShotMove");
+            } catch (InterruptedException e) {
+                RobotLogCommon.e("FullDrive", "InterruptedException in updatePowerShotMove");
+            } catch (IOException e) {
+                throw new AutonomousRobotException("FullDrive", "IOException in updatePowerShotMove");
+            } catch (XPathException e) {
+                throw new AutonomousRobotException("FullDrive", "XPathException in updatePowerShotMove");
+            }
+        }
+
     }
 
     private void updateShootHighGoal() {

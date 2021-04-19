@@ -19,7 +19,7 @@
   <!-- motors -->
   <ELEVATOR>
     <power>0.9</power>
-    <up>-750</up>
+    <up>-700</up>
     <down>0</down>
   </ELEVATOR>
 
