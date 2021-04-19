@@ -140,4 +140,12 @@
             </SHOOT>
         </actions>
         </OpMode>
+    <OpMode id="TELEOP_WOBBLE_DROP">
+       <parameters>
+            <lowest_logging_level>v</lowest_logging_level>
+        </parameters>
+        <actions>  
+            <!-- wobble drop commands-->
+         </actions>       
+    </OpMode>
 </RobotAction>
