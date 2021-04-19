@@ -6,7 +6,7 @@
 
   <!-- servos -->
   <TRIGGER>
-    <rest>0.025</rest>
+    <rest>0</rest>
     <out>0.2</out>
     <extend>0.3</extend>
   </TRIGGER>
@@ -18,14 +18,14 @@
 
   <!-- motors -->
   <ELEVATOR>
-    <power>0.85</power>
-    <up>-655</up>
+    <power>0.9</power>
+    <up>-675</up>
     <down>0</down>
   </ELEVATOR>
 
   <!-- teleop -->
   <FULL_DRIVE>
-    <powershot_high>2300</powershot_high>
+    <powershot_high>2400</powershot_high>
     <powershot_low>1800</powershot_low>
     <high_goal>2000</high_goal>
     <intake>2000</intake>
