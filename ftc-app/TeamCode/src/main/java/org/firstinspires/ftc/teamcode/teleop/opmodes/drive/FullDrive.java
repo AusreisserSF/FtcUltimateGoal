@@ -7,7 +7,6 @@ import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
 import org.firstinspires.ftc.ftcdevcommon.android.WorkingDirectory;
-import org.firstinspires.ftc.teamcode.auto.RobotActionCommon;
 import org.firstinspires.ftc.teamcode.auto.RobotConstants;
 import org.firstinspires.ftc.teamcode.auto.RobotConstantsUltimateGoal;
 import org.firstinspires.ftc.teamcode.auto.xml.RobotActionXML;
@@ -32,6 +31,8 @@ public class FullDrive extends BaseDrive {
     private final Button highGoalButton = new Button();
     private final Button elevatorButton = new Button();
     private final Button flickerServo = new Button();
+    private final Button wobbleDropButton = new Button();
+
 
     private double highGoalShootVelocity;
     private double powershotHighShootVelocity;
@@ -42,7 +43,7 @@ public class FullDrive extends BaseDrive {
 
     // For reading RobotAction.xml in TeleOp
     private RobotActionXML actionXML;
-    private RobotActionCommon commonActions;
+    private RobotActionTeleOp teleOpActions;
 
     @Override
     protected void initialize() {
@@ -52,7 +53,7 @@ public class FullDrive extends BaseDrive {
             RobotLogCommon.initialize(WorkingDirectory.getWorkingDirectory() + RobotConstants.logDir);
             String xmlDirectory = WorkingDirectory.getWorkingDirectory() + RobotConstants.xmlDir;
             actionXML = new RobotActionXML(xmlDirectory);
-            commonActions = new RobotActionCommon(robot, this);
+            teleOpActions = new RobotActionTeleOp(robot, this);
         }
         catch (IOException | SAXException | ParserConfigurationException ex) {
             throw new AutonomousRobotException("FullDrive", ex.getMessage());
@@ -96,11 +97,13 @@ public class FullDrive extends BaseDrive {
         updateIntake();
         updateElevator();
         updateFlicker();
+        updateRapidFire();
     }
 
     private void updateButtons() {
         wobbleServoButton.update(gamepad1.b);
         wobbleRestPosition.update(gamepad1.x);
+        wobbleDropButton.update(gamepad1.y);
 
         wobbleFlipButton.update(gamepad2.b);
         ringPowerShotButton.update(gamepad2.a);
@@ -125,7 +128,7 @@ public class FullDrive extends BaseDrive {
                 telemetry.addData("XML power shot", "start");
                 telemetry.update();
                 RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_POWER_SHOT.toString());
-                commonActions.actionLoop(actionData.actions);
+                teleOpActions.actionLoop(actionData.actions);
                 telemetry.addData("XML power shot", "end");
                 telemetry.update();
             }
@@ -168,13 +171,37 @@ public class FullDrive extends BaseDrive {
 
     private void updateDropWobble(){
 
-        if (gamepad2.right_trigger == 1){
+        if (wobbleDropButton.is(Button.State.TAP)){
             try {
-                telemetry.addData("XML power shot", "start");
+                telemetry.addData("XML wobble drop", "start");
                 telemetry.update();
                 RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_WOBBLE_DROP.toString());
-                commonActions.actionLoop(actionData.actions);
-                telemetry.addData("XML power shot", "end");
+                teleOpActions.actionLoop(actionData.actions);
+                telemetry.addData("XML wobble drop", "end");
+                telemetry.update();
+            }
+            catch (XPathExpressionException xpEx) {
+                throw new AutonomousRobotException("FullDrive", "XPath error in updatePowerShotMove");
+            } catch (InterruptedException e) {
+                RobotLogCommon.e("FullDrive", "InterruptedException in updatePowerShotMove");
+            } catch (IOException e) {
+                throw new AutonomousRobotException("FullDrive", "IOException in updatePowerShotMove");
+            } catch (XPathException e) {
+                throw new AutonomousRobotException("FullDrive", "XPathException in updatePowerShotMove");
+            }
+        }
+
+    }
+
+    private void updateRapidFire(){
+
+        if (gamepad2.right_trigger == 1){
+            try {
+                telemetry.addData("XML wobble drop", "start");
+                telemetry.update();
+                RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_RAPID_FIRE.toString());
+                teleOpActions.actionLoop(actionData.actions);
+                telemetry.addData("XML wobble drop", "end");
                 telemetry.update();
             }
             catch (XPathExpressionException xpEx) {

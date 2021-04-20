@@ -14,8 +14,6 @@ import org.firstinspires.ftc.teamcode.auto.vision.ImageProvider;
 import org.firstinspires.ftc.teamcode.auto.vision.RingParameters;
 import org.firstinspires.ftc.teamcode.auto.vision.RingRecognition;
 import org.firstinspires.ftc.teamcode.auto.vision.RingReturn;
-import org.firstinspires.ftc.teamcode.auto.vision.TowerGoalAlignment;
-import org.firstinspires.ftc.teamcode.auto.vision.TowerParameters;
 import org.firstinspires.ftc.teamcode.auto.vision.VuforiaImage;
 import org.firstinspires.ftc.teamcode.auto.vision.VuforiaWebcam;
 import org.firstinspires.ftc.teamcode.auto.vision.VumarkReader;
@@ -23,7 +21,6 @@ import org.firstinspires.ftc.teamcode.auto.xml.AutoCommandXML;
 import org.firstinspires.ftc.teamcode.auto.xml.RingParametersXML;
 import org.firstinspires.ftc.teamcode.auto.xml.RobotActionXML;
 import org.firstinspires.ftc.teamcode.auto.xml.TargetZoneXML;
-import org.firstinspires.ftc.teamcode.auto.xml.TowerParametersXML;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.math.LCHSMath;
 import org.firstinspires.ftc.teamcode.math.PIDController;
@@ -45,12 +42,9 @@ import java.util.Optional;
 import java.util.logging.Level;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathException;
-import javax.xml.xpath.XPathFactory;
 
 import static android.os.SystemClock.sleep;
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 
 public class FTCAuto {
 
@@ -81,11 +75,6 @@ public class FTCAuto {
     private RobotConstantsUltimateGoal.TargetZone targetZone;
     private List<RobotXMLElement> targetZoneInsert = new ArrayList<>();
     private boolean executeTargetZoneActions = false;
-
-    //**TODO Test once and archive: using Vumaks instead.
-    private final TowerParametersXML towerParametersXML;
-    private final TowerParameters towerParameters;
-    private final TowerGoalAlignment towerGoalAlignment;
 
     // Load OpenCV.
     private static boolean openCVInitialized = false;
@@ -143,11 +132,6 @@ public class FTCAuto {
         ringParametersXML = new RingParametersXML(xmlDirectory);
         ringParameters = ringParametersXML.getRingParameters();
         ringRecognition = new RingRecognition();
-
-        // Read the tower goal image recognition parameters from an xml file.
-        towerParametersXML = new TowerParametersXML(xmlDirectory);
-        towerParameters = towerParametersXML.getTowerParameters();
-        towerGoalAlignment = new TowerGoalAlignment();
 
         // Read the XML file with the target zones for all OpModes.
         // For the current OpMode get the commands for all three target zones.
@@ -228,6 +212,7 @@ public class FTCAuto {
 
         switch (commandName) {
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "MOVE": {
                 double targetClicks = commandXPath.getDouble("distance") * DriveTrain.CLICKS_PER_INCH;
                 double marginClicks = commandXPath.getDouble("margin") * DriveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
@@ -273,6 +258,7 @@ public class FTCAuto {
             }
             // A normalized turn, i.e. a turn from 0 to +-180 degrees, which will always be the
             // shortest distance from the current heading to the desired heading.
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "TURN": {
                 Angle angle = AutoCommandXML.getAngle(commandXPath, "angle");
                 double maxPower = commandXPath.getDouble("maxpower");
@@ -297,6 +283,7 @@ public class FTCAuto {
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "WOBBLE_MOTOR": {
                 String stringState = commandXPath.getString("state");
                 WobbleArm.FlipState state = WobbleArm.FlipState.DROP;
@@ -325,37 +312,14 @@ public class FTCAuto {
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "WOBBLE_SERVO": {
                 String state = commandXPath.getString("state");
                 robot.wobbleArm.servo.setState(state);
                 break;
             }
 
-
-            case "ALIGN_TO_TOWER": {
-                String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
-                RobotLogCommon.d(TAG, "Image provider " + imageProviderId);
-
-                ImageProvider imageProvider;
-                if (imageProviderId.equals("vuforia")) {
-                    if (vuforiaLocalizer == null)
-                        throw new AutonomousRobotException(TAG, "Vuforia not initialized");
-                    imageProvider = new VuforiaImage(vuforiaLocalizer);
-                } else {
-                    // For testing: get the image from a file.
-                    imageProvider = new FileImage(workingDirectory + RobotConstants.imageDir + ringParameters.imageParameters.file_name);
-                }
-
-                // Call the OpenCV subsystem.
-                double angleAdjustment = towerGoalAlignment.getAngleToTowerGoal(imageProvider, towerParameters);
-
-                RobotLogCommon.d(TAG, "Angle adjustment " + angleAdjustment);
-                linearOpMode.telemetry.addData("Angle adjustment ", angleAdjustment);
-                linearOpMode.telemetry.update();
-                break;
-            }
-
-
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "SHOOT": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
                 double intakeVelocity = commandXPath.getDouble("intakeVelocity");
@@ -449,12 +413,14 @@ public class FTCAuto {
 
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "ELEVATOR_UP": {
                 robot.shooter.moveElevatorUp();
 
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "ELEVATOR_DOWN": {
                 robot.shooter.moveElevatorDown();
 
@@ -562,20 +528,38 @@ public class FTCAuto {
             case "ALIGN_BY_VUMARK": {
                 String vumarkString = commandXPath.getString("vumark", true);
                 VumarkReader.SupportedVumark vumark = VumarkReader.SupportedVumark.valueOf(vumarkString);
-                int targetX = commandXPath.getInt("target_x");
-                int targetY = commandXPath.getInt("target_y");
-
+                double targetX = commandXPath.getDouble("target_x");
+                double targetY = commandXPath.getDouble("target_y");
                 double power = commandXPath.getDouble("power");
+                double minPower = commandXPath.getDouble("minpower", 0.2);
+
+                /*
+                double targetClicks = commandXPath.getDouble("distance") * DriveTrain.CLICKS_PER_INCH;
+                double marginClicks = commandXPath.getDouble("margin") * DriveTrain.CLICKS_PER_INCH; // stop when within {margin} clicks
+                double power = commandXPath.getDouble("power");
+                double minPower = commandXPath.getDouble("minpower", 0.2);
+                Angle direction = AutoCommandXML.getAngle(commandXPath, "direction"); // direction angle; right is 0, up 90, left 180
+                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading"); // robot's target heading angle while moving
+                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
+                 */
+
+                // Break the movement between the current robot location and the target
+                // robot location into two: a strafe and a move. Determine the direction
+                // dynamically based on the sign of the difference between the two positions.
                 Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
 
-                //**TODO TEMP
+                //**TODO TEMP hardcode test case
                 //Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
+                // In the real world you would have to translate the Vumark coordinates
+                // to Cartesian depending on the VUmark target.
                 Optional<Pose> vumarkPose = Optional.of(new Pose(10, 5, 0));
                 //** if reading the Vumark once is not stable, try the next line --
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
                 if (!vumarkPose.isPresent()) {
                     RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
+                    //**TODO need default movements in case the Vumark is not visible.
+                    // take from the XML file
                 } else {
                     Pose robotPoseAtVumark = vumarkPose.get();
                     RobotLogCommon.d(TAG, "Robot pose at Vumark " + vumarkString);
@@ -583,7 +567,17 @@ public class FTCAuto {
                             robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                     RobotLogCommon.d(TAG, poseString);
 
+                    double differenceX = robotPoseAtVumark.x - targetX;
+                    double differenceY = robotPoseAtVumark.y - targetY;
+
+                    //**TODO ABANDONED 4/19/21 Move fore/aft to the correct position.
+                    double direction = Math.signum(differenceY) > 0 ? 180.0 : 0.0;
+                    differenceY = Math.abs(differenceY);
+
                     //** Added robot motion - Trinity
+                    //**TODO commented out because the robot went back and to the right instead of
+                    // back and to the left for the test case.
+                    /*
                     VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
 
                     Pose drivePose = new Pose();
@@ -607,6 +601,7 @@ public class FTCAuto {
                         robot.driveTrain.drive(drivePose, power);
                     }
                     robot.driveTrain.stop();
+                    */
 
                 }
                 break;
@@ -626,6 +621,7 @@ public class FTCAuto {
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "SLEEP": { //I want sleep :)
                 int sleepValue = commandXPath.getInt("ms");
                 RobotLogCommon.d(TAG, "Pause by " + sleepValue + " milliseconds");
@@ -633,6 +629,7 @@ public class FTCAuto {
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "BREAKPOINT": {
                 while (!linearOpMode.gamepad1.a) {
                     sleep(1);
@@ -669,6 +666,7 @@ public class FTCAuto {
                 break;
             }
 
+            //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "TRIGGER": {
                 robot.shooter.triggerServo.setState("out");
                 sleep(1000);

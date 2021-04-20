@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.teleop.opmodes.drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,21 +14,22 @@ import org.firstinspires.ftc.teamcode.math.PIDController;
 import org.firstinspires.ftc.teamcode.math.Pose;
 import org.firstinspires.ftc.teamcode.robot.DriveTrain;
 import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
+import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 
 import java.io.IOException;
 import java.util.List;
 import javax.xml.xpath.XPathException;
 import static android.os.SystemClock.sleep;
 
-public class RobotActionCommon {
+public class RobotActionTeleOp {
 
-    private static final String TAG = "RobotActionCommon";
+    private static final String TAG = "RobotActionTeleOp";
  
     private final LCHSRobot robot;
     private final LinearOpMode linearOpMode;
 
     // For both Autonomous and TeleOp: class that executes actions from RobotAction.xml. 
-    public RobotActionCommon(LCHSRobot pRobot, LinearOpMode pLinearOpMode) {
+    public RobotActionTeleOp(LCHSRobot pRobot, LinearOpMode pLinearOpMode) {
         robot = pRobot;
         linearOpMode = pLinearOpMode;
     }
@@ -121,6 +122,40 @@ public class RobotActionCommon {
                 }
                 robot.driveTrain.stop();
 
+                break;
+            }
+
+            case "WOBBLE_MOTOR": {
+                String stringState = commandXPath.getString("state");
+                WobbleArm.FlipState state = WobbleArm.FlipState.DROP;
+
+                switch (stringState) {
+                    case "out":
+                        state = WobbleArm.FlipState.OUT;
+                        break;
+                    case "floating":
+                        state = WobbleArm.FlipState.FLOATING;
+                        break;
+                    case "rest":
+                        state = WobbleArm.FlipState.REST;
+                        break;
+                    case "in":
+                        state = WobbleArm.FlipState.IN;
+                        break;
+                    case "intake":
+                        state = WobbleArm.FlipState.INTAKE;
+                        break;
+                    case "drop":
+                        state = WobbleArm.FlipState.DROP;
+                        break;
+                }
+                robot.wobbleArm.setFlipState(state);
+                break;
+            }
+
+            case "WOBBLE_SERVO": {
+                String state = commandXPath.getString("state");
+                robot.wobbleArm.servo.setState(state);
                 break;
             }
 
