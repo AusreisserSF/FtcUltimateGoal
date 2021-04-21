@@ -14,10 +14,10 @@ public class WobbleArm {
 
     public enum FlipState { //changed all the negatives to positive due to new wobble position. -Harold
         REST(0),
-        FLOATING(600),
+        FLOATING(550),
         OUT(730),
         INTAKE(770),
-        IN(270),
+        IN(100),
         DROP(500);
 
         private final int position;

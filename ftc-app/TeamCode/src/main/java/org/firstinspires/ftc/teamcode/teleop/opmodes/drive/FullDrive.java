@@ -86,7 +86,6 @@ public class FullDrive extends BaseDrive {
         updateDrivePower();
         updateDrive();
         updateWobbleServo();
-        updatePowerShotMove();
         updateDropWobble();
     }
 
@@ -97,7 +96,6 @@ public class FullDrive extends BaseDrive {
         updateIntake();
         updateElevator();
         updateFlicker();
-        updateRapidFire();
     }
 
     private void updateButtons() {
@@ -115,12 +113,13 @@ public class FullDrive extends BaseDrive {
         if (gamepad1.left_bumper) {
             drivePowerFactor = 0.5;
         } else if (gamepad1.right_bumper) {
-            drivePowerFactor = 0.75;
+            drivePowerFactor = 0.1;
         } else {
             drivePowerFactor = 1.0;
         }
     }
 
+    /*
     private void updatePowerShotMove() {
 
         if (gamepad2.left_trigger == 1){
@@ -143,6 +142,8 @@ public class FullDrive extends BaseDrive {
             }
         }
     }
+
+     */
 
     private void updateWobbleServo() {
         if (wobbleServoButton.is(Button.State.TAP)) {
@@ -172,27 +173,14 @@ public class FullDrive extends BaseDrive {
     private void updateDropWobble(){
 
         if (wobbleDropButton.is(Button.State.TAP)){
-            try {
-                telemetry.addData("XML wobble drop", "start");
-                telemetry.update();
-                RobotActionXML.RobotActionData actionData = actionXML.getOpModeData(RobotConstantsUltimateGoal.OpMode.TELEOP_WOBBLE_DROP.toString());
-                teleOpActions.actionLoop(actionData.actions);
-                telemetry.addData("XML wobble drop", "end");
-                telemetry.update();
-            }
-            catch (XPathExpressionException xpEx) {
-                throw new AutonomousRobotException("FullDrive", "XPath error in updatePowerShotMove");
-            } catch (InterruptedException e) {
-                RobotLogCommon.e("FullDrive", "InterruptedException in updatePowerShotMove");
-            } catch (IOException e) {
-                throw new AutonomousRobotException("FullDrive", "IOException in updatePowerShotMove");
-            } catch (XPathException e) {
-                throw new AutonomousRobotException("FullDrive", "XPathException in updatePowerShotMove");
-            }
+
+            robot.wobbleArm.setFlipState(robot.wobbleArm.getFlipState() == WobbleArm.FlipState.IN ? WobbleArm.FlipState.DROP : WobbleArm.FlipState.IN);
+
         }
 
     }
 
+    /*
     private void updateRapidFire(){
 
         if (gamepad2.right_trigger == 1){
@@ -216,6 +204,8 @@ public class FullDrive extends BaseDrive {
         }
 
     }
+
+     */
 
     private void updateShootHighGoal() {
 

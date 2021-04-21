@@ -13,7 +13,7 @@
   <WOBBLE>
     <rest>0.4</rest>
     <hold>1</hold> <!-- changed from 0.90 harold-->
-    <release>0.25</release> 
+    <release>0.2</release> 
   </WOBBLE>
 
   <!-- motors -->

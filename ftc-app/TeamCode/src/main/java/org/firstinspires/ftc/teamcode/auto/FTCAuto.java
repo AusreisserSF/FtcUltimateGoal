@@ -264,11 +264,14 @@ public class FTCAuto {
                 double maxPower = commandXPath.getDouble("maxpower");
                 double minPower = commandXPath.getDouble("minpower");
                 double margin = commandXPath.getDouble("margin");
+                double intakePower = commandXPath.getDouble("intakePower", 0);
                 PIDController pidController = AutoCommandXML.getPIDController(commandXPath, angle.getDegrees());
 
                 double currentDegrees = robot.imu.getIntegratedHeading().getDegrees();
 
                 RobotLogCommon.d(TAG, "Turn by " + angle + " degrees");
+
+                robot.shooter.intakeMotor.setPower(intakePower);
 
                 double error = currentDegrees - angle.getDegrees();
                 while (Math.abs(error) > margin) {
@@ -279,6 +282,7 @@ public class FTCAuto {
                     error = currentDegrees - angle.getDegrees();
                 }
                 robot.driveTrain.stop();
+                robot.shooter.intakeMotor.setPower(0);
 
                 break;
             }
@@ -322,7 +326,7 @@ public class FTCAuto {
             //**TODO Refactoring required - code duplicated in RobotActionCommon
             case "SHOOT": {
                 double shootVelocity = commandXPath.getDouble("shootVelocity");
-                double intakeVelocity = commandXPath.getDouble("intakeVelocity");
+                double intakePower = commandXPath.getDouble("intakeVelocity");
                 int waitTime = commandXPath.getInt("waitTime");
                 int dip = commandXPath.getInt("shootVelocityDip");
 
@@ -332,12 +336,18 @@ public class FTCAuto {
                 int shotWaitTime = commandXPath.getInt("shotWaitTime", 500);
                 int beginningWaitTime = commandXPath.getInt("beginningWaitTime", 500);
 
+                boolean shotRing = false;
+
+
                 robot.shooter.shootMotor.setVelocity(shootVelocity);
+                robot.shooter.intakeMotor.setPower(intakePower);
                 double currentVelocity = robot.shooter.shootMotor.getVelocity();
                 while (currentVelocity < shootVelocity) {
                     currentVelocity = robot.shooter.shootMotor.getVelocity();
                     sleep(20);
                 }
+
+                robot.shooter.intakeMotor.setPower(0);
 
                 sleep(beginningWaitTime);
 
@@ -346,6 +356,7 @@ public class FTCAuto {
                 linearOpMode.telemetry.update();
                 long timeout = System.currentTimeMillis() + waitTime;
                 while (System.currentTimeMillis() < timeout) {
+                    shotRing = false;
                     currentVelocity = robot.shooter.shootMotor.getVelocity();
 
                     robot.shooter.triggerServo.setState("out");
@@ -360,13 +371,23 @@ public class FTCAuto {
                             linearOpMode.telemetry.addData("Velocity", robot.shooter.shootMotor.getVelocity());
                             linearOpMode.telemetry.update();
 
+                            shotRing = true;
+
                             break;
                         }
                         sleep(1);
 
+                    }
+
+                    robot.shooter.triggerServo.setState("rest");
+
+                    if (!shotRing){
+
+                        robot.shooter.moveElevatorDown();
+                        sleep(500);
+                        robot.shooter.moveElevatorUp();
 
                     }
-                    robot.shooter.triggerServo.setState("rest");
 
                     if (shotCount >= maxShotCount) {
                         linearOpMode.telemetry.addData("Done ", shotCount);
@@ -383,31 +404,32 @@ public class FTCAuto {
 
 
                 robot.shooter.shootMotor.setVelocity(0);
-                robot.shooter.intakeMotor.setVelocity(0);
                 break;
             }
 
             case "INTAKE": {
-                double dipVelocity = commandXPath.getDouble("dip", 100);
                 double intakePower = commandXPath.getDouble("intakePower");
-                double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
                 int intakeTime = commandXPath.getInt("intakeTime");
-                robot.shooter.intakeMotor.setPower(intakePower);
-//                robot.shooter.liftMotor.setPower(intakePower);
 
-                double timeWhenWeAreDone = System.currentTimeMillis() + intakeTime;
+                boolean intakeBackground = commandXPath.getBoolean("intakeBackground", false);
+                double dipVelocity = commandXPath.getDouble("dip", 100);
+                double outtakePower = commandXPath.getDouble("outtakePower", 0.5);
 
-                while (System.currentTimeMillis() < timeWhenWeAreDone) {
-//                    if (robot.shooter.liftMotor.getVelocity() < dipVelocity) {
-//                        robot.shooter.intakeMotor.setPower(-outtakePower);
-//                        robot.shooter.liftMotor.setPower(-outtakePower);
-//                        sleep(500);
-//                        robot.shooter.intakeMotor.setPower(intakePower);
-//                        robot.shooter.liftMotor.setPower(intakePower);
-//                    }
+                if (intakeBackground){
+                    robot.shooter.intakeMotor.setPower(intakePower);
                 }
-                robot.shooter.intakeMotor.setPower(0);
-                robot.shooter.intakeMotor.setPower(0);
+                else if (!intakeBackground) {
+                    robot.shooter.intakeMotor.setPower(intakePower);
+
+                    double timeWhenWeAreDone = System.currentTimeMillis() + intakeTime;
+
+                    while (System.currentTimeMillis() < timeWhenWeAreDone) {
+//
+                    }
+
+                    robot.shooter.intakeMotor.setPower(0);
+
+                }
 
                 break;
 
