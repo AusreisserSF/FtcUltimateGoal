@@ -84,7 +84,7 @@
 
 
         <MOVE>
-          <distance>19</distance>
+          <distance>21</distance>
           <margin>1.0</margin>
           <power>1</power>
           <direction>180.0</direction>
@@ -99,7 +99,7 @@
         </MOVE>
 
         <TURN>
-          <angle>15</angle>
+          <angle>11</angle>
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
@@ -113,10 +113,10 @@
         <ELEVATOR_UP></ELEVATOR_UP>
 
         <SHOOT>
-          <shootVelocity>2200</shootVelocity>
+          <shootVelocity>2300</shootVelocity>
           <intakeVelocity>0</intakeVelocity>
-          <waitTime>15000</waitTime>
-          <shootVelocityDip>2175</shootVelocityDip>
+          <waitTime>5000</waitTime>
+          <shootVelocityDip>2205</shootVelocityDip>
         </SHOOT>
 
         <ELEVATOR_DOWN></ELEVATOR_DOWN>
@@ -138,7 +138,7 @@
         </TURN>
 
         <MOVE>
-          <distance>50</distance>
+          <distance>48</distance>
           <margin>1.0</margin>
           <power>0.5</power>
           <direction>0.0</direction>
@@ -280,6 +280,7 @@
           </pid>
         </MOVE>
 
+
         <WOBBLE_MOTOR>
           <state>floating</state>
         </WOBBLE_MOTOR>
@@ -308,11 +309,23 @@
           <state>in</state>
         </WOBBLE_MOTOR>
 
+        <TURN>
+          <angle>90</angle>
+          <minpower>0.3</minpower>
+          <maxpower>1</maxpower>
+          <margin>1</margin>
+          <pid>
+            <p>0.01</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </TURN>
+
         <MOVE>
           <distance>25</distance>
           <margin>1.0</margin>
-          <power>0.6</power>
-          <direction>-90.0</direction>
+          <power>0.4</power>
+          <direction>-95.0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
           <pid>
@@ -323,12 +336,12 @@
         </MOVE>
 
         <TURN>
-          <angle>15</angle>
-          <minpower>0.2</minpower>
+          <angle>25</angle>
+          <minpower>0.4</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
           <pid>
-            <p>0.006</p>
+            <p>0.0</p>
             <i>0.0</i>
             <d>0.0</d>
           </pid>
@@ -348,9 +361,10 @@
 
         <TURN>
           <angle>180</angle>
-          <minpower>0.3</minpower>
+          <minpower>0.4</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
+          <intakePower>-1</intakePower>
           <pid>
             <p>0.01</p>
             <i>0.0</i>
@@ -370,7 +384,7 @@
           <distance>40</distance>
           <margin>1.0</margin>
           <power>0.5</power>
-          <direction>-20.0</direction>
+          <direction>-13.0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
           <intakePower>-1</intakePower>
@@ -395,9 +409,10 @@
 
         <TURN>
           <angle>0</angle>
-          <minpower>0.3</minpower>
+          <minpower>0.4</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
+          <intakePower>-1</intakePower>
           <pid>
             <p>0.01</p>
             <i>0.0</i>
@@ -421,7 +436,7 @@
         </MOVE>
 
         <TURN>
-          <angle>19</angle>
+          <angle>21</angle>
           <minpower>0.3</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
@@ -437,7 +452,7 @@
         <SHOOT>
           <shootVelocity>2200</shootVelocity>
           <intakeVelocity>0</intakeVelocity>
-          <waitTime>15000</waitTime>
+          <waitTime>2000</waitTime>
           <shootVelocityDip>2100</shootVelocityDip>
           <maxShotCount>1</maxShotCount>          <!-- scuffeddddd :p  changeee-->
         </SHOOT>
@@ -528,7 +543,7 @@
         <SHOOT>
           <shootVelocity>2025</shootVelocity>
           <intakeVelocity>1</intakeVelocity>
-          <waitTime>15000</waitTime>
+          <waitTime>4000</waitTime>
           <shootVelocityDip>1975</shootVelocityDip>
           <shotWaitTime>1000</shotWaitTime>
         </SHOOT>
@@ -575,7 +590,7 @@
           <direction>0.0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
@@ -590,7 +605,7 @@
           <direction>180.0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
@@ -606,7 +621,7 @@
           <direction>-10.0</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
@@ -615,7 +630,7 @@
         </MOVE>
 
         <WOBBLE_MOTOR>
-          <state>drop</state>
+          <state>floating</state>
         </WOBBLE_MOTOR>
 
         <TURN>
@@ -623,7 +638,7 @@
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.01</p>
             <i>0.0</i>
@@ -635,13 +650,13 @@
 
 
         <MOVE>
-          <distance>55</distance>
+          <distance>70</distance>
           <margin>0.4</margin>
           <power>1</power>
-          <direction>40</direction>
+          <direction>44</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
@@ -654,7 +669,7 @@
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.01</p>
             <i>0.0</i>
@@ -667,18 +682,6 @@
           <intakeTime>100</intakeTime>
           <intakeBackground>true</intakeBackground>
         </INTAKE>
-
-        <WOBBLE_MOTOR>
-          <state>floating</state>
-        </WOBBLE_MOTOR>
-
-        <WOBBLE_SERVO>
-          <state>hold</state>
-        </WOBBLE_SERVO>
-
-        <SLEEP>
-          <ms>500</ms>
-        </SLEEP>
 
         <WOBBLE_SERVO>
           <state>release</state>
@@ -701,7 +704,7 @@
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.01</p>
             <i>0.0</i>
@@ -716,7 +719,7 @@
           <direction>200</direction>
           <heading>0.0</heading>
           <rampPercent>1</rampPercent>
-          <intakePower>-0.7</intakePower>
+          <intakePower>-0.9</intakePower>
           <pid>
             <p>0.0</p>
             <i>0.0</i>
@@ -727,7 +730,7 @@
         <ELEVATOR_UP></ELEVATOR_UP>
 
         <TURN>
-          <angle>15</angle>
+          <angle>13</angle>
           <minpower>0.2</minpower>
           <maxpower>1</maxpower>
           <margin>1</margin>

@@ -381,6 +381,7 @@ public class FTCAuto {
 
                     robot.shooter.triggerServo.setState("rest");
 
+                    /*
                     if (!shotRing){
 
                         robot.shooter.moveElevatorDown();
@@ -388,6 +389,8 @@ public class FTCAuto {
                         robot.shooter.moveElevatorUp();
 
                     }
+                    
+                     */
 
                     if (shotCount >= maxShotCount) {
                         linearOpMode.telemetry.addData("Done ", shotCount);
