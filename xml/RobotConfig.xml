@@ -19,7 +19,7 @@
   <!-- motors -->
   <ELEVATOR>
     <power>0.75</power>
-    <up>-680</up>
+    <up>-720</up>
     <down>0</down>
   </ELEVATOR>
 
@@ -27,7 +27,7 @@
   <FULL_DRIVE>
     <powershot_high>2400</powershot_high>
     <powershot_low>1800</powershot_low>
-    <high_goal>2000</high_goal>
+    <high_goal>2500</high_goal>
     <intake>2000</intake>
   </FULL_DRIVE>
 

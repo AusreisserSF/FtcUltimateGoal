@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop.opmodes.drive;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
@@ -32,6 +33,8 @@ public class FullDrive extends BaseDrive {
     private final Button elevatorButton = new Button();
     private final Button flickerServo = new Button();
     private final Button wobbleDropButton = new Button();
+
+    private final Button calibrateHopper = new Button();
 
 
     private double highGoalShootVelocity;
@@ -96,6 +99,7 @@ public class FullDrive extends BaseDrive {
         updateIntake();
         updateElevator();
         updateFlicker();
+        updateCalibrateHopper();
     }
 
     private void updateButtons() {
@@ -107,6 +111,7 @@ public class FullDrive extends BaseDrive {
         ringPowerShotButton.update(gamepad2.a);
         elevatorButton.update(gamepad2.y);
         flickerServo.update(gamepad2.x);
+
     }
 
     private void updateDrivePower() {
@@ -180,6 +185,24 @@ public class FullDrive extends BaseDrive {
 
     }
 
+    private void updateCalibrateHopper(){
+        if (gamepad2.right_trigger == 1){
+            int currentEncoderPosition = robot.shooter.elevatorMotor.getCurrentPosition();
+            robot.shooter.elevatorMotor.checkAndSetMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.shooter.elevatorMotor.setPower(.1);
+            while (true) {
+                sleep(100);
+                int newEncoderPosition = robot.shooter.elevatorMotor.getCurrentPosition();
+                if (newEncoderPosition == currentEncoderPosition) {
+                    robot.shooter.elevatorMotor.setPower(0);
+                    robot.shooter.elevatorMotor.checkAndSetMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    break;
+                }
+                else
+                    currentEncoderPosition = newEncoderPosition;
+            }
+        }
+    }
     /*
     private void updateRapidFire(){
 
