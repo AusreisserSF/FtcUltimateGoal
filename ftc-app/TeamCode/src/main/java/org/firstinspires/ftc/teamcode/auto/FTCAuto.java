@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.CommonUtils;
+import org.firstinspires.ftc.ftcdevcommon.Pair;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
@@ -30,10 +32,14 @@ import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.firstinspires.ftc.teamcode.robot.OldRingShooter;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -452,6 +458,42 @@ public class FTCAuto {
                 break;
             }
 
+            // For testing, take a picture and write it out to a file.
+            case "TAKE_PICTURE": {
+                if (vuforiaLocalizer == null)
+                    throw new AutonomousRobotException(TAG, "Vuforia not initialized");
+
+                ImageProvider imageProvider = new VuforiaImage(vuforiaLocalizer);
+                Pair<Mat, Date> ringImage = imageProvider.getImage();
+                if (ringImage.first == null) {
+                    RobotLogCommon.d(TAG, "Unable to get image from the camera");
+                    linearOpMode.telemetry.addData("Take picture:", "unable to get image from the camera");
+                    linearOpMode.telemetry.update();
+                    return;
+                }
+
+                RobotLogCommon.d(TAG, "Took a picture");
+                String fileDate = CommonUtils.getDateTimeStamp(ringImage.second);
+                String outputFilenamePreamble = workingDirectory + RobotConstants.imageDir + "Image_" + fileDate;
+
+                // The image may be RGB (from a camera) or BGR ( OpenCV imread from a file).
+                Mat imgOriginal = ringImage.first.clone();
+
+                // If you don't convert RGB to BGR here then the _IMG.png file will be written
+                // out with incorrect colors (gold will show up as blue).
+                if (imageProvider.getImageFormat() == ImageProvider.ImageFormat.RGB)
+                    Imgproc.cvtColor(imgOriginal, imgOriginal, Imgproc.COLOR_RGB2BGR);
+
+                String imageFilename = outputFilenamePreamble + "_IMG.png";
+                RobotLogCommon.d(TAG, "Writing image " + imageFilename);
+                Imgcodecs.imwrite(imageFilename, imgOriginal);
+
+                RobotLogCommon.d(TAG, "Image width " + imgOriginal.cols() + ", height " + imgOriginal.rows());
+                linearOpMode.telemetry.addData("Take picture:", "successful");
+                linearOpMode.telemetry.update();
+                break;
+            }
+
             // Use OpenCV to find the stack of rings and determine the Target Zone.
             case "RECOGNIZE_RINGS": {
                 String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
@@ -517,7 +559,7 @@ public class FTCAuto {
                         linearOpMode.telemetry.update();
                     } else {
                         Pose robotPoseAtVumark = vumark.get();
-                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.RED_TOWER_GOAL);
                         String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                                 robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                         RobotLogCommon.d(TAG, poseString);
@@ -531,7 +573,7 @@ public class FTCAuto {
 
                 // From a stationary position, get the median Vumark values over 11 samples.
                 RobotLogCommon.d(TAG, "Calling getMedianVumarkPose");
-                vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1500, 11);
+                vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.RED_TOWER_GOAL, 1500, 11);
                 if (!vumark.isPresent()) {
                     RobotLogCommon.d(TAG, "Vumark median: Vumark not visible");
                     linearOpMode.telemetry.addData("Vumark median:  ", "Vumark not visible");
@@ -577,7 +619,7 @@ public class FTCAuto {
                 //**TODO TEMP hardcode test case
                 //Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
                 // In the real world you would have to translate the Vumark coordinates
-                // to Cartesian depending on the VUmark target.
+                // to Cartesian depending on the Vumark target.
                 Optional<Pose> vumarkPose = Optional.of(new Pose(10, 5, 0));
                 //** if reading the Vumark once is not stable, try the next line --
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
@@ -591,13 +633,6 @@ public class FTCAuto {
                     String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                             robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                     RobotLogCommon.d(TAG, poseString);
-
-                    double differenceX = robotPoseAtVumark.x - targetX;
-                    double differenceY = robotPoseAtVumark.y - targetY;
-
-                    //**TODO ABANDONED 4/19/21 Move fore/aft to the correct position.
-                    double direction = Math.signum(differenceY) > 0 ? 180.0 : 0.0;
-                    differenceY = Math.abs(differenceY);
 
                     //** Added robot motion - Trinity
                     //**TODO commented out because the robot went back and to the right instead of
