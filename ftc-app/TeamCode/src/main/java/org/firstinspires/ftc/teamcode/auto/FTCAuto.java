@@ -252,6 +252,8 @@ public class FTCAuto {
                     }
 
                     Angle actualHeading = robot.imu.getHeading();
+                    //**TODO Keeping track of clicks based on the right back motor only
+                    // is a disaster.
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                     drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                     robot.driveTrain.drive(drivePose, power * rampPower);
@@ -598,7 +600,6 @@ public class FTCAuto {
                 double targetX = commandXPath.getDouble("target_x");
                 double targetY = commandXPath.getDouble("target_y");
                 double power = commandXPath.getDouble("power");
-                double minPower = commandXPath.getDouble("minpower", 0.2);
 
                 /*
                 double targetClicks = commandXPath.getDouble("distance") * DriveTrain.CLICKS_PER_INCH;
@@ -610,12 +611,6 @@ public class FTCAuto {
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
                  */
 
-                // Break the movement between the current robot location and the target
-                // robot location into two: a strafe and a move. Determine the direction
-                // dynamically based on the sign of the difference between the two positions.
-                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
-                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
-
                 //**TODO TEMP hardcode test case
                 //Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
                 // In the real world you would have to translate the Vumark coordinates
@@ -625,8 +620,8 @@ public class FTCAuto {
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
                 if (!vumarkPose.isPresent()) {
                     RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
-                    //**TODO need default movements in case the Vumark is not visible.
-                    // take from the XML file
+                    //**TODO need default movement in case the Vumark is not visible; include
+                    // in the XML file.
                 } else {
                     Pose robotPoseAtVumark = vumarkPose.get();
                     RobotLogCommon.d(TAG, "Robot pose at Vumark " + vumarkString);
@@ -634,20 +629,25 @@ public class FTCAuto {
                             robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                     RobotLogCommon.d(TAG, poseString);
 
-                    //** Added robot motion - Trinity
+                    // Added robot motion - Trinity
                     //**TODO commented out because the robot went back and to the right instead of
-                    // back and to the left for the test case.
+                    // back and to the left for the test case. The robot also crashed into the wall
+                    // and had to be force stopped.
+                    //**TODO Tested a simple strafe: -90, which we thought should strafe right,
+                    // went left. So the angle returned from getDistanceAndAngleToTarget needs
+                    // to be negated. However, this does not solve the problem of the crash into
+                    // the wall for an angle of +126 -> -126.
                     /*
                     VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
 
+                    //**TODO misuse of "Pose", which should be confined to coordinates and orientation.
                     Pose drivePose = new Pose();
                     drivePose.x = Math.sin(rv.angleToTarget.getRadians());
                     drivePose.y = Math.cos(rv.angleToTarget.getRadians());
 
-                    // The result of a sin(angle) = distance (length of movement vector) NOT degrees. - Trinity
-//                    RobotLogCommon.d(TAG, "Drive pose degrees x " + Math.toDegrees(drivePose.x) + ", y " + Math.toDegrees(drivePose.y));
-                    RobotLogCommon.d(TAG, "drive pose: " + drivePose.toString());
-
+                    //**TODO what's wrong with RUN_TO_POSITION? A: It's complicated
+                    // because the sign of the target click counts for each motor
+                    // is dependent on the "octant" of the angle. See 2019-20.
                     robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -656,6 +656,8 @@ public class FTCAuto {
 
                     while (Math.abs(currentClicks - targetClicks) > 0) {
                         Angle actualHeading = robot.imu.getHeading();
+                        //**TODO Keeping track of clicks based on the right back motor only
+                        // is a disaster.
                         currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                         drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                         robot.driveTrain.drive(drivePose, power);

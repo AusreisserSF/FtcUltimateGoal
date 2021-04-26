@@ -1,0 +1,313 @@
+[2021-04-26 15:46:42.160] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-04-26 15:46:42.174] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-04-26 15:46:44.112] [FINE   ] RobotActionXML Extracting data from RobotAction.xml for OpMode TEST 
+[2021-04-26 15:46:44.141] [CONFIG ] FTCAuto Lowest logging level FINER 
+[2021-04-26 15:46:44.144] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-04-26 15:46:44.152] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-04-26 15:46:44.162] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-04-26 15:46:44.182] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-04-26 15:46:44.236] [FINE   ] TargetZoneXML Processing target zone xml for OpMode TEST 
+[2021-04-26 15:46:44.337] [FINE   ] FTCAuto wait for initialization 
+[2021-04-26 15:46:46.679] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-04-26 15:46:50.762] [INFO   ] FTCAuto At start 
+[2021-04-26 15:46:50.764] [INFO   ] FTCAuto OpMode: TEST, Alliance: RED 
+[2021-04-26 15:46:50.767] [FINE   ] FTCAuto Executing FTCAuto command ACTIVATE_VUMARK_READER 
+[2021-04-26 15:46:50.791] [FINE   ] VumarkReader Starting Vumark reader thread 
+[2021-04-26 15:46:50.793] [FINE   ] VumarkReader In Vumark thread 
+[2021-04-26 15:46:50.797] [FINE   ] VumarkReader Wait for CountDownLatch done; Vumark reader thread is running 
+[2021-04-26 15:46:50.799] [FINE   ] FTCAuto Executing FTCAuto command TEST_VUMARK_READER 
+[2021-04-26 15:46:50.801] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.845] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.847] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.848] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.849] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.851] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.852] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.852] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.854] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.855] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.855] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.856] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.857] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.858] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.860] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.860] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.862] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.863] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.864] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.865] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.866] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.867] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.868] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.869] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.870] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.871] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.872] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.873] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.874] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.875] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.876] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.878] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.879] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.879] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.880] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.882] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.883] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.884] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.885] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.886] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.887] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.888] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.889] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.891] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.892] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.893] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.894] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.895] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.896] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.897] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.898] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.899] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.900] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.901] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.902] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.903] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.904] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.905] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.906] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.907] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.909] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.911] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.914] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.915] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.916] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.918] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.918] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.919] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.920] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.921] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.923] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.923] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.924] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.925] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.926] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.927] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.928] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.929] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.930] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.932] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.933] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.934] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.935] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.936] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.937] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.938] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.939] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.940] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.941] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.943] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.943] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.946] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.948] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.949] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.950] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.952] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:46:50.953] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:46:50.954] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.956] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.957] [FINE   ] FTCAuto Done with getMostRecentVumarkPose 
+[2021-04-26 15:46:50.958] [FINE   ] FTCAuto Calling getMedianVumarkPose 
+[2021-04-26 15:46:50.959] [FINE   ] VumarkReader Calculating median for Vumark RED_TOWER_GOAL over 11 samples with a timeout value of 1500 ms 
+[2021-04-26 15:46:50.960] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.961] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.962] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.963] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.964] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.964] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.965] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.966] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.967] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.968] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.971] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.972] [FINE   ] VumarkReader Calculating the median for data from 11 Vumarks 
+[2021-04-26 15:46:50.973] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.974] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.974] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.975] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.976] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.977] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.978] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.979] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.980] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.980] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.981] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.982] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.983] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.984] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.985] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.986] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.987] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.988] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.989] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.990] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.990] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.991] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.992] [FINE   ] FTCAuto Median pose at Vumark BLUE_TOWER_GOAL 
+[2021-04-26 15:46:50.993] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.994] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 88.9 deg. 
+[2021-04-26 15:46:50.995] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.995] [FINE   ] FTCAuto Executing FTCAuto command DEACTIVATE_VUMARK_READER 
+[2021-04-26 15:46:50.996] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:46:50.997] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-04-26 15:46:50.998] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-04-26 15:46:51.175] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-04-26 15:46:51.176] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-04-26 15:46:51.177] [INFO   ] RobotCommonLog Shutting down log 
+[2021-04-26 15:50:46.313] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-04-26 15:50:46.326] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-04-26 15:50:48.295] [FINE   ] RobotActionXML Extracting data from RobotAction.xml for OpMode TEST 
+[2021-04-26 15:50:48.319] [CONFIG ] FTCAuto Lowest logging level FINER 
+[2021-04-26 15:50:48.320] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-04-26 15:50:48.326] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-04-26 15:50:48.332] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-04-26 15:50:48.349] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-04-26 15:50:48.404] [FINE   ] TargetZoneXML Processing target zone xml for OpMode TEST 
+[2021-04-26 15:50:48.499] [FINE   ] FTCAuto wait for initialization 
+[2021-04-26 15:50:51.241] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-04-26 15:50:56.482] [INFO   ] FTCAuto At start 
+[2021-04-26 15:50:56.484] [INFO   ] FTCAuto OpMode: TEST, Alliance: RED 
+[2021-04-26 15:50:56.488] [FINE   ] FTCAuto Executing FTCAuto command ACTIVATE_VUMARK_READER 
+[2021-04-26 15:50:56.501] [FINE   ] VumarkReader Starting Vumark reader thread 
+[2021-04-26 15:50:56.502] [FINE   ] VumarkReader In Vumark thread 
+[2021-04-26 15:50:56.505] [FINE   ] VumarkReader Wait for CountDownLatch done; Vumark reader thread is running 
+[2021-04-26 15:50:56.510] [FINE   ] FTCAuto Executing FTCAuto command TEST_VUMARK_READER 
+[2021-04-26 15:50:56.511] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.560] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.562] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.563] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.564] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.565] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.566] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.568] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.569] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.570] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.571] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.572] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.573] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.574] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.575] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.577] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.578] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.579] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.580] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.582] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.583] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.584] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.585] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.586] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.587] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.588] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.589] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.590] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.592] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.593] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.594] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.595] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.596] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.597] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.598] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.599] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.600] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.601] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.602] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.603] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.604] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.606] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.607] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.608] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.609] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.610] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.611] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.613] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.614] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.619] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.624] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.626] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.627] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.630] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.632] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.633] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.635] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.636] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.638] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.639] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.641] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.642] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.643] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.644] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.645] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.646] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.647] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.649] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.650] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.651] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.652] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.653] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.654] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.656] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.657] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.659] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.660] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.661] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.662] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.663] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.665] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.666] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.667] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.668] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.669] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.670] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.671] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.672] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.673] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.674] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.675] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.676] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.677] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.678] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.679] [FINE   ] VumarkReader Looking for Vumark RED_TOWER_GOAL with timeout value 1000 ms 
+[2021-04-26 15:50:56.680] [FINE   ] VumarkReader Exiting getMostRecentVumarkPose 
+[2021-04-26 15:50:56.681] [FINE   ] FTCAuto Robot pose at Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.682] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.683] [FINE   ] FTCAuto Done with getMostRecentVumarkPose 
+[2021-04-26 15:50:56.684] [FINE   ] FTCAuto Calling getMedianVumarkPose 
+[2021-04-26 15:50:56.685] [FINE   ] VumarkReader Calculating median for Vumark RED_TOWER_GOAL over 11 samples with a timeout value of 1500 ms 
+[2021-04-26 15:50:56.686] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.687] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.688] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.689] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.690] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.691] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.692] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.693] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.694] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.695] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.696] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.697] [FINE   ] VumarkReader Calculating the median for data from 11 Vumarks 
+[2021-04-26 15:50:56.698] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.699] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.700] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.701] [FINE   ] FTCAuto Median pose at Vumark BLUE_TOWER_GOAL 
+[2021-04-26 15:50:56.702] [FINE   ] FTCAuto Pose x 40.9 in., y -34.1 in, angle 89.0 deg. 
+[2021-04-26 15:50:56.703] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.704] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.704] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.706] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.707] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.708] [FINER  ] VumarkReader Got location information from Vumark RED_TOWER_GOAL 
+[2021-04-26 15:50:56.708] [FINE   ] FTCAuto Executing FTCAuto command DEACTIVATE_VUMARK_READER 
+[2021-04-26 15:50:56.709] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-04-26 15:50:56.710] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-04-26 15:50:56.906] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-04-26 15:50:56.908] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-04-26 15:50:56.909] [INFO   ] RobotCommonLog Shutting down log 

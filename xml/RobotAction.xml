@@ -77,12 +77,12 @@
           </pid>
         </MOVE -->
 
-        <ACTIVATE_VUMARK_READER/>
+        <!-- ACTIVATE_VUMARK_READER/>
         <TEST_VUMARK_READER>
         <vumark>RED_TOWER_GOAL</vumark>
         </TEST_VUMARK_READER>
         <DEACTIVATE_VUMARK_READER/>
-        <CLOSE_WEBCAM/>
+        <CLOSE_WEBCAM/ -->
 
         <!-- ALIGN_BY_VUMARK>
         <vumark>RED_TOWER_GOAL</vumark>
@@ -91,8 +91,8 @@
         <power>.5</power>
         </ALIGN_BY_VUMARK -->
 
-            <!-- TAKE_PICTURE/>
-            <CLOSE_WEBCAM/ -->
+            <TAKE_PICTURE/>
+            <CLOSE_WEBCAM/>
 
         </actions>
     </OpMode>
