@@ -1,0 +1,23 @@
+[2021-04-28 16:11:09.082] [CONFIG ] FTCAuto FTCAuto constructor 
+[2021-04-28 16:11:09.098] [INFO   ] RobotConfigXML In RobotConfigXML; opened and parsed the XML file 
+[2021-04-28 16:11:11.057] [FINE   ] RobotActionXML Extracting data from RobotAction.xml for OpMode TEST 
+[2021-04-28 16:11:11.075] [CONFIG ] FTCAuto Lowest logging level FINER 
+[2021-04-28 16:11:11.076] [FINE   ] FTCAuto Vuforia: start asynchronous initialization 
+[2021-04-28 16:11:11.083] [FINE   ] RingParametersXML Parsing XML ring_parameters 
+[2021-04-28 16:11:11.089] [FINE   ] CommonParametersXML Parsing XML image_parameters 
+[2021-04-28 16:11:11.106] [FINE   ] CommonParametersXML Parsing XML hsv_parameters 
+[2021-04-28 16:11:11.182] [FINE   ] TargetZoneXML Processing target zone xml for OpMode TEST 
+[2021-04-28 16:11:11.333] [FINE   ] FTCAuto wait for initialization 
+[2021-04-28 16:11:13.677] [CONFIG ] FTCAuto FTCAuto construction complete 
+[2021-04-28 16:11:17.153] [INFO   ] FTCAuto At start 
+[2021-04-28 16:11:17.155] [INFO   ] FTCAuto OpMode: TEST, Alliance: RED 
+[2021-04-28 16:11:17.156] [FINE   ] FTCAuto Executing FTCAuto command TAKE_PICTURE 
+[2021-04-28 16:11:17.180] [FINE   ] LCHSVuforiaImage Got an image from Vuforia 
+[2021-04-28 16:11:17.187] [FINE   ] FTCAuto Took a picture 
+[2021-04-28 16:11:17.198] [FINE   ] FTCAuto Writing image /storage/emulated/0/Pictures/images/Image_04281611_17187_IMG.png 
+[2021-04-28 16:11:17.299] [FINE   ] FTCAuto Image width 800, height 448 
+[2021-04-28 16:11:17.302] [FINE   ] FTCAuto Executing FTCAuto command CLOSE_WEBCAM 
+[2021-04-28 16:11:17.303] [INFO   ] FTCAuto Shutting down Vuforia 
+[2021-04-28 16:11:17.560] [INFO   ] FTCAuto Exiting FTCAuto 
+[2021-04-28 16:11:17.564] [INFO   ] RobotCommonLog Closing log and writing out the last 1 entries on the queue 
+[2021-04-28 16:11:17.567] [INFO   ] RobotCommonLog Shutting down log 

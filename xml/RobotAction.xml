@@ -62,7 +62,29 @@
         </parameters>
         <actions>
 
-            <!-- ALIGN_BY_VUMARK>
+       <!-- test moving the robot back and to the left -->
+        <!-- MOVE>
+          <distance>30</distance>
+          <margin>1.0</margin>
+          <power>1</power>
+          <direction>-126.0</direction>
+          <heading>0.0</heading>
+          <rampPercent>1</rampPercent>
+          <pid>
+            <p>0.05</p>
+            <i>0.0</i>
+            <d>0.0</d>
+          </pid>
+        </MOVE -->
+
+        <!-- ACTIVATE_VUMARK_READER/>
+        <TEST_VUMARK_READER>
+        <vumark>RED_TOWER_GOAL</vumark>
+        </TEST_VUMARK_READER>
+        <DEACTIVATE_VUMARK_READER/>
+        <CLOSE_WEBCAM/ -->
+
+        <!-- ALIGN_BY_VUMARK>
         <vumark>RED_TOWER_GOAL</vumark>
         <target_x>-10</target_x>
         <target_y>-10</target_y>

@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
+import org.firstinspires.ftc.ftcdevcommon.CommonUtils;
+import org.firstinspires.ftc.ftcdevcommon.Pair;
 import org.firstinspires.ftc.ftcdevcommon.RobotLogCommon;
 import org.firstinspires.ftc.ftcdevcommon.RobotXMLElement;
 import org.firstinspires.ftc.ftcdevcommon.XPathAccess;
@@ -30,10 +32,14 @@ import org.firstinspires.ftc.teamcode.robot.LCHSRobot;
 import org.firstinspires.ftc.teamcode.robot.OldRingShooter;
 import org.firstinspires.ftc.teamcode.robot.WobbleArm;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -246,6 +252,8 @@ public class FTCAuto {
                     }
 
                     Angle actualHeading = robot.imu.getHeading();
+                    //**TODO Keeping track of clicks based on the right back motor only
+                    // is a disaster.
                     currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                     drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                     robot.driveTrain.drive(drivePose, power * rampPower);
@@ -452,6 +460,42 @@ public class FTCAuto {
                 break;
             }
 
+            // For testing, take a picture and write it out to a file.
+            case "TAKE_PICTURE": {
+                if (vuforiaLocalizer == null)
+                    throw new AutonomousRobotException(TAG, "Vuforia not initialized");
+
+                ImageProvider imageProvider = new VuforiaImage(vuforiaLocalizer);
+                Pair<Mat, Date> ringImage = imageProvider.getImage();
+                if (ringImage.first == null) {
+                    RobotLogCommon.d(TAG, "Unable to get image from the camera");
+                    linearOpMode.telemetry.addData("Take picture:", "unable to get image from the camera");
+                    linearOpMode.telemetry.update();
+                    return;
+                }
+
+                RobotLogCommon.d(TAG, "Took a picture");
+                String fileDate = CommonUtils.getDateTimeStamp(ringImage.second);
+                String outputFilenamePreamble = workingDirectory + RobotConstants.imageDir + "Image_" + fileDate;
+
+                // The image may be RGB (from a camera) or BGR ( OpenCV imread from a file).
+                Mat imgOriginal = ringImage.first.clone();
+
+                // If you don't convert RGB to BGR here then the _IMG.png file will be written
+                // out with incorrect colors (gold will show up as blue).
+                if (imageProvider.getImageFormat() == ImageProvider.ImageFormat.RGB)
+                    Imgproc.cvtColor(imgOriginal, imgOriginal, Imgproc.COLOR_RGB2BGR);
+
+                String imageFilename = outputFilenamePreamble + "_IMG.png";
+                RobotLogCommon.d(TAG, "Writing image " + imageFilename);
+                Imgcodecs.imwrite(imageFilename, imgOriginal);
+
+                RobotLogCommon.d(TAG, "Image width " + imgOriginal.cols() + ", height " + imgOriginal.rows());
+                linearOpMode.telemetry.addData("Take picture:", "successful");
+                linearOpMode.telemetry.update();
+                break;
+            }
+
             // Use OpenCV to find the stack of rings and determine the Target Zone.
             case "RECOGNIZE_RINGS": {
                 String imageProviderId = commandXPath.getStringInRange("ocv_image_provider", commandXPath.validRange("vuforia", "file"));
@@ -517,7 +561,7 @@ public class FTCAuto {
                         linearOpMode.telemetry.update();
                     } else {
                         Pose robotPoseAtVumark = vumark.get();
-                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.BLUE_TOWER_GOAL);
+                        RobotLogCommon.d(TAG, "Robot pose at Vumark " + VumarkReader.SupportedVumark.RED_TOWER_GOAL);
                         String poseString = String.format(Locale.US, "Pose x %.1f in., y %.1f in, angle %.1f deg.",
                                 robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                         RobotLogCommon.d(TAG, poseString);
@@ -531,7 +575,7 @@ public class FTCAuto {
 
                 // From a stationary position, get the median Vumark values over 11 samples.
                 RobotLogCommon.d(TAG, "Calling getMedianVumarkPose");
-                vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.BLUE_TOWER_GOAL, 1500, 11);
+                vumark = vumarkReader.getMedianVumarkPose(VumarkReader.SupportedVumark.RED_TOWER_GOAL, 1500, 11);
                 if (!vumark.isPresent()) {
                     RobotLogCommon.d(TAG, "Vumark median: Vumark not visible");
                     linearOpMode.telemetry.addData("Vumark median:  ", "Vumark not visible");
@@ -556,7 +600,6 @@ public class FTCAuto {
                 double targetX = commandXPath.getDouble("target_x");
                 double targetY = commandXPath.getDouble("target_y");
                 double power = commandXPath.getDouble("power");
-                double minPower = commandXPath.getDouble("minpower", 0.2);
 
                 /*
                 double targetClicks = commandXPath.getDouble("distance") * DriveTrain.CLICKS_PER_INCH;
@@ -568,23 +611,17 @@ public class FTCAuto {
                 PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
                  */
 
-                // Break the movement between the current robot location and the target
-                // robot location into two: a strafe and a move. Determine the direction
-                // dynamically based on the sign of the difference between the two positions.
-                Angle targetHeading = AutoCommandXML.getAngle(commandXPath, "heading", robot.imu.getHeading()); // robot's target heading angle while moving; default is current heading
-                PIDController rPIDController = AutoCommandXML.getPIDController(commandXPath, targetHeading.getDegrees());
-
                 //**TODO TEMP hardcode test case
                 //Optional<Pose> vumarkPose = vumarkReader.getMostRecentVumarkPose(vumark, 1000);
                 // In the real world you would have to translate the Vumark coordinates
-                // to Cartesian depending on the VUmark target.
+                // to Cartesian depending on the Vumark target.
                 Optional<Pose> vumarkPose = Optional.of(new Pose(10, 5, 0));
                 //** if reading the Vumark once is not stable, try the next line --
                 // Optional<Pose> vumarkPose = vumarkReader.getMedianVumarkPose(vumark, 1000, 5);
                 if (!vumarkPose.isPresent()) {
                     RobotLogCommon.d(TAG, "Most recent Vumark: not visible");
-                    //**TODO need default movements in case the Vumark is not visible.
-                    // take from the XML file
+                    //**TODO need default movement in case the Vumark is not visible; include
+                    // in the XML file.
                 } else {
                     Pose robotPoseAtVumark = vumarkPose.get();
                     RobotLogCommon.d(TAG, "Robot pose at Vumark " + vumarkString);
@@ -592,27 +629,25 @@ public class FTCAuto {
                             robotPoseAtVumark.x, robotPoseAtVumark.y, robotPoseAtVumark.r);
                     RobotLogCommon.d(TAG, poseString);
 
-                    double differenceX = robotPoseAtVumark.x - targetX;
-                    double differenceY = robotPoseAtVumark.y - targetY;
-
-                    //**TODO ABANDONED 4/19/21 Move fore/aft to the correct position.
-                    double direction = Math.signum(differenceY) > 0 ? 180.0 : 0.0;
-                    differenceY = Math.abs(differenceY);
-
-                    //** Added robot motion - Trinity
+                    // Added robot motion - Trinity
                     //**TODO commented out because the robot went back and to the right instead of
-                    // back and to the left for the test case.
+                    // back and to the left for the test case. The robot also crashed into the wall
+                    // and had to be force stopped.
+                    //**TODO Tested a simple strafe: -90, which we thought should strafe right,
+                    // went left. So the angle returned from getDistanceAndAngleToTarget needs
+                    // to be negated. However, this does not solve the problem of the crash into
+                    // the wall for an angle of +126 -> -126.
                     /*
                     VumarkReader.RobotVector rv = vumarkReader.getDistanceAndAngleToTarget(robotPoseAtVumark, new Pose(targetX, targetY, 0));
 
+                    //**TODO misuse of "Pose", which should be confined to coordinates and orientation.
                     Pose drivePose = new Pose();
                     drivePose.x = Math.sin(rv.angleToTarget.getRadians());
                     drivePose.y = Math.cos(rv.angleToTarget.getRadians());
 
-                    // The result of a sin(angle) = distance (length of movement vector) NOT degrees. - Trinity
-//                    RobotLogCommon.d(TAG, "Drive pose degrees x " + Math.toDegrees(drivePose.x) + ", y " + Math.toDegrees(drivePose.y));
-                    RobotLogCommon.d(TAG, "drive pose: " + drivePose.toString());
-
+                    //**TODO what's wrong with RUN_TO_POSITION? A: It's complicated
+                    // because the sign of the target click counts for each motor
+                    // is dependent on the "octant" of the angle. See 2019-20.
                     robot.driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.driveTrain.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -621,6 +656,8 @@ public class FTCAuto {
 
                     while (Math.abs(currentClicks - targetClicks) > 0) {
                         Angle actualHeading = robot.imu.getHeading();
+                        //**TODO Keeping track of clicks based on the right back motor only
+                        // is a disaster.
                         currentClicks = Math.abs(robot.driveTrain.rb.getCurrentPosition());
                         drivePose.r = -rPIDController.getCorrectedOutput(actualHeading.getDegrees());
                         robot.driveTrain.drive(drivePose, power);
