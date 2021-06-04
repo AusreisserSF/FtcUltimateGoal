@@ -179,8 +179,8 @@ public class FullDrive extends BaseDrive {
 
         if (wobbleDropButton.is(Button.State.TAP)){
 
-            robot.wobbleArm.setFlipState(robot.wobbleArm.getFlipState() == WobbleArm.FlipState.IN ? WobbleArm.FlipState.DROP : WobbleArm.FlipState.IN);
-
+            robot.wobbleArm.flipMotor.setPower(0.3);
+            robot.wobbleArm.setFlipState(robot.wobbleArm.getFlipState() == WobbleArm.FlipState.REST ? WobbleArm.FlipState.DROP : WobbleArm.FlipState.REST);
         }
 
     }
@@ -260,9 +260,13 @@ public class FullDrive extends BaseDrive {
     private void updateFlicker(){
 
         if (flickerServo.is(Button.State.TAP)){
-            robot.shooter.triggerServo.setState("out");
-            sleep(75);
-            robot.shooter.triggerServo.setState("rest");
+
+            for (int i = 0; i <= 3; i++) {
+                robot.shooter.triggerServo.setState("out");
+                sleep(75);
+                robot.shooter.triggerServo.setState("rest");
+                sleep(100);
+            }
 
             if (gamepad2.dpad_left){
                 robot.shooter.triggerServo.setState("extend");

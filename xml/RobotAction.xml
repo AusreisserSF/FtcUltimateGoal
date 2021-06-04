@@ -69,11 +69,38 @@
         <power>.5</power>
         </ALIGN_BY_VUMARK -->
 
-            <RECOGNIZE_RINGS>
+            <!-- <RECOGNIZE_RINGS>
                 <ocv_image_provider>vuforia</ocv_image_provider>
             </RECOGNIZE_RINGS>
-            <CLOSE_WEBCAM/>
+            <CLOSE_WEBCAM/> -->
 
+             <WOBBLE_MOTOR>
+                <state>drop</state>
+            </WOBBLE_MOTOR>
+
+            <WOBBLE_SERVO>
+                <state>hold</state>
+            </WOBBLE_SERVO>
+
+            <SLEEP>
+                <ms>300</ms>
+            </SLEEP>
+
+            <WOBBLE_SERVO>
+                <state>release</state>
+            </WOBBLE_SERVO>
+
+            <SLEEP>
+                <ms>1300</ms>
+            </SLEEP>
+
+            <WOBBLE_SERVO>
+                <state>rest</state>
+            </WOBBLE_SERVO>
+
+            <WOBBLE_MOTOR>
+                <state>in</state>
+            </WOBBLE_MOTOR>
         </actions>
     </OpMode>
     <OpMode id="TELEOP_POWER_SHOT">
@@ -145,36 +172,36 @@
             <lowest_logging_level>v</lowest_logging_level>
         </parameters>
         <actions>
-      <WOBBLE_MOTOR>
-          <state>drop</state>
-        </WOBBLE_MOTOR>
+            <WOBBLE_MOTOR>
+                <state>drop</state>
+            </WOBBLE_MOTOR>
 
-        <WOBBLE_SERVO>
-          <state>hold</state>
-        </WOBBLE_SERVO>
+            <WOBBLE_SERVO>
+                <state>hold</state>
+            </WOBBLE_SERVO>
 
-        <SLEEP>
-          <ms>300</ms>
-        </SLEEP>
+            <SLEEP>
+                <ms>300</ms>
+            </SLEEP>
 
-        <WOBBLE_SERVO>
-          <state>release</state>
-        </WOBBLE_SERVO>
+            <WOBBLE_SERVO>
+                <state>release</state>
+            </WOBBLE_SERVO>
 
-        <SLEEP>
-          <ms>1300</ms>
-        </SLEEP>
+            <SLEEP>
+                <ms>1300</ms>
+            </SLEEP>
 
-        <WOBBLE_SERVO>
-          <state>rest</state>
-        </WOBBLE_SERVO>
+            <WOBBLE_SERVO>
+                <state>rest</state>
+            </WOBBLE_SERVO>
 
-        <WOBBLE_MOTOR>
-          <state>in</state>
-        </WOBBLE_MOTOR>
+            <WOBBLE_MOTOR>
+                <state>in</state>
+            </WOBBLE_MOTOR>
         </actions>
     </OpMode>
-        <OpMode id="TELEOP_RAPID_FIRE">
+    <OpMode id="TELEOP_RAPID_FIRE">
         <parameters>
             <lowest_logging_level>v</lowest_logging_level>
         </parameters>

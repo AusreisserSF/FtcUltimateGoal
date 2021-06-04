@@ -30,7 +30,7 @@ public class WobbleArm {
         }
     }
 
-    public static final double FLIP_POWER_FACTOR = 0.6;
+    public static final double FLIP_POWER_FACTOR = 0.3;
 
     public LCHSMotor flipMotor;
     public LCHSServo servo;

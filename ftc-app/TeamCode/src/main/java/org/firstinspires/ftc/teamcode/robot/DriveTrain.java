@@ -25,10 +25,10 @@ public class DriveTrain {
         lb = new LCHSMotor(hardwareMap, "lb");
         rb = new LCHSMotor(hardwareMap, "rb");
 
-        lf.setDirection(DcMotor.Direction.REVERSE);
-        rf.setDirection(DcMotor.Direction.FORWARD);
-        lb.setDirection(DcMotor.Direction.REVERSE);
-        rb.setDirection(DcMotor.Direction.FORWARD);
+        lf.setDirection(DcMotor.Direction.FORWARD);
+        rf.setDirection(DcMotor.Direction.REVERSE);
+        lb.setDirection(DcMotor.Direction.FORWARD);
+        rb.setDirection(DcMotor.Direction.REVERSE);
 
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
